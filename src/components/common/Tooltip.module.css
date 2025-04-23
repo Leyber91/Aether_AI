@@ -1,0 +1,62 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translateX(-50%) translateY(8px) scale(0.97);
+  min-width: 74px;
+  background: var(--glass-bg-lighter);
+  color: #bcecff;
+  border-radius: var(--border-radius-md);
+  padding: 0.37em 1.1em;
+  font-size: 1.01em;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 12px #0ff6ff33, 0 1px 0 #74d0fc33;
+  border: 1.5px solid #74d0fc77;
+  backdrop-filter: var(--glass-blur);
+  z-index: 100;
+  transition: opacity 0.17s cubic-bezier(.4,2,.5,1.1),
+    transform 0.19s cubic-bezier(.4,2,.5,1.1);
+  white-space: nowrap;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(16px) scale(1);
+}
+
+.tooltip.bottom {
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px) scale(0.97);
+}
+
+.tooltip.bottom.visible {
+  transform: translateX(-50%) translateY(16px) scale(1);
+}
+
+.arrow {
+  display: block;
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  transform: translateX(-50%) rotate(45deg);
+  background: inherit;
+  border-radius: 3px;
+  z-index: -1;
+  box-shadow: 0 2px 8px #0ff6ff33;
+  border-bottom: 1.5px solid #74d0fc77;
+  border-right: 1.5px solid #74d0fc77;
+}

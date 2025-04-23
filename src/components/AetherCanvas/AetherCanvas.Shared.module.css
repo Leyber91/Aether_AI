@@ -1,0 +1,30 @@
+/* Shared variables, mixins, and utility classes go here */
+
+:global(.react-flow__controls) {
+  background: linear-gradient(135deg, #23253a 60%, #7ad0ff33 100%) !important;
+  border-radius: 14px !important;
+  border: 2.5px solid var(--accent-blue) !important;
+  color: #00eaff !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 234, 255, 0.2) !important;
+  margin: 8px !important;
+  z-index: 10 !important;
+  pointer-events: all !important;
+}
+:global(.react-flow__controls-button) {
+  background: linear-gradient(135deg, #7ad0ff2e 60%, #23253a 100%) !important;
+  border-radius: 14px !important;
+  border: 2.5px solid var(--accent-blue) !important;
+  color: #00eaff !important;
+  margin: 4px !important;
+  box-shadow: 0 1px 6px 0 var(--accent-glow) !important;
+  font-size: 1.1rem !important;
+  transition: background 0.2s, color 0.2s !important;
+  filter: drop-shadow(0 0 8px #00eaff55);
+}
+:global(.react-flow__controls-button:hover) {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%) !important;
+  color: #23253a !important;
+  border-color: #7ad0ff !important;
+}
+
+/* Add your shared styles here */

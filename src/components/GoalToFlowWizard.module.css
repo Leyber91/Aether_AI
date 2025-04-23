@@ -1,0 +1,95 @@
+.wizardOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(25, 26, 35, 0.93);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+
+.wizardModal {
+  background: linear-gradient(135deg, #23253a 70%, #191a23 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 36px #00eaff44, 0 2px 16px #7ad0ff33;
+  padding: 2.2rem 2.5rem 2rem 2.5rem;
+  min-width: 360px;
+  max-width: 98vw;
+  color: #e3e5f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  color: #7ad0ff;
+  font-size: 1.45rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.instructions {
+  color: #b0b6c9;
+  margin-bottom: 1.1rem;
+  font-size: 1.04rem;
+  text-align: center;
+}
+.goalInput {
+  width: 100%;
+  min-width: 320px;
+  max-width: 420px;
+  min-height: 70px;
+  max-height: 180px;
+  border-radius: 8px;
+  border: 1.5px solid #7ad0ff;
+  background: #23253a;
+  color: #e3e5f7;
+  font-size: 1.08rem;
+  padding: 0.7em 1em;
+  margin-bottom: 0.7rem;
+  resize: vertical;
+  box-shadow: 0 2px 8px 0 #00eaff22;
+  outline: none;
+  transition: border 0.18s;
+}
+.goalInput:focus {
+  border: 1.5px solid #00eaff;
+}
+.errorMsg {
+  color: #ef4444;
+  font-size: 1.01rem;
+  margin-bottom: 0.7rem;
+  text-align: center;
+}
+.actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+}
+.cancelBtn, .generateBtn {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.6em 2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--accent-blue);
+  transition: background 0.18s, color 0.18s;
+}
+.cancelBtn:hover, .generateBtn:hover {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+}
+.cancelBtn:disabled, .generateBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

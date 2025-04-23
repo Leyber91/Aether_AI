@@ -1,0 +1,219 @@
+.visionParallaxRoot {
+  position: relative;
+  width: 100vw;
+  min-height: calc(100vh * 7); /* Ensure enough height for all sections (adjust 7 as needed) */
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #181c24 0%, #23253a 100%);
+  scroll-snap-type: y mandatory;
+}
+
+.bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stars {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1.5" fill="white"/><circle cx="200" cy="50" r="1" fill="white"/><circle cx="400" cy="120" r="1.5" fill="white"/><circle cx="800" cy="200" r="1" fill="white"/><circle cx="1200" cy="300" r="1.2" fill="white"/></svg>') repeat;
+  opacity: 0.18;
+  animation: twinkle 12s infinite linear;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.26; }
+}
+
+.nebula {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at 60% 40%, #7ad0ff22 0%, #23253a00 80%);
+  opacity: 0.4;
+  filter: blur(30px);
+  z-index: 1;
+}
+
+.boids {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: none;
+  z-index: 2;
+  /* TODO: Render animated boids here via canvas/svg */
+}
+
+.clouds {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, #ffffff09 0%, #7ad0ff11 100%);
+  opacity: 0.25;
+  filter: blur(18px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.constellations {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><polyline points="100,100 200,200 400,160 600,300" stroke="white" stroke-width="1" fill="none" opacity="0.18"/><circle cx="100" cy="100" r="2" fill="white"/><circle cx="200" cy="200" r="2" fill="white"/><circle cx="400" cy="160" r="2" fill="white"/><circle cx="600" cy="300" r="2" fill="white"/></svg>') repeat;
+  opacity: 0.14;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.aurora {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: linear-gradient(60deg, #7ad0ff33 0%, #a18fff22 100%);
+  opacity: 0.13;
+  filter: blur(60px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.storyLayer {
+  position: relative;
+  z-index: 3;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  pointer-events: auto;
+}
+
+.storySection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 2rem 1rem;
+  text-align: center;
+  background: none;
+  z-index: 3;
+  outline: none;
+  position: static;
+}
+
+.storySection:focus-within {
+  box-shadow: 0 0 0 3px #7ad0ff66;
+}
+
+@media (max-width: 600px) {
+  .storySection {
+    min-height: 80vh;
+    padding: 1rem 0.25rem;
+  }
+  .storyTitle {
+    font-size: 2rem;
+  }
+  .storySubtitle {
+    font-size: 1.1rem;
+  }
+  .storyContent {
+    font-size: 1rem;
+  }
+}
+
+.storyTextWrap {
+  max-width: 720px;
+  margin: 0 auto 2rem auto;
+}
+
+.storyTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #eaf6ff;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 16px #23253a66;
+  cursor: pointer;
+  transition: text-shadow 0.3s, color 0.3s;
+}
+
+.storyTitle:hover, .storyTitle:focus {
+  color: #a18fff;
+  text-shadow: 0 4px 24px #a18fff88;
+}
+
+.storySubtitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #b4e2ff;
+  margin-bottom: 0.8rem;
+}
+
+.storyContent {
+  font-size: 1.18rem;
+  color: #eaf6ffcc;
+  margin-bottom: 1.5rem;
+}
+
+.storyVisual {
+  margin-top: 2rem;
+  max-width: 420px;
+  width: 100%;
+  filter: drop-shadow(0 2px 24px #7ad0ff44);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.storyVisual:hover, .storyVisual:focus {
+  filter: drop-shadow(0 2px 48px #a18fff99) brightness(1.15);
+  transform: scale(1.03) rotate(-2deg);
+}
+
+.sceneSection {
+  background: rgba(35, 37, 58, 0.96);
+  border-radius: 18px;
+  box-shadow: 0 8px 36px 0 rgba(0,0,0,0.15);
+  color: #e3e5f7;
+  padding: 2.2rem 3rem;
+  max-width: 720px;
+  margin: 2.5rem 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  transition: box-shadow 0.3s;
+}
+
+.sceneSection h1, .sceneSection h2 {
+  color: #7ad0ff;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
+}
+
+.sceneSection p {
+  font-size: 1.18rem;
+  color: #e3e5f7;
+}
+
+.parallaxSection {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.parallaxContent {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}

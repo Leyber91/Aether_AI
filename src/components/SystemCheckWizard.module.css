@@ -1,0 +1,122 @@
+.wizardOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(25, 26, 35, 0.93);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s;
+}
+
+.wizardModal {
+  background: linear-gradient(135deg, #23253a 70%, #191a23 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 36px #00eaff44, 0 2px 16px #7ad0ff33;
+  padding: 2.2rem 2.5rem 2rem 2.5rem;
+  min-width: 360px;
+  max-width: 98vw;
+  color: #e3e5f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  color: #7ad0ff;
+  font-size: 1.45rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.checklist {
+  width: 100%;
+  margin-bottom: 1.3rem;
+}
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: 1.08rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #35385a;
+}
+.checkRow:last-child {
+  border-bottom: none;
+}
+.checkIcon {
+  font-size: 1.45rem;
+  width: 2.2rem;
+  text-align: center;
+}
+.checkLabel {
+  flex: 0 0 120px;
+  font-weight: 600;
+  color: #7ad0ff;
+}
+.checkMsg {
+  flex: 1;
+  color: #e3e5f7;
+  font-size: 1.01rem;
+}
+.docsLink {
+  color: #00eaff;
+  font-size: 0.98rem;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+  transition: color 0.18s;
+}
+.docsLink:hover {
+  color: #7ad0ff;
+}
+.modelDiskReq {
+  margin: 0.5rem 0 0.5rem 0;
+  color: #b0b6c9;
+  font-size: 0.97rem;
+}
+.summaryMsg {
+  margin: 1.2rem 0 0.2rem 0;
+  font-size: 1.13rem;
+  font-weight: 600;
+  text-align: center;
+}
+.pass {
+  color: #10b981;
+}
+.warn {
+  color: #f59e0b;
+}
+.fail {
+  color: #ef4444;
+}
+.actions {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+.retryBtn, .continueBtn {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.6em 2em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 var(--accent-blue);
+  transition: background 0.18s, color 0.18s;
+}
+.retryBtn:disabled, .continueBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.retryBtn:hover, .continueBtn:hover {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

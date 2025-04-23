@@ -1,0 +1,95 @@
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-sans);
+}
+
+.chat-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.conversation-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+  z-index: var(--z-default);
+  overflow: hidden;
+}
+
+.messages-input-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-xl);
+  border: 1.5px solid var(--glass-border-accent);
+  overflow: hidden;
+  box-shadow: var(--header-shadow);
+  margin-bottom: 0;
+  max-height: 100%;
+  min-height: 300px;
+  transition: all var(--animation-medium) cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  position: relative;
+  height: 100%;
+}
+
+/* Add subtle pulsing glow effect to the container */
+.messages-input-container::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: var(--border-radius-xl);
+  background: linear-gradient(45deg, transparent, #74d0fc22, #a6f1ff22, transparent);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--animation-slow) ease;
+  animation: pulse-border 8s infinite alternate;
+}
+
+.messages-input-container:hover::after {
+  opacity: 1;
+}
+
+@keyframes pulse-border {
+  0% {
+    opacity: 0.3;
+    filter: blur(12px);
+  }
+  50% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0.3;
+    filter: blur(12px);
+  }
+}

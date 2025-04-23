@@ -1,0 +1,9631 @@
+[
+  {
+    "id": "ba6_cwde",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bgf_6hu8",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bfy_bvip",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bib_g8dt",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "baf_kl65",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006529789413717826,
+      0.18829938875350308,
+      15,
+      0.416456557047071
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "bt5_gd2t"
+    ],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bij_h2la",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01002002001,
+      0.01,
+      0.00710270392229174,
+      0.2176384527428085,
+      13,
+      0.49517429823548964
+    ],
+    "efficiency": 0,
+    "gen": 26,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "btq_4z08",
+      "but_6z2p"
+    ],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102818,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bix_75gr",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdi_l517",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdx_4ma4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bch_9994",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102820,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "b9x_ceqd",
+    "dna": [
+      0.0499834229957188,
+      0.016174010188160802,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006405489843275479,
+      0.14004432901313588,
+      16,
+      0.5387740381707319
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqn_hpkm",
+      "bra_a4du",
+      "bsf_ir5m",
+      "bta_13it",
+      "bu6_b46p"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104956912,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "be1_g0le",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bgj_apzh",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcz_in9i",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bej_2504",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071891,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bg6_481j",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgh_keox",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcr_f6s4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bje_i6r",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006031136350612332,
+      0.17817928333755498,
+      12,
+      0.5473971736004393
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bfv_qcb",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhe_hgrz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "biv_lb9w",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bc5_l3lr",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173053,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdy_cpxp",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdz_5f37",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhf_7l50",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgv_9w13",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbl_82c4",
+    "dna": [
+      0.0499834229957188,
+      0.015694272255042975,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.008104798132780486,
+      0.16968053094014843,
+      11,
+      0.5846384699739282
+    ],
+    "efficiency": 0,
+    "gen": 28,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bq1_c692",
+      "bq8_69vz",
+      "bq9_3frh",
+      "bqb_hvqf",
+      "br2_41ej",
+      "br7_gxon",
+      "bso_7zjo",
+      "bso_7zjo",
+      "bto_5e06",
+      "buq_gsfx"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bif_b51g",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bc9_194i",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bhx_ii8y",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be8_eqzz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071891,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi3_gp4j",
+    "dna": [
+      0.05051089056777756,
+      0.016489306505626286,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006193438212779328,
+      0.18542339664436044,
+      12,
+      0.5776891938816785
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104966546,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "beq_guie",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104969606,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173056,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bj6_hths",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bce_bl28",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bal_jmmo",
+    "dna": [
+      0.04972309740515092,
+      0.017056129643246525,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006117744496966465,
+      0.19605563921831548,
+      15,
+      0.591623311524918
+    ],
+    "efficiency": 0,
+    "gen": 24,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bu5_2igc",
+      "bu5_2igc",
+      "buj_3u1r"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104969606,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104975695,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104976408,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104976411,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bi1_dq56",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bid_davo",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173053,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "beg_91t3",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bd5_ki6o",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcw_oih",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071896,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bba_9eqz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcm_kgtp",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bj9_k61o",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bf1_423y",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbd_jj42",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdv_666j",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bia_juax",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.005796023490907623,
+      0.18974402852256028,
+      11,
+      0.5705954602852751
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "ba9_a0la",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173053,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bg9_5ppl",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bek_isk2",
+    "dna": [
+      0.05085767289339469,
+      0.01574777568795989,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01001001,
+      0.006013974306785449,
+      0.2028187801280821,
+      17,
+      0.5224873352801149
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq5_i9ae",
+      "bqg_i77k",
+      "bqx_403t",
+      "br5_svl",
+      "bs1_2ht9",
+      "bsi_f5hf",
+      "bt9_ec0t"
+    ],
+    "innovations": [
+      {
+        "t": 1745104863134,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869938,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bbb_4vul",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdt_heoj",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104969606,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173056,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bis_46ig",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173052,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bd1_8a2n",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bjb_6x93",
+    "dna": [
+      0.04972309740515092,
+      0.01637302759190449,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006244353239942216,
+      0.1869614445757563,
+      14,
+      0.5786075275002529
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bu5_2igc",
+      "bu5_2igc"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104969606,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "biq_3w4k",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "baj_kt0a",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bim_ghsi",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfl_d85z",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "b9z_b67u",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "biw_k2dc",
+    "dna": [
+      0.0499834229957188,
+      0.015694272255042975,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006983502668840022,
+      0.14268417237794373,
+      15,
+      0.4850337583134051
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqn_hpkm",
+      "bra_a4du",
+      "bsf_ir5m",
+      "bsm_h1pg",
+      "bt6_b4az"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bhg_3etz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb3_b4c4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bjc_8ixv",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.005796023490907623,
+      0.18974402852256028,
+      11,
+      0.5705954602852751
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bio_3j1z",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173051,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi2_73gp",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "b9u_pub",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfa_73dk",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb4_iowz",
+    "dna": [
+      0.0499834229957188,
+      0.016174010188160802,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.005805260089664945,
+      0.15601312619850471,
+      17,
+      0.5336521642159098
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqn_hpkm",
+      "bra_a4du",
+      "bsf_ir5m",
+      "bta_13it",
+      "bu1_d322",
+      "bu4_ber4",
+      "bu9_besq"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104956912,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bfs_gmdo",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbq_john",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bj8_1fce",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bak_b160",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bd2_l68q",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be2_8kg9",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173056,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfc_gy52",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bby_a14p",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bep_hegg",
+    "dna": [
+      0.05005440809399467,
+      0.017410939199933872,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006871948245565367,
+      0.17278338372168636,
+      9,
+      0.5555192747959148
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745105102865,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bfj_6bk9",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ber_1eqi",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bap_eb87",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173051,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "big_gh9r",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102818,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bg2_c3xk",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb5_8w68",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bh5_2wyx",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102818,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "biu_kzya",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bcl_43su",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb7_3yr0",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbm_knf4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071895,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "baq_493y",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102818,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be3_6ry2",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.005974727312654178,
+      0.18220680717210833,
+      12,
+      0.5388973708599711
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68",
+      "bui_gvnk",
+      "bus_18ys"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bg8_9u4b",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdq_1ow7",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173056,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcy_bdgh",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhl_8b8n",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgc_2ak5",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bgm_inb8",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgy_9c2h",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhw_gyan",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bi6_d7f7",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bad_fims",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bj2_77r1",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bco_k7wp",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfw_9ghj",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba7_2niz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be4_d235",
+    "dna": [
+      0.0499834229957188,
+      0.016390575480250566,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.0057210615831439415,
+      0.16472457582507122,
+      17,
+      0.51173814052487
+    ],
+    "efficiency": 0,
+    "gen": 24,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqn_hpkm",
+      "bra_a4du",
+      "bsf_ir5m",
+      "bta_13it",
+      "bu1_d322",
+      "bu4_ber4"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104956912,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bj3_7v5j",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bjg_jzw",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071894,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bci_l4vs",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bh0_d4xv",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbe_7j9l",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "baz_jxx5",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071896,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bf5_1rtn",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104869938,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102816,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcc_ds2m",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173050,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bga_6tay",
+    "dna": [
+      0.0499834229957188,
+      0.016174010188160802,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006405489843275479,
+      0.14004432901313588,
+      16,
+      0.5387740381707319
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqn_hpkm",
+      "bra_a4du",
+      "bsf_ir5m",
+      "bta_13it",
+      "bu6_b46p"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104956912,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bgx_4byf",
+    "dna": [
+      0.0499834229957188,
+      0.015694272255042975,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.008104798132780486,
+      0.16968053094014843,
+      11,
+      0.5846384699739282
+    ],
+    "efficiency": 0,
+    "gen": 28,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bq1_c692",
+      "bq8_69vz",
+      "bq9_3frh",
+      "bqb_hvqf",
+      "br2_41ej",
+      "br7_gxon",
+      "bso_7zjo",
+      "bso_7zjo",
+      "bto_5e06",
+      "buq_gsfx"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bei_dgvc",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071896,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdj_klr3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071891,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "beb_joau",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071891,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdf_3x9q",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfx_8of1",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bck_4is2",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bd4_704e",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bes_3nze",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173050,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbw_gqdk",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173053,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhn_6k39",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102815,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bil_cp6l",
+    "dna": [
+      0.05085767289339469,
+      0.015446906388211716,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01001001,
+      0.006418778093862653,
+      0.19330732644123655,
+      15,
+      0.5051698662069017
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq5_i9ae",
+      "bqg_i77k",
+      "bqx_403t",
+      "br5_svl",
+      "bs1_2ht9",
+      "bsi_f5hf",
+      "bt4_gw83"
+    ],
+    "innovations": [
+      {
+        "t": 1745104863134,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869938,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bab_4v9g",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba3_f7ot",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bhb_9ge2",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bah_3pxu",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105104892,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfi_l8hk",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgr_ebpb",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bat_1i59",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173051,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be9_fx35",
+    "dna": [
+      0.05085767289339469,
+      0.01574777568795989,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01001001,
+      0.006013974306785449,
+      0.2028187801280821,
+      17,
+      0.5224873352801149
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq5_i9ae",
+      "bqg_i77k",
+      "bqx_403t",
+      "br5_svl",
+      "bs1_2ht9",
+      "bsi_f5hf",
+      "bt9_ec0t"
+    ],
+    "innovations": [
+      {
+        "t": 1745104863134,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869938,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bhi_82fz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbh_b69g",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi7_7v5h",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be7_7q59",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhq_d88",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102816,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhm_hp98",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bjf_4s71",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173050,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bc8_jd0x",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bg5_irb9",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bae_flo",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173050,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdc_i26g",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.00632236061430812,
+      0.18211164861296883,
+      15,
+      0.42615139177518563
+    ],
+    "efficiency": 0,
+    "gen": 29,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "bt5_gd2t",
+      "bue_j150",
+      "buo_iohb",
+      "buw_kyod",
+      "bv3_6qzt"
+    ],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bf4_75hc",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bdl_5e60",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbf_kwf3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bds_byrn",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbj_bkae",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bey_3n05",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bd8_8zdz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bbv_9eh4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi0_ddxa",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bed_g2ni",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bc1_in45",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfe_3jvq",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhr_gphx",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  },
+  {
+    "id": "bbp_wdw",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102820,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bg1_dbo1",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bar_h495",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbc_1b4q",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bg7_elo",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfu_klw3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006477332122902335,
+      0.1883502781543109,
+      15,
+      0.4012060246317926
+    ],
+    "efficiency": 0,
+    "gen": 30,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "bt5_gd2t",
+      "bue_j150",
+      "buo_iohb",
+      "buw_kyod",
+      "bv3_6qzt",
+      "bv7_ap4l"
+    ],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071894,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bau_ifk",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdg_d3fh",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbk_k7j3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.007099342007151402,
+      0.21766134215462424,
+      14,
+      0.4923635650224286
+    ],
+    "efficiency": 0,
+    "gen": 26,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "btq_4z08",
+      "but_6z2p"
+    ],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "ba8_5sj4",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb0_cam",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bet_adhl",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcp_d60a",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105104890,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bj7_j9jv",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bc6_3p9b",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104966546,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba1_ixi2",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb8_6pxi",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105104887,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bha_8p8d",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba4_2i84",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "b9t_96wr",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcu_gzsc",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi8_are3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071895,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bjd_cd5o",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bh8_1mp2",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071894,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdu_68qi",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bc3_asu5",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bhj_59ti",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bac_6eef",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006529789413717826,
+      0.18829938875350308,
+      15,
+      0.416456557047071
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "bt5_gd2t"
+    ],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bfg_m3z",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bf6_ayhx",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bhk_1av4",
+    "dna": [
+      0.05051089056777756,
+      0.016489306505626286,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006193438212779328,
+      0.18542339664436044,
+      12,
+      0.5776891938816785
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104966546,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bay_jtci",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba2_4db",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bax_6pkj",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bf3_baqc",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgo_fcbw",
+    "dna": [
+      0.0499834229957188,
+      0.015969133228911383,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.008104798132780486,
+      0.16968053094014843,
+      11,
+      0.5846384699739282
+    ],
+    "efficiency": 0,
+    "gen": 28,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bq1_c692",
+      "bq8_69vz",
+      "bq9_3frh",
+      "bqb_hvqf",
+      "br2_41ej",
+      "br7_gxon",
+      "bso_7zjo",
+      "bso_7zjo",
+      "bto_5e06",
+      "buq_gsfx"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745105102865,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bca_b1kn",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bel_b42r",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ba5_6vwd",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bh1_6ycx",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb6_fofm",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102815,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bh4_26xn",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bbr_9i21",
+    "dna": [
+      0.05085767289339469,
+      0.015926888192437743,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01001001,
+      0.006013974306785449,
+      0.2028187801280821,
+      17,
+      0.5224873352801149
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq5_i9ae",
+      "bqg_i77k",
+      "bqx_403t",
+      "br5_svl",
+      "bs1_2ht9",
+      "bsi_f5hf",
+      "bt9_ec0t"
+    ],
+    "innovations": [
+      {
+        "t": 1745104863134,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869938,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745105104345,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bh3_5ie6",
+    "dna": [
+      0.049706266459091555,
+      0.016489306505626286,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006210691301849414,
+      0.18190806724185235,
+      12,
+      0.5751965279200923
+    ],
+    "efficiency": 0,
+    "gen": 24,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bul_qdp"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104966546,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bh9_68uh",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104967096,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105104887,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcq_e2hr",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bii_girm",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.005796023490907623,
+      0.18974402852256028,
+      11,
+      0.5705954602852751
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bbz_c72l",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgq_fwjd",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bin_9lfh",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "beu_9i6",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bas_8qfr",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "beo_8byo",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "ban_k59e",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be0_hd8s",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104975840,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102817,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bgs_3a03",
+    "dna": [
+      0.0499834229957188,
+      0.015694272255042975,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.00773085652303184,
+      0.1598229239642725,
+      12,
+      0.5912102653256273
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bq1_c692",
+      "bq8_69vz",
+      "bq9_3frh",
+      "bqb_hvqf",
+      "br2_41ej",
+      "br7_gxon",
+      "bso_7zjo",
+      "bso_7zjo",
+      "bto_5e06"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bcn_admz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bbo_3r3j",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bi5_i2n5",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105071895,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "b9y_j71a",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.00577101251410972,
+      0.17825169577211444,
+      12,
+      0.535649146727141
+    ],
+    "efficiency": 0,
+    "gen": 27,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68",
+      "bui_gvnk",
+      "bus_18ys"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be5_4tkl",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "be6_6hup",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102815,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bdp_kz6b",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 28,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bl2_8jlf",
+      "bl2_8jlf",
+      "bm4_e82w",
+      "bmi_d9y6",
+      "bn6_5m84",
+      "bnj_3sky",
+      "bnu_thw",
+      "bos_ixgn",
+      "bp1_7c73",
+      "bpx_a5ic",
+      "bq7_2nax",
+      "bs3_dx4a",
+      "bs3_dx4a",
+      "bsu_66jq",
+      "bt5_gd2t",
+      "bue_j150",
+      "buo_iohb",
+      "buw_kyod"
+    ],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102945,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bem_hsjd",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bja_btry",
+    "dna": [
+      0.04972309740515092,
+      0.01618134120063527,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.006031136350612332,
+      0.17817928333755498,
+      12,
+      0.5473971736004393
+    ],
+    "efficiency": 0,
+    "gen": 25,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bqv_2g4b",
+      "brr_bg01",
+      "brw_adyx",
+      "bst_dq5f",
+      "btp_flzf",
+      "bu3_idpv",
+      "bu7_9l68"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104869676,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bdm_k55r",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfn_xtm",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105173055,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bip_4fql",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bao_ams1",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104959264,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102816,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "beh_f35e",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bfb_knxv",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bev_c7f1",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bho_ftj7",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bfd_cbws",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [
+      {
+        "t": 1745104960554,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [
+      {
+        "t": 1745105102819,
+        "msg": "Learned innovation: cohBoost"
+      }
+    ],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bcg_iyfl",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bda_khby",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bb1_983b",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bd7_cxoz",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bb2_icf3",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bd0_5vq6",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bi9_8gv8",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01001,
+      0.01,
+      0.006292241499640739,
+      0.17704778477604163,
+      15,
+      0.42011916781196795
+    ]
+  },
+  {
+    "id": "bbg_j9fk",
+    "dna": [
+      0.0499834229957188,
+      0.015969133228911383,
+      0.015,
+      198,
+      100,
+      60,
+      2.002,
+      0.01,
+      0.01,
+      0.008104798132780486,
+      0.16968053094014843,
+      11,
+      0.5846384699739282
+    ],
+    "efficiency": 0,
+    "gen": 28,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bj7_hm7x",
+      "bjn_io2i",
+      "bkh_70wu",
+      "blm_d5lp",
+      "bmp_gact",
+      "bnq_kcxm",
+      "bon_aoq5",
+      "bp0_hcad",
+      "bpg_jh8u",
+      "bpr_jdr0",
+      "bq1_c692",
+      "bq8_69vz",
+      "bq9_3frh",
+      "bqb_hvqf",
+      "br2_41ej",
+      "br7_gxon",
+      "bso_7zjo",
+      "bso_7zjo",
+      "bto_5e06",
+      "buq_gsfx"
+    ],
+    "innovations": [
+      {
+        "t": 1745104666189,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104809510,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104811390,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745105102865,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "lobed"
+  },
+  {
+    "id": "bcf_jyyx",
+    "dna": [
+      0.05,
+      0.015,
+      0.015,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.008,
+      0.15,
+      8,
+      0.5,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "efficiency": 0,
+    "gen": 1,
+    "species": 0,
+    "mutEvents": 0,
+    "ancestry": [],
+    "innovations": [],
+    "commHistory": [],
+    "movementMode": "normal"
+  },
+  {
+    "id": "bbt_6egc",
+    "dna": [
+      0.05005440809399467,
+      0.01710425084861453,
+      0.01503,
+      198,
+      100,
+      60,
+      2,
+      0.01,
+      0.01,
+      0.006852817113882626,
+      0.16519151889938832,
+      9,
+      0.5248622926145924
+    ],
+    "efficiency": 0,
+    "gen": 23,
+    "species": 1,
+    "mutEvents": 1,
+    "ancestry": [
+      "bb5_dxn0",
+      "bbk_5468",
+      "beq_gmrs",
+      "bff_94pz",
+      "bgp_l3b2",
+      "bgv_fbk4",
+      "bi4_2bp7",
+      "bip_b6mu",
+      "bjk_41eu",
+      "bjy_2o3h",
+      "bkm_908q",
+      "bn8_kasf",
+      "bn8_kasf",
+      "bno_idnp",
+      "bob_69n3",
+      "bpa_71pq",
+      "bq0_fnkw",
+      "br9_f8je",
+      "brk_2six",
+      "bsh_7z5k",
+      "btk_51tm",
+      "bu8_hsg1"
+    ],
+    "innovations": [
+      {
+        "t": 1745104812538,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104817043,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104865980,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104871319,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957064,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957439,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104957844,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104958643,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      },
+      {
+        "t": 1745104960181,
+        "type": "cohBoost",
+        "detail": "Isolated environment"
+      }
+    ],
+    "commHistory": [],
+    "movementMode": "pulse"
+  }
+]

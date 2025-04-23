@@ -1,0 +1,1151 @@
+@import './AetherCanvas.Toolbar.module.css';
+@import './AetherCanvas.Nodes.module.css';
+@import './AetherCanvas.Palette.module.css';
+@import './AetherCanvas.Sidebar.module.css';
+@import './AetherCanvas.Canvas.module.css';
+@import './AetherCanvas.ContextMenus.module.css';
+@import './AetherCanvas.Shared.module.css';
+
+.canvasContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, var(--canvas-bg1) 0%, var(--canvas-bg2) 100%);
+  color: #e3e5f7;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  /* Remove fixed positioning so header is visible */
+  position: relative;
+  top: unset;
+  left: unset;
+  right: unset;
+  bottom: unset;
+  z-index: 1;
+}
+
+.onboarding {
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 2rem 2.5rem 1rem 2.5rem;
+  background: rgba(40, 45, 70, 0.92);
+  border-bottom: 1px solid #35385a;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+  z-index: 10;
+}
+
+.onboarding h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #7ad0ff;
+  letter-spacing: 0.02em;
+}
+
+.onboarding p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #e3e5f7;
+}
+
+.onboarding ul {
+  margin: 0.5rem 0 0 1rem;
+  padding: 0;
+  color: #b0b6c9;
+  font-size: 1rem;
+}
+
+.canvasArea {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(135deg, var(--canvas-bg2), var(--canvas-bg2) 40px, var(--canvas-bg3) 40px, var(--canvas-bg3) 80px);
+  border-radius: 0 0 10px 10px;
+  margin: 0;
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0;
+  padding-right: 0;
+}
+
+.palette {
+  width: 120px;
+  min-width: 100px;
+  max-width: 140px;
+  background: rgba(32, 38, 60, 0.96);
+  border-right: 1px solid #35385a;
+  box-shadow: 2px 0 10px 0 rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 10px 0 10px;
+  z-index: 2;
+  height: 100%;
+}
+
+.paletteSvgIcon {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  max-width: 30px;
+  max-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 5px var(--accent-glow)) brightness(1.08);
+  font-size: 1.2em;
+}
+
+.paletteItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  background: linear-gradient(90deg, #23253a 60%, #1e263a 100%);
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  font-size: 1.07rem;
+  font-weight: 600;
+  color: #7ad0ff;
+  cursor: grab;
+  user-select: none;
+  transition: border 0.16s, background 0.18s, color 0.18s;
+  box-shadow: 0 1px 6px 0 var(--accent-glow);
+}
+
+.paletteItem:hover, .paletteItem:focus {
+  border-color: #ffe066;
+  background: linear-gradient(90deg, #1e263a 60%, #23253a 100%);
+  color: #ffe066;
+}
+
+.agentNode, .toolNode, .filterNode, .outputNode {
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  box-shadow: 0 3px 18px 0 var(--accent-blue), 0 1.5px 10px 0 rgba(0,0,0,0.10);
+  border: 2px solid #23253a;
+  background: var(--panel-glass);
+  color: #e3e5f7;
+  min-width: 140px;
+  text-align: left;
+  transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(2.5px);
+}
+.agentNode { border-left: 5px solid var(--accent-glow); background: linear-gradient(90deg, #1e243b 70%, #18274a 100%); }
+.toolNode { border-left: 5px solid var(--accent-blue); background: linear-gradient(90deg, #1e243b 70%, #003e52 100%); }
+.filterNode { border-left: 5px solid #f7c873; background: linear-gradient(90deg, #1e243b 70%, #4a3a18 100%); }
+.outputNode { border-left: 5px solid #7affc3; background: linear-gradient(90deg, #1e243b 70%, #1a4a3a 100%); }
+.agentNode:hover, .toolNode:hover, .filterNode:hover, .outputNode:hover {
+  border-color: var(--accent-glow);
+  box-shadow: 0 4px 24px 0 var(--accent-blue), 0 2px 12px 0 var(--accent-glow);
+  background: var(--panel-glass);
+}
+
+.nodeIcon {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 6px var(--accent-blue)) brightness(1.15);
+}
+
+.nodeStatus {
+  margin-left: 10px;
+  font-size: 1.15em;
+  font-weight: bold;
+  vertical-align: middle;
+  min-width: 1.5em;
+  display: inline-block;
+}
+[data-status="waiting"] .nodeStatus {
+  color: #ffe066;
+}
+[data-status="running"] .nodeStatus {
+  color: #00eaff;
+}
+[data-status="done"] .nodeStatus {
+  color: #7dff72;
+}
+[data-status="idle"] .nodeStatus {
+  color: #7ad0ff;
+}
+
+.exportBtn, .importBtn {
+  background: linear-gradient(90deg, var(--accent-glow) 10%, #23253a 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 1px 8px 0 var(--accent-glow);
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.exportBtn:hover, .importBtn:hover {
+  background: linear-gradient(90deg, #23253a 10%, var(--accent-glow) 100%);
+  color: var(--accent-glow);
+}
+.importBtn input[type="file"] {
+  display: none;
+}
+
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(32, 38, 60, 0.98);
+  border-bottom: 1.5px solid #35385a;
+  box-shadow: 0 2px 10px 0 #00eaff11;
+  padding: 0.7rem 1.6rem 0.7rem 1.1rem;
+  min-height: 56px;
+  z-index: 11;
+}
+
+.headerTitle {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #7ad0ff;
+  letter-spacing: 0.02em;
+  margin-right: auto;
+  margin-left: 0.5rem;
+  user-select: none;
+}
+
+.headerDesc {
+  font-size: 1.03rem;
+  color: #e3e5f7;
+  opacity: 0.82;
+  margin-right: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45vw;
+}
+
+.headerActions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.groupNode {
+  border: 2.5px solid var(--accent-blue);
+  background: linear-gradient(135deg, #23253a 70%, #191a23 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 var(--accent-blue), 0 2px 18px 0 var(--accent-glow);
+  margin: 18px 0;
+  padding: 0;
+  min-width: 240px;
+  min-height: 64px;
+  position: relative;
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+  z-index: 2;
+  outline: none;
+}
+.groupNode:focus, .groupNode:hover {
+  box-shadow: 0 6px 40px 0 var(--accent-blue), 0 2px 24px 0 var(--accent-glow);
+  border-color: var(--accent-glow);
+}
+.groupCollapsed {
+  opacity: 0.95;
+  background: linear-gradient(135deg, #23253a 90%, #191a23 100%);
+  min-height: 44px;
+  max-height: 62px;
+  overflow: hidden;
+}
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(40, 45, 70, 0.96);
+  border-radius: 16px 16px 0 0;
+  padding: 0.5rem 1.2rem 0.5rem 0.8rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #7ad0ff;
+  border-bottom: 1.5px solid #35385a;
+  position: relative;
+}
+.collapseBtn {
+  background: none;
+  border: none;
+  color: #7ad0ff;
+  font-size: 1.25rem;
+  margin-right: 0.1rem;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.18s;
+  padding: 0 0.2rem;
+  display: flex;
+  align-items: center;
+}
+.collapseBtn:focus, .collapseBtn:hover {
+  color: var(--accent-glow);
+}
+.collapseIcon {
+  font-size: 1.25rem;
+  display: inline-block;
+  transition: transform 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+.groupName {
+  flex: 1;
+  font-weight: 700;
+  color: #e3e5f7;
+  cursor: pointer;
+  outline: none;
+  border-radius: 4px;
+  padding: 0 0.3rem;
+  transition: background 0.16s;
+}
+.groupName:focus, .groupName:hover {
+  background: rgba(122, 208, 255, 0.08);
+}
+.groupNameInput {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: #e3e5f7;
+  background: rgba(40, 45, 70, 0.98);
+  border: 1.5px solid #7ad0ff;
+  border-radius: 5px;
+  padding: 2px 6px;
+  outline: none;
+}
+.groupCount {
+  background: #23253a;
+  color: #7ad0ff;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 2px 10px;
+  margin-left: 0.7rem;
+  margin-right: 0.6rem;
+  opacity: 0.92;
+}
+.ungroupBtn {
+  background: none;
+  border: none;
+  color: #ff7272;
+  font-size: 1.1rem;
+  margin-left: 0.15rem;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0 0.35rem;
+  transition: background 0.16s, color 0.16s;
+}
+.ungroupBtn:focus, .ungroupBtn:hover {
+  background: rgba(255, 114, 114, 0.14);
+  color: #ffb5b5;
+}
+.groupContent {
+  padding: 1.1rem 1.3rem 1.1rem 1.6rem;
+  background: rgba(40, 45, 70, 0.86);
+  border-radius: 0 0 16px 16px;
+  color: #e3e5f7;
+  font-size: 1rem;
+  font-weight: 500;
+  min-height: 32px;
+  transition: background 0.18s;
+}
+
+.connectNodeBtn {
+  background: linear-gradient(90deg, #23253a 60%, #00eaff22 100%);
+  color: #ffe066;
+  border: 1.5px solid #35385a;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 0.97rem;
+  padding: 4px 10px 4px 10px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  outline: none;
+}
+.connectNodeBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ffe066 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #ffe066;
+}
+
+.targetNodeBtn {
+  background: linear-gradient(90deg, #23253a 60%, #7dff72 100%);
+  color: #23253a;
+  border: 1.5px solid #7dff72;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 0.97rem;
+  padding: 4px 10px 4px 10px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  outline: none;
+  box-shadow: 0 0 6px #7dff72cc;
+}
+.targetNodeBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #7dff72 60%, #00eaff 100%);
+  color: #23253a;
+  border-color: #00eaff;
+}
+
+.cancelConnectBtn {
+  background: linear-gradient(90deg, #23253a 60%, #ff7272 100%);
+  color: #ff7272;
+  border: 1.5px solid #ff7272;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 0.97rem;
+  padding: 4px 10px 4px 10px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  outline: none;
+}
+.cancelConnectBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff7272 60%, #ffe066 100%);
+  color: #23253a;
+  border-color: #ffe066;
+}
+
+.deleteBtn {
+  background: linear-gradient(90deg, #23253a 70%, #ff727222 100%);
+  color: #ff7272;
+  border: 2px solid #ff7272;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  padding: 6px 18px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: 0 2px 10px 0 #ff727244;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+.deleteBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff7272 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #ff7272;
+}
+
+.duplicateBtn {
+  background: linear-gradient(90deg, #23253a 70%, #ffe06622 100%);
+  color: #ffe066;
+  border: 2px solid #ffe066;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  padding: 6px 18px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: 0 2px 10px 0 #ffe06644;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+.duplicateBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ffe066 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #ffe066;
+}
+
+.undoBtn {
+  background: linear-gradient(90deg, #23253a 70%, #7ad0ff22 100%);
+  color: #7ad0ff;
+  border: 2px solid #7ad0ff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  padding: 6px 18px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: 0 2px 10px 0 #7ad0ff44;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+.undoBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.undoBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #7ad0ff 60%, #23253a 100%);
+  color: #23253a;
+  border-color: #7ad0ff;
+}
+
+.redoBtn {
+  background: linear-gradient(90deg, #23253a 70%, #00eaff22 100%);
+  color: #00eaff;
+  border: 2px solid #00eaff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  padding: 6px 18px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: 0 2px 10px 0 #00eaff44;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+.redoBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.redoBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00eaff 60%, #23253a 100%);
+  color: #23253a;
+  border-color: #00eaff;
+}
+
+.paletteActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 0 4px 10px 4px;
+}
+
+.groupBtn, .ungroupBtn {
+  background: linear-gradient(90deg, #23253a 60%, #2a2e4a 100%);
+  color: #7ad0ff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 1.03em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 2px;
+}
+.groupBtn:disabled, .ungroupBtn:disabled {
+  background: #23253a;
+  color: #555b7a;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+.groupBtn:hover:enabled, .ungroupBtn:hover:enabled {
+  background: linear-gradient(90deg, #2a2e4a 60%, #23253a 100%);
+  color: #fff;
+}
+
+/* --- Explain Panel --- */
+.explainPanel {
+  background: var(--panel-glass, rgba(22, 29, 47, 0.95));
+  border-radius: 14px;
+  box-shadow: 0 4px 32px #00eaff33;
+  padding: 20px 22px 16px 22px;
+  margin: 18px;
+  color: #e3e5f7;
+  min-width: 260px;
+  max-width: 330px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 1.08rem;
+  z-index: 30;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  transition: box-shadow 0.2s;
+}
+.explainPanelSection {
+  margin-bottom: 12px;
+}
+.explainPanelSub {
+  font-size: 0.98em;
+  color: #7ad0ff;
+  margin-left: 6px;
+}
+.explainPanelLogs {
+  margin-top: 18px;
+}
+.explainPanelLogBox {
+  background: rgba(30, 35, 54, 0.85);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  max-height: 120px;
+  overflow-y: auto;
+  font-size: 0.96em;
+}
+.explainPanelLogLine {
+  color: #b0b6c9;
+  margin-bottom: 2px;
+}
+.explainPanelNoLogs {
+  color: #666c8a;
+  font-style: italic;
+}
+.explainPanelEmpty {
+  color: #666c8a;
+  text-align: center;
+  padding: 22px 0;
+}
+
+/* --- VRAM Bar --- */
+.vramBarContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.vramBar {
+  display: flex;
+  height: 22px;
+  width: 120px;
+  background: #23253a;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #00eaff22;
+  margin-right: 10px;
+}
+.vramBarSegment {
+  height: 100%;
+  transition: width 0.3s;
+}
+.vramBarLabel {
+  font-size: 0.98em;
+  color: #7ad0ff;
+  margin-right: 4px;
+}
+.headerBarBtn {
+  background: linear-gradient(90deg, #23253a 60%, #2a2e4a 100%);
+  color: #7ad0ff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 15px;
+  font-size: 1em;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.headerBarBtn:hover, .headerBarBtn:focus-visible {
+  background: linear-gradient(90deg, #2a2e4a 60%, #23253a 100%);
+  color: #fff;
+}
+
+/* Minimap and Controls custom overrides for extra polish */
+.AetherCanvas_canvasContainer__B8XrH .react-flow__panel.react-flow__minimap {
+  /* More compact, glassy, premium minimap */
+  bottom: 24px !important;
+  right: 24px !important;
+  width: 120px !important;
+  height: 70px !important;
+  background: rgba(22, 29, 47, 0.92) !important;
+  border: 2.5px solid #00eaff !important;
+  border-radius: 14px !important;
+  box-shadow: 0 2px 24px 0 #00eaff33, 0 0.5px 6px #7ad0ff44 !important;
+  padding: 0 !important;
+  z-index: 22 !important;
+  transition: box-shadow 0.18s, border 0.18s, background 0.18s;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__panel.react-flow__minimap:hover {
+  box-shadow: 0 6px 32px #00eaff66, 0 2px 12px #7ad0ff66 !important;
+  border-color: #7ad0ff !important;
+}
+
+.AetherCanvas_canvasContainer__B8XrH .react-flow__minimap svg {
+  border-radius: 14px !important;
+}
+
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls {
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, rgba(22,29,47,0.97) 80%, #23253a 100%) !important;
+  border: 2.5px solid var(--accent-blue) !important;
+  box-shadow: 0 4px 24px #00eaff66, 0 1.5px 10px #7ad0ff33 !important;
+  margin: 12px !important;
+  padding: 6px 4px !important;
+  z-index: 21 !important;
+}
+
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button {
+  background: linear-gradient(135deg, #23253a 60%, #7ad0ff33 100%) !important;
+  border-radius: 14px !important;
+  border: 2.5px solid var(--accent-blue) !important;
+  color: #00eaff !important;
+  box-shadow: 0 2px 10px #00eaff33 !important;
+  margin: 8px 0 !important;
+  width: 48px !important;
+  height: 48px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem !important;
+  outline: none !important;
+  border-width: 2.5px !important;
+  position: relative;
+  overflow: visible;
+  transition: background 0.22s, color 0.22s, box-shadow 0.22s, border 0.22s, transform 0.16s;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:hover {
+  background: linear-gradient(135deg, #00eaff 60%, #7ad0ff 100%) !important;
+  color: #23253a !important;
+  border-color: #7ad0ff !important;
+  box-shadow: 0 8px 24px #00eaffcc, 0 2px 12px #7ad0ff99 !important;
+  transform: scale(1.08);
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:active {
+  box-shadow: 0 2px 18px #00eaffcc !important;
+  border-color: #00eaff !important;
+  background: #00eaff33 !important;
+  transform: scale(0.97);
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:focus-visible {
+  outline: 2.5px solid #00eaff !important;
+  outline-offset: 2px !important;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomin svg,
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomout svg {
+  filter: drop-shadow(0 0 12px #00eaffcc);
+  width: 28px !important;
+  height: 28px !important;
+  stroke: #00eaff !important;
+  fill: #00eaff !important;
+  background: transparent !important;
+  border-radius: 8px;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-fitview svg,
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-interactive svg {
+  filter: drop-shadow(0 0 9px #7ad0ffcc);
+  width: 24px !important;
+  height: 24px !important;
+  stroke: #7ad0ff !important;
+  fill: #7ad0ff !important;
+  background: transparent !important;
+  border-radius: 8px;
+}
+@media (max-width: 900px) {
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 1.15rem !important;
+    margin: 4px 0 !important;
+  }
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomin svg,
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomout svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-fitview svg,
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-interactive svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
+.AetherCanvas_canvasContainer__B8XrH .react-flow {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+.AetherCanvas_canvasContainer__B8XrH .react-flow__panel.react-flow__controls {
+  left: 24px !important;
+  bottom: 24px !important;
+}
+
+@media (max-width: 900px) {
+  .canvasArea {
+    padding-bottom: 0;
+    padding-right: 0;
+  }
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__panel.react-flow__minimap {
+    bottom: 14px !important;
+    right: 10px !important;
+    width: 90px !important;
+    height: 54px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .headerBar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem 1.1rem 0.7rem 1.1rem;
+    gap: 0.7rem;
+  }
+  .headerDesc {
+    max-width: 80vw;
+    font-size: 0.98rem;
+  }
+}
+
+.goalWizardBtn {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.04rem;
+  padding: 0.6em 1.7em;
+  margin-left: 1.1rem;
+  margin-right: 0.5rem;
+  box-shadow: 0 2px 14px 0 #00eaff44, 0 1px 4px 0 #7ad0ff22;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  border: 2px solid #00eaff;
+  outline: none;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.goalWizardBtn:hover, .goalWizardBtn:focus {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #191a23;
+  box-shadow: 0 4px 24px 0 #00eaff77;
+  border-color: #7ad0ff;
+}
+.goalWizardBtn:active {
+  background: linear-gradient(90deg, #00eaff 80%, #7ad0ff 100%);
+  color: #23253a;
+  box-shadow: 0 2px 8px 0 #00eaff55;
+}
+
+.headerBar button, .headerBar label {
+  margin-left: 0.7rem;
+  margin-right: 0.2rem;
+  font-size: 1.04rem;
+  border-radius: 10px;
+  padding: 0.55em 1.6em;
+  background: linear-gradient(90deg, #23253a 60%, #2a2e4a 100%);
+  color: #7ad0ff;
+  border: 1.5px solid #00eaff;
+  font-weight: 600;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: 0 2px 10px 0 #00eaff22;
+  cursor: pointer;
+}
+.headerBar button:hover, .headerBar label:hover {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #7ad0ff;
+}
+.headerBar button:active, .headerBar label:active {
+  background: linear-gradient(90deg, #00eaff 80%, #7ad0ff 100%);
+  color: #23253a;
+}
+
+.goalWizardBtn:focus-visible, .headerBar button:focus-visible, .headerBar label:focus-visible {
+  outline: 2.5px solid #00eaff;
+  outline-offset: 2px;
+}
+
+.startNode {
+  background: linear-gradient(90deg, #1e263a 80%, #23253a 100%);
+  border: 2.5px solid #7ad0ff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px 0 var(--accent-blue), 0 2px 12px 0 var(--accent-glow);
+  padding: 18px 18px 12px 18px;
+  min-width: 200px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: border 0.16s, box-shadow 0.16s;
+}
+.startNode[data-selected="true"] {
+  border-color: #ffe066;
+  box-shadow: 0 2px 24px 0 #ffe06655, 0 2px 12px 0 var(--accent-glow);
+}
+.startInput {
+  font-size: 1.09rem;
+  color: #e3e5f7;
+  background: #23253a;
+  border: 1.5px solid #7ad0ff88;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  padding: 10px 12px;
+  outline: none;
+  width: 100%;
+  min-height: 38px;
+  max-height: 120px;
+  resize: vertical;
+  transition: border 0.16s;
+}
+.startInput:focus {
+  border-color: #ffe066;
+}
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.nodeIcon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+.nodeLabel {
+  font-weight: 700;
+  color: #7ad0ff;
+  font-size: 1.16rem;
+  letter-spacing: 0.01em;
+}
+
+:root {
+  --accent-blue: #00eaff;
+  --accent-glow: #7ad0ff;
+  --panel-bg: rgba(30, 35, 54, 0.93);
+  --panel-glass: rgba(22, 29, 47, 0.95);
+  --canvas-bg1: #191a23;
+  --canvas-bg2: #23253a;
+  --canvas-bg3: #24274a;
+}
+
+body, #root, .App {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* If your app uses a fixed header, you may want to set a min-height for the canvas: */
+/* .canvasContainer { height: calc(100vh - 64px); } */
+
+/* OVERRIDE: Remove default react-flow node box, padding, border, background for all node types */
+.react-flow__node-default,
+.react-flow__node-input,
+.react-flow__node-output,
+.react-flow__node-group {
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  width: auto !important;
+  font-size: inherit !important;
+  text-align: inherit !important;
+}
+
+/* Remove default react-flow node box shadow/border for output nodes */
+.react-flow__node-output {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+/* Optional: Remove background for all react-flow nodes if needed */
+.react-flow__node {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Ensure outputNode is centered and has no extra margin from wrapper */
+.AetherCanvas_outputNode__3myyt {
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make custom Output node always fill the wrapper */
+.react-flow__node-output > .AetherCanvas_outputNode__3myyt {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Output Sidebar --- */
+.outputSidebar {
+  width: 320px;
+  min-width: 220px;
+  max-width: 400px;
+  background: linear-gradient(135deg, #1b202e 80%, #23253a 100%);
+  border-left: 2px solid #35385a;
+  box-shadow: -2px 0 18px 0 #00eaff22;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  z-index: 3;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.outputSidebarHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.13rem;
+  font-weight: 700;
+  color: #7ad0ff;
+  background: rgba(32, 38, 60, 0.96);
+  border-bottom: 1.5px solid #35385a;
+  padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+  min-height: 48px;
+  user-select: none;
+}
+.outputSidebarBody {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem 0.6rem 0.8rem 0.6rem;
+}
+.outputLogScroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  background: rgba(25, 26, 35, 0.93);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px 0 #00eaff11;
+  padding: 0.9rem 1.1rem;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+  font-size: 1.01rem;
+  color: #b0b6c9;
+  line-height: 1.5;
+  max-height: 100%;
+}
+.outputLogLine {
+  margin-bottom: 0.25rem;
+  white-space: pre-line;
+  word-break: break-word;
+  letter-spacing: 0.01em;
+}
+.outputSidebarToggle {
+  background: linear-gradient(90deg, #23253a 70%, #00eaff22 100%);
+  color: #7ad0ff;
+  border: 2px solid #00eaff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 7px 14px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.outputSidebarToggle:hover {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #7ad0ff;
+}
+.clearLogBtn {
+  background: linear-gradient(90deg, #23253a 70%, #00eaff22 100%);
+  color: #ff7272;
+  border: 1.5px solid #35385a;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 5px 12px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.clearLogBtn:hover {
+  background: linear-gradient(90deg, #ff7272 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #ff7272;
+}
+
+.runNodeBtn {
+  background: linear-gradient(90deg, #23253a 60%, #00eaff22 100%);
+  color: #7ad0ff;
+  border: 1.5px solid #35385a;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 1.01rem;
+  padding: 4px 11px 4px 9px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  outline: none;
+}
+.runNodeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.runNodeBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #7ad0ff;
+}
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+  font-size: 1.08em;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.runFlowBtn {
+  background: linear-gradient(90deg, #23253a 70%, #00eaff22 100%);
+  color: #7ad0ff;
+  border: 2px solid #00eaff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 7px 16px;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.runFlowBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.runFlowBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border-color: #7ad0ff;
+}

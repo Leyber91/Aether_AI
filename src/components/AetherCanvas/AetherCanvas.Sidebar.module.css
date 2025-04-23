@@ -1,0 +1,125 @@
+/* Sidebar and output log styles go here */
+
+/* Add your sidebar/output log styles here */
+
+.sidebarPanel {
+  padding: 24px 18px 18px 18px;
+  min-height: 100vh;
+  background: rgba(20,24,40,0.98);
+  color: #e3e5f7;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+.sidebarPanelEmpty {
+  color: #b0b6c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  min-height: 100vh;
+}
+
+.sidebarSection {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebarSectionRow {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sidebarSubSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebarLabel {
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: #7ad0ff;
+  margin-bottom: 2px;
+}
+
+.sidebarSelect, .sidebarInput, .sidebarTextarea {
+  background: #23253a;
+  color: #e3e5f7;
+  border: 1.5px solid #35385a;
+  border-radius: 7px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.15s;
+}
+
+.sidebarSelect:focus, .sidebarInput:focus, .sidebarTextarea:focus {
+  border: 1.5px solid #00eaff;
+}
+
+.sidebarTextarea {
+  min-height: 68px;
+  resize: vertical;
+}
+
+.suggestPromptBtn {
+  margin-top: 6px;
+  align-self: flex-end;
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #00eaff33;
+  transition: background 0.2s;
+}
+
+.suggestPromptBtn:hover {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+}
+
+.sidebarActions {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.runNodeBtn {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 20px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #00eaff33;
+  transition: background 0.2s;
+}
+
+.runNodeBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sidebarError {
+  color: #ff7ad0;
+  font-size: 0.97rem;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 122, 208, 0.08);
+}

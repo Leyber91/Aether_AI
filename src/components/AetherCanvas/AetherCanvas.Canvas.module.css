@@ -1,0 +1,39 @@
+/* Canvas and layout styles go here */
+
+.canvasContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, var(--canvas-bg1) 0%, var(--canvas-bg2) 100%);
+  color: #e3e5f7;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  /* Remove fixed positioning so header is visible */
+  position: relative;
+  top: unset;
+  left: unset;
+  right: unset;
+  bottom: unset;
+  z-index: 1;
+}
+
+.canvasArea {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(135deg, var(--canvas-bg2), var(--canvas-bg2) 40px, var(--canvas-bg3) 40px, var(--canvas-bg3) 80px);
+  border-radius: 0 0 10px 10px;
+  margin: 0;
+  box-shadow: 0 6px 24px 0 rgba(0,0,0,0.10);
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0;
+  padding-right: 0;
+}

@@ -1,0 +1,173 @@
+@import './theme.css';
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  background-color: var(--space-bg-primary);
+  color: var(--space-text-primary);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.5rem;
+  color: var(--space-text-primary);
+}
+
+/* Prevent blue highlight on mobile touch */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Common animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+/* Focus styles */
+:focus {
+  outline: 2px solid var(--space-accent-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Global transitions */
+button, a, input, textarea {
+  transition: all 0.2s ease;
+}
+
+/* OVERRIDE: Remove default react-flow node box, padding, border, background for all node types */
+.react-flow__node-default,
+.react-flow__node-input,
+.react-flow__node-output,
+.react-flow__node-group {
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  width: auto !important;
+  font-size: inherit !important;
+  text-align: inherit !important;
+}
+
+/* --- Neon/Glassy React Flow Controls Buttons (Aether Canvas only) --- */
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button {
+  background: linear-gradient(135deg, #23253a 70%, #00eaff22 100%) !important;
+  border-radius: 10px !important;
+  border: 2.5px solid #00eaff !important;
+  color: #7ad0ff !important;
+  box-shadow: 0 2px 10px #00eaff44, 0 0.5px 4px #7ad0ff44 !important;
+  margin: 6px 0 !important;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, border 0.18s;
+  width: 44px !important;
+  height: 44px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem !important;
+  outline: none !important;
+  border-width: 2.5px !important;
+  position: relative;
+  overflow: visible;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:hover {
+  background: linear-gradient(135deg, #00eaff44 70%, #23253a 100%) !important;
+  color: #23253a !important;
+  border-color: #7ad0ff !important;
+  box-shadow: 0 4px 18px #00eaff99 !important;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:active {
+  box-shadow: 0 2px 18px #00eaffcc !important;
+  border-color: #00eaff !important;
+  background: #00eaff33 !important;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button:focus-visible {
+  outline: 2px solid #00eaff;
+  outline-offset: 2px;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomin svg,
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomout svg {
+  filter: drop-shadow(0 0 10px #00eaffcc);
+  width: 26px !important;
+  height: 26px !important;
+  stroke: #7ad0ff !important;
+  fill: #7ad0ff !important;
+  background: transparent !important;
+  border-radius: 6px;
+}
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-fitview svg,
+.AetherCanvas_canvasContainer__B8XrH .react-flow__controls-interactive svg {
+  filter: drop-shadow(0 0 6px #00eaff88);
+  width: 22px !important;
+  height: 22px !important;
+  stroke: #7ad0ff !important;
+  fill: #7ad0ff !important;
+  background: transparent !important;
+  border-radius: 6px;
+}
+@media (max-width: 900px) {
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-button {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1.1rem !important;
+    margin: 3px 0 !important;
+  }
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomin svg,
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-zoomout svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-fitview svg,
+  .AetherCanvas_canvasContainer__B8XrH .react-flow__controls-interactive svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}

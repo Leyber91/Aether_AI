@@ -1,0 +1,43 @@
+.settings-button {
+  padding: var(--space-2) var(--space-4);
+  background: rgba(110, 159, 255, 0.12);
+  border: 1px solid rgba(110, 159, 255, 0.25);
+  color: #fff;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--animation-medium) ease;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.settings-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.settings-button:hover::before {
+  left: 100%;
+}
+
+.settings-button:hover {
+  background: rgba(110, 159, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.settings-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

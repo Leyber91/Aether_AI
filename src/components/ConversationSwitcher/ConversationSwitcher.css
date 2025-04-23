@@ -1,0 +1,384 @@
+.conversation-switcher, .conversation-switcher.conversation-switcher-dropdown, .conversation-switcher.conversation-switcher-dropdown.compact {
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 24, 38, 0.68);
+  backdrop-filter: blur(18px) saturate(1.1);
+  border: 1.5px solid #244e8233;
+  box-shadow: 0 0 18px #244e8244, 0 2px 12px #0a0e1722;
+  padding: 4px 0 0 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 9px !important;
+  margin-bottom: 0.1rem;
+}
+
+.conversation-switcher::after {
+  display: none;
+}
+
+.conversation-switcher.conversation-switcher-dropdown {
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 24, 38, 0.68);
+  backdrop-filter: blur(18px) saturate(1.1);
+  border: 1.5px solid #244e8233;
+  box-shadow: 0 0 18px #244e8244, 0 2px 12px #0a0e1722;
+  padding: 4px 0 0 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 9px !important;
+  margin-bottom: 0.1rem;
+}
+
+.conversation-switcher.conversation-switcher-dropdown::after {
+  display: none;
+}
+
+.conversation-switcher.conversation-switcher-dropdown.compact {
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 24, 38, 0.68);
+  backdrop-filter: blur(18px) saturate(1.1);
+  border: 1.5px solid #244e8233;
+  box-shadow: 0 0 18px #244e8244, 0 2px 12px #0a0e1722;
+  padding: 4px 0 0 0;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 9px !important;
+  margin-bottom: 0.1rem;
+}
+
+.switcher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 2px;
+  margin-bottom: 0.08rem;
+  background: transparent;
+  border: none;
+  border-radius: 7px !important;
+  box-shadow: none;
+}
+
+.switcher-header.compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 2px;
+  margin-bottom: 0.08rem;
+  background: transparent;
+  border: none;
+  border-radius: 7px !important;
+  box-shadow: none;
+}
+
+.switcher-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.17rem;
+}
+
+.switcher-title-label {
+  color: #a6f1ff;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 12px #244e8244;
+  margin: 0;
+  padding: 0;
+}
+
+.switcher-new-btn {
+  background: linear-gradient(135deg, #121826 80%, #244e82 100%);
+  color: #a6f1ff;
+  border: 1.5px solid #74d0fc99;
+  border-radius: 0;
+  box-shadow: 0 0 8px #74d0fc44;
+  padding: 4px 13px;
+  cursor: pointer;
+  font-size: 1.04rem;
+  font-weight: 600;
+  transition: background 0.3s, box-shadow 0.3s, color 0.2s;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
+.switcher-new-btn:hover, .switcher-new-btn:focus {
+  background: linear-gradient(135deg, #244e82 80%, #121826 100%);
+  color: #fff;
+  box-shadow: 0 0 16px #a6f1ff44;
+}
+
+.switcher-provider-indicator {
+  margin-left: 8px;
+  font-size: 0.85em;
+  color: #a6f1ff;
+  opacity: 0.77;
+}
+
+.conversation-switcher > div[style*="padding-left"] {
+  padding-left: 12px !important;
+  padding-bottom: 2px !important;
+  font-size: 0.82em !important;
+  color: #8aa4c7 !important;
+  margin-top: 0.04rem;
+}
+
+.conversation-switcher *, .conversation-switcher *:before, .conversation-switcher *:after {
+  border-radius: 0 !important;
+}
+
+.switcher-dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  margin-top: 4px;
+}
+
+.switcher-dropdown-wrapper.compact {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  margin-top: 4px;
+}
+
+.switcher-dropdown, .switcher-dropdown.compact {
+  background: rgba(18, 24, 38, 0.92);
+  color: #a6f1ff;
+  border: 1.5px solid #244e8233;
+  font-size: 1.04rem;
+  font-weight: 500;
+  padding: 10px 12px;
+  outline: none;
+  box-shadow: 0 2px 8px 0 #74d0fc22;
+  transition: border 0.15s, background 0.15s, color 0.15s;
+  margin-right: 0;
+  border-radius: 7px;
+}
+
+.switcher-dropdown:focus {
+  border: 1.5px solid #74d0fc;
+  background: #16213a;
+  color: #fff;
+}
+
+.switcher-dropdown option {
+  background: #16213a;
+  color: #a6f1ff;
+  font-size: 1rem;
+}
+
+.switcher-dropdown.compact {
+  width: 100%;
+  background: rgba(44, 50, 70, 0.97);
+  color: #a6f1ff;
+  border: 1.2px solid #244e8233;
+  font-size: 0.98rem;
+  font-weight: 600;
+  padding: 7px 10px;
+  outline: none;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.05);
+  transition: border 0.13s, background 0.13s, color 0.13s;
+  margin-right: 0;
+  min-height: 34px;
+  appearance: none;
+  border-radius: 7px;
+}
+
+.switcher-dropdown.compact:focus, .switcher-dropdown.compact:hover {
+  border: 1.2px solid #74d0fc;
+  background: #16213a;
+  color: #fff;
+}
+
+.switcher-dropdown.compact option {
+  background: #16213a;
+  color: #a6f1ff;
+  font-size: 0.97rem;
+}
+
+.switcher-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #244e82 transparent;
+}
+
+.switcher-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.switcher-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.switcher-list::-webkit-scrollbar-thumb {
+  background: #244e82;
+  border-radius: 7px;
+}
+
+.switcher-list::-webkit-scrollbar-thumb:hover {
+  background: #74d0fc;
+}
+
+.switcher-list::-webkit-scrollbar-button {
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #244e82;
+  border-radius: 2px;
+}
+
+.switcher-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  transition: background 0.2s, color 0.2s, border-left 0.2s;
+  border-left: 4px solid transparent;
+  background: transparent;
+  color: #a6f1ff;
+  border-radius: 7px;
+}
+
+.switcher-item.active, .switcher-item.selected, .switcher-item:focus, .switcher-item:hover {
+  background: linear-gradient(90deg, #244e82 60%, #121826 100%);
+  color: #fff;
+  box-shadow: 0 0 12px #74d0fc44;
+  border-left: 4px solid #74d0fc;
+}
+
+.switcher-title {
+  font-size: 1.01rem;
+  font-weight: 600;
+  color: #a6f1ff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.01em;
+}
+
+.switcher-provider {
+  font-size: 0.83rem;
+  color: #8a94a7;
+  margin-top: 0px;
+  letter-spacing: 0.01em;
+}
+
+.switcher-empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--space-text-secondary);
+  font-style: italic;
+}
+
+.switcher-delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 1px rgba(99,102,241,0.1) inset;
+  background: rgba(30,41,59,0.7);
+  color: var(--space-danger);
+  border: 1px solid rgba(99,102,241,0.3);
+}
+
+.switcher-delete-btn:hover {
+  background: rgba(30,41,59,0.9);
+  color: var(--space-danger-hover);
+}
+
+.switcher-delete-confirm-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 12, 18, 0.41);
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switcher-delete-confirm-content {
+  background: rgba(30, 34, 44, 0.98);
+  border-radius: 11px;
+  padding: 24px 30px 18px 30px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.21);
+  text-align: center;
+  min-width: 220px;
+}
+
+.switcher-delete-confirm-content p {
+  color: #e7eaf3;
+  font-size: 1.06rem;
+  margin-bottom: 18px;
+}
+
+.switcher-delete-confirm-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 7px 18px;
+  border-radius: 7px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+
+.confirm-btn {
+  background: #d66b6b;
+  color: #fff;
+}
+
+.confirm-btn:hover, .confirm-btn:focus {
+  background: #c82333;
+}
+
+.cancel-btn {
+  background: #25293a;
+  color: #e7eaf3;
+}
+
+.cancel-btn:hover, .cancel-btn:focus {
+  background: #23283a;
+}
+
+.delete-conversation-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-conversation-button:hover {
+  background-color: #c82333;
+}
+
+/* Focus state for keyboard navigation */
+.switcher-item:focus {
+  outline: 2px solid #74d0fc;
+  outline-offset: 2px;
+}
+
+/* Soften all buttons in the conversation switcher */
+.switcher-new-btn, .switcher-header-actions button, .switcher-dropdown, .switcher-dropdown.compact {
+  border-radius: 7px !important;
+}

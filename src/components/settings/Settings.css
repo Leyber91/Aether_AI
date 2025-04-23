@@ -1,0 +1,113 @@
+.settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  color: var(--space-text-primary);
+}
+
+.settings-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-header h2 {
+  margin: 0;
+  color: var(--space-text-primary);
+  font-weight: 500;
+}
+
+.settings-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  color: var(--space-text-secondary);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+  color: var(--space-text-primary);
+}
+
+.tab-button.active {
+  color: var(--space-accent-primary);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--space-accent-primary);
+  border-radius: 2px 2px 0 0;
+}
+
+.settings-content {
+  padding: 10px 0;
+}
+
+.settings-section {
+  margin-bottom: 30px;
+}
+
+.settings-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--space-text-primary);
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.setting-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-item label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--space-text-primary);
+  margin-bottom: 5px;
+}
+
+.setting-item input[type="checkbox"] {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--space-accent-primary);
+}
+
+.setting-description {
+  margin: 5px 0 0 26px;
+  color: var(--space-text-tertiary);
+  font-size: 0.85rem;
+}
+
+.setting-item select {
+  margin-left: 10px;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid var(--glass-border);
+  color: var(--space-text-primary);
+  padding: 5px 10px;
+  border-radius: var(--border-radius-sm);
+}

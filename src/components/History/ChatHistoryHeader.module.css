@@ -1,0 +1,63 @@
+.chat-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(31, 41, 55, 0.3);
+}
+
+.chat-history-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--space-text-primary);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.chat-history-header h3::before {
+  content: "💬";
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.new-chat-button {
+  background: linear-gradient(135deg, var(--space-accent-primary), var(--space-accent-secondary));
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.new-chat-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0) 80%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.new-chat-button:hover {
+  background: linear-gradient(135deg, var(--space-accent-secondary), var(--space-accent-primary));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.new-chat-button:hover::before {
+  opacity: 1;
+}

@@ -1,0 +1,115 @@
+.narrativeRoot {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(35, 37, 58, 0.97);
+  color: #e3e5f7;
+  font-family: 'Inter', sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+.narrativeSection {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0 auto 2rem auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.narrativeBox {
+  max-width: 900px;
+  width: 100%;
+  height: 80vh;
+  min-height: 400px;
+  max-height: 90vh;
+  margin: 2rem auto;
+  padding: 2vw 2vw 2vw 2vw;
+  box-sizing: border-box;
+  background: rgba(24, 28, 36, 0.98);
+  border-radius: 18px;
+  box-shadow: 0 8px 36px 0 rgba(0,0,0,0.18);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  scrollbar-width: none; /* Firefox */
+}
+.narrativeBox::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.parallaxBoxBg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.parallaxLayer {
+  position: absolute;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.boidsBgBox {
+  position: absolute;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.narrativeTitle {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #7ad0ff;
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.narrativeBlock {
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 2vw;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 3;
+}
+.narrativeHeading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 2rem 0 0.5rem 0;
+  color: #b0b6c9;
+  text-align: left;
+}
+.narrativeContent {
+  font-size: 1.13rem;
+  color: #e3e5f7;
+  text-align: left;
+  word-break: break-word;
+  white-space: pre-line;
+}
+ul, ol {
+  margin: 0 0 1.5rem 1.5rem;
+  color: #e3e5f7;
+  font-size: 1.1rem;
+}
+@media (max-width: 900px) {
+  .narrativeBox {
+    max-width: 98vw;
+    padding: 1vw;
+    height: 70vh;
+    min-height: 200px;
+  }
+  .narrativeTitle {
+    font-size: 1.4rem;
+  }
+  .narrativeHeading {
+    font-size: 1.1rem;
+  }
+  .narrativeContent {
+    font-size: 1rem;
+    max-width: 98vw;
+    padding: 0 1vw;
+  }
+}

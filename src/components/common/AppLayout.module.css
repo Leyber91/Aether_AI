@@ -1,0 +1,83 @@
+:root {
+  /* Glassmorphic tokens */
+  --glass-bg: rgba(34, 40, 49, 0.45);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-border: rgba(255,255,255,0.18);
+  --glass-border-accent: #a6f1ff;
+  --glass-shadow: 0 4px 32px 0 rgba(0,0,0,0.12), 0 1.5px 8px 0 rgba(166,241,255,0.12);
+  --glass-shadow-hover: 0 12px 40px #74d0fc33, 0 4px 18px #a6f1ff22;
+  --border-radius-md: 18px;
+  --animation-medium: 0.35s;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--space-text-primary);
+  position: relative;
+  font-family: var(--font-sans);
+}
+
+/* Apply the space background to the entire app */
+.App::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--space-bg-primary) 0%, #121829 100%);
+  z-index: var(--z-background);
+}
+
+/* Add stars to the background with subtle twinkling effect */
+.App::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(1px 1px at 20% 30%, white, rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 40% 70%, white, rgba(255,255,255,0)),
+    radial-gradient(3px 3px at 60% 20%, white, rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 70% 50%, white, rgba(255,255,255,0)),
+    radial-gradient(1px 1px at 80% 90%, white, rgba(255,255,255,0)),
+    radial-gradient(3px 3px at 15% 80%, white, rgba(255,255,255,0)),
+    radial-gradient(2px 2px at 90% 10%, white, rgba(255,255,255,0));
+  z-index: var(--z-background);
+  opacity: 0.4;
+  animation: twinkle 8s ease-in-out infinite alternate;
+}
+
+/* Glassmorphic main layout container example */
+.main-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--border-radius-md);
+  transition: background var(--animation-medium) cubic-bezier(.77,0,.18,1), box-shadow 0.3s, border 0.25s;
+}
+
+.main-glass:hover {
+  box-shadow: var(--glass-shadow-hover);
+  border-color: var(--glass-border-accent);
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
