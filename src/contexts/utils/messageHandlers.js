@@ -1,6 +1,6 @@
-import { createMessage } from './conversationHelpers';
-import { sendMessageToGroq } from '../../services/groqService';
-import { sendMessageToOllama } from '../../services/ollamaService';
+import { createMessage } from './conversationHelpers.js';
+import { sendMessageToGroq } from '../../services/groqService.js';
+import { sendMessageToOllama } from '../../services/ollamaService.js';
 
 /**
  * Handle token usage data from model response

@@ -1,0 +1,16 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="redo-glow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#ff7ad0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#23253a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="3" y="3" width="22" height="22" rx="6" fill="#181a2a" stroke="#ff7ad0" stroke-width="2.2"/>
+  <circle cx="14" cy="14" r="11" fill="url(#redo-glow)"/>
+  <g filter="url(#shadow)">
+    <path d="M9 15c1.5-3 6-3 8 0M20 15l-2-2m2 2l-2 2" stroke="#ff7ad0" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <filter id="shadow" x="0" y="0" width="28" height="28">
+    <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#ff7ad0" flood-opacity="0.35"/>
+  </filter>
+</svg>

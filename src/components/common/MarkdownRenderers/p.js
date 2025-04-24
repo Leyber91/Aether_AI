@@ -2,7 +2,7 @@
  * Custom paragraph renderer for MarkdownRenderer
  */
 import React from 'react';
-import createMarkdownRenderer from './createMarkdownRenderer';
+import createMarkdownRenderer from './createMarkdownRenderer.js';
 
 const P = createMarkdownRenderer('p', 'md-paragraph');
 

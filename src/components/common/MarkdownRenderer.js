@@ -3,17 +3,17 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import './MarkdownRenderer.css';
 // Modular custom renderers
-import CodeRenderer from './MarkdownRenderers/code';
-import ImgRenderer from './MarkdownRenderers/img';
-import ParagraphRenderer from './MarkdownRenderers/p';
-import HrRenderer from './MarkdownRenderers/hr';
-import PreRenderer from './MarkdownRenderers/pre';
-import LiRenderer from './MarkdownRenderers/li';
-import OlRenderer from './MarkdownRenderers/ol';
-import TheadRenderer from './MarkdownRenderers/thead';
-import TrRenderer from './MarkdownRenderers/tr';
-import SvgRenderer from './MarkdownRenderers/svg';
-import CanvasRenderer from './MarkdownRenderers/canvas';
+import CodeRenderer from './MarkdownRenderers/code.js';
+import ImgRenderer from './MarkdownRenderers/img.js';
+import ParagraphRenderer from './MarkdownRenderers/p.js';
+import HrRenderer from './MarkdownRenderers/hr.js';
+import PreRenderer from './MarkdownRenderers/pre.js';
+import LiRenderer from './MarkdownRenderers/li.js';
+import OlRenderer from './MarkdownRenderers/ol.js';
+import TheadRenderer from './MarkdownRenderers/thead.js';
+import TrRenderer from './MarkdownRenderers/tr.js';
+import SvgRenderer from './MarkdownRenderers/svg.js';
+import CanvasRenderer from './MarkdownRenderers/canvas.js';
 
 const MarkdownRenderer = ({ content }) => {
   // Defensive: ensure content is always a string

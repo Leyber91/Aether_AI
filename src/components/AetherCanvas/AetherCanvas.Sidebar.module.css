@@ -3,15 +3,18 @@
 /* Add your sidebar/output log styles here */
 
 .sidebarPanel {
-  padding: 24px 18px 18px 18px;
+  padding: 28px 18px 18px 18px;
   min-height: 100vh;
-  background: rgba(20,24,40,0.98);
+  background: linear-gradient(135deg, #181a2a 80%, #23253a 100%);
   color: #e3e5f7;
   font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
   gap: 18px;
   box-sizing: border-box;
+  border-right: 2.2px solid #23253a;
+  box-shadow: 2px 0 20px 0 #00eaff22;
+  z-index: 3;
 }
 
 .sidebarPanelEmpty {
@@ -24,17 +27,20 @@
 }
 
 .sidebarSection {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  padding: 8px 0 6px 0;
+  border-bottom: 1px solid #25304a44;
 }
 
 .sidebarSectionRow {
   display: flex;
   flex-direction: row;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .sidebarSubSection {
@@ -45,10 +51,16 @@
 }
 
 .sidebarLabel {
-  font-size: 0.97rem;
-  font-weight: 500;
+  font-size: 1.07rem;
+  font-weight: 700;
   color: #7ad0ff;
   margin-bottom: 2px;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 6px #00eaff77;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .sidebarSelect, .sidebarInput, .sidebarTextarea {
@@ -92,34 +104,256 @@
 
 .sidebarActions {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-bottom: 6px;
 }
 
 .runNodeBtn {
   background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
   color: #23253a;
   border: none;
-  border-radius: 7px;
-  padding: 8px 20px;
+  border-radius: 8px;
+  padding: 10px 22px;
   font-size: 1.08rem;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 2px 8px 0 #00eaff33;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .runNodeBtn:disabled {
-  opacity: 0.6;
+  background: #35385a;
+  color: #7ad0ff88;
   cursor: not-allowed;
 }
 
+.runNodeBtn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+  color: #23253a;
+}
+
 .sidebarError {
-  color: #ff7ad0;
-  font-size: 0.97rem;
-  margin-top: 8px;
-  padding: 4px 8px;
+  background: linear-gradient(90deg, #ffe0e0 60%, #ffb1b1 100%);
+  color: #e55;
+  border: 1.5px solid #ffb1b1;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 5px #ffb1b133;
+}
+
+.sidebarWarning {
+  background: linear-gradient(90deg, #ffefc7 60%, #ffe5b1 100%);
+  color: #a67c00;
+  border: 1.5px solid #ffe066;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 5px #ffe06633;
+}
+
+.iconBtn {
+  background: #23253a;
+  color: #7ad0ff;
+  border: 1.5px solid #35385a;
   border-radius: 6px;
-  background: rgba(255, 122, 208, 0.08);
+  padding: 6px 10px;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+  box-shadow: 0 1px 4px #00eaff22;
+}
+
+.iconBtn:hover {
+  background: linear-gradient(90deg, #00eaff33 60%, #23253a 100%);
+  color: #00eaff;
+  border: 1.5px solid #00eaff;
+}
+
+.paramRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+  background: rgba(32,38,60,0.7);
+  border-radius: 6px;
+  padding: 4px 6px;
+  box-shadow: 0 1px 3px #00eaff11;
+}
+
+.workflowList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.workflowList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #181a2a 85%, #23253a 100%);
+  border: 2px solid #23253a;
+  border-radius: 14px;
+  padding: 4px 8px 4px 12px;
+  font-size: 1rem;
+  color: #e3e5f7;
+  box-shadow: 0 2px 8px 0 #00eaff11;
+  min-height: 36px;
+  transition: border 0.18s, box-shadow 0.18s, background 0.18s, transform 0.14s;
+  position: relative;
+  gap: 8px;
+}
+
+.workflowList li.selected {
+  border: 2px solid #7ad0ff;
+  box-shadow: 0 0 16px #00eaff55;
+  background: linear-gradient(135deg, #1b2236 85%, #23253a 100%);
+  transform: scale(1.04);
+  z-index: 2;
+}
+
+.workflowCardActions {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.workflowActionIcon {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.13s, box-shadow 0.13s, border 0.13s, transform 0.13s;
+  font-size: 1.16rem;
+  box-shadow: 0 0 0 #00eaff00;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.workflowActionIcon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: drop-shadow(0 0 5px #00eaff44) brightness(1.08);
+  border-radius: 6px;
+  transition: filter 0.15s, background 0.15s;
+}
+
+.workflowActionIcon[title~="Delete"], .workflowActionIcon.delete {
+  border: 2px solid #ff5f5f;
+  background: linear-gradient(135deg, #181a2a 70%, #3a1e23 100%);
+}
+
+.workflowActionIcon[title~="Delete"]:hover, .workflowActionIcon.delete:hover {
+  background: #23253a;
+  box-shadow: 0 0 12px #ff5f5f99;
+  color: #ff5f5f;
+  transform: scale(1.10) rotate(-6deg);
+}
+
+.workflowActionIcon[title~="Export"] {
+  border: 2px solid #7ad0ff;
+  background: linear-gradient(135deg, #181a2a 70%, #1e2a3a 100%);
+}
+
+.workflowActionIcon[title~="Export"]:hover {
+  background: #23253a;
+  box-shadow: 0 0 12px #7ad0ff99;
+  color: #7ad0ff;
+  transform: scale(1.10) rotate(6deg);
+}
+
+.workflowActionIcon[title~="Duplicate"], .workflowActionIcon.duplicate {
+  border: 2px solid #ffe066;
+  background: linear-gradient(135deg, #181a2a 70%, #393a1e 100%);
+}
+
+.workflowActionIcon[title~="Duplicate"]:hover, .workflowActionIcon.duplicate:hover {
+  background: #23253a;
+  box-shadow: 0 0 12px #ffe06699;
+  color: #ffe066;
+  transform: scale(1.10) rotate(-4deg);
+}
+
+.workflowActionIcon[title~="Rename"] {
+  border: 2px solid #7ad0ff;
+  background: linear-gradient(135deg, #181a2a 70%, #1e2a3a 100%);
+}
+
+.workflowActionIcon[title~="Rename"]:hover {
+  background: #23253a;
+  box-shadow: 0 0 12px #7ad0ff99;
+  color: #7ad0ff;
+  transform: scale(1.10) rotate(4deg);
+}
+
+.workflowList li span {
+  font-size: 1.09rem;
+  font-weight: 600;
+  color: #ffe066;
+  letter-spacing: 0.01em;
+  margin-right: 4px;
+  text-shadow: 0 0 8px #ffe06633;
+}
+
+.workflowList li.selected span {
+  color: #7ad0ff;
+  text-shadow: 0 0 8px #00eaff77;
+}
+
+.workflowSearchBar {
+  width: 100%;
+  background: #23253a;
+  color: #e3e5f7;
+  border: 2px solid #35385a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border 0.18s;
+  box-shadow: 0 2px 8px #00eaff22;
+}
+
+.workflowSearchBar:focus {
+  border: 2px solid #00eaff;
+}
+
+.sidebarButton {
+  background: linear-gradient(90deg, #00eaff 60%, #7ad0ff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #00eaff33;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebarButton:hover {
+  background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
+  color: #181a2a;
 }

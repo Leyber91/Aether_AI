@@ -1,0 +1,18 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <defs>
+    <radialGradient id="rename-glow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#ffe066" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#23253a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="rename-shadow" x="0" y="0" width="28" height="28">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#ffe066" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect x="3" y="3" width="22" height="22" rx="6" fill="#181a2a" stroke="#ffe066" stroke-width="2.2"/>
+  <circle cx="14" cy="14" r="11" fill="url(#rename-glow)"/>
+  <g filter="url(#rename-shadow)">
+    <rect x="8" y="16" width="12" height="2.2" rx="1.1" fill="#23253a" stroke="#ffe066" stroke-width="1.2"/>
+    <path d="M10 12l7 7" stroke="#ffe066" stroke-width="2" stroke-linecap="round"/>
+    <rect x="16" y="17" width="2.7" height="0.7" rx="0.35" transform="rotate(-45 16 17)" fill="#ffe066"/>
+  </g>
+</svg>

@@ -1,4 +1,5 @@
 import React from 'react';
+import ConversationHeader from './ConversationHeader.js';
 
 /**
  * Component that displays the currently selected model information

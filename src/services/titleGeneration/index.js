@@ -3,10 +3,10 @@
  * Provides functionality to automatically generate titles based on conversation content
  */
 
-import { sendMessageToOllama } from '../enhancedOllamaService';
-import { isValidTitle, cleanupTitle, toTitleCase } from './validation';
-import { extractKeywords } from './keywords';
-import { generateTitlePrompt, generateFollowUpPrompt } from './prompts';
+import { sendMessageToOllama } from '../enhancedOllamaService.js';
+import { isValidTitle, cleanupTitle, toTitleCase } from './validation.js';
+import { extractKeywords } from './keywords.js';
+import { generateTitlePrompt, generateFollowUpPrompt } from './prompts.js';
 
 /**
  * Generate a title for a conversation based on its initial content

@@ -4,9 +4,9 @@
  */
 
 import axios from 'axios';
-import config from '../config';
-import { createErrorHandler } from './api/baseApiService';
-import { trimMessagesToTokenLimit } from './tokenEstimate';
+import config from '../config.js';
+import { createErrorHandler } from './api/baseApiService.js';
+import { trimMessagesToTokenLimit } from './tokenEstimate.js';
 
 // Get the Groq API URL from config
 const GROQ_API_URL = config.groqApiUrl;

@@ -1,0 +1,18 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Wizard Hat -->
+  <path d="M8 21 Q16 5, 24 21 Z" fill="#23253a" stroke="#7ad0ff" stroke-width="2"/>
+  <ellipse cx="16" cy="22.5" rx="8" ry="2.5" fill="#23253a" stroke="#7ad0ff" stroke-width="1"/>
+  <!-- Wizard Face -->
+  <circle cx="16" cy="23.5" r="3" fill="#7ad0ff" stroke="#00eaff" stroke-width="1"/>
+  <!-- Beard -->
+  <path d="M13.5 25 Q16 29, 18.5 25" stroke="#b0eaff" stroke-width="1.2" fill="none"/>
+  <!-- Eyes -->
+  <circle cx="15" cy="23.5" r="0.4" fill="#23253a"/>
+  <circle cx="17" cy="23.5" r="0.4" fill="#23253a"/>
+  <!-- Magic Spark -->
+  <circle cx="24.5" cy="9" r="1.2" fill="#ffe066" stroke="#00eaff" stroke-width="0.7"/>
+  <path d="M24.5 7.2 V5.8" stroke="#ffe066" stroke-width="0.5"/>
+  <path d="M24.5 10.8 V12.2" stroke="#ffe066" stroke-width="0.5"/>
+  <path d="M22.7 9 H21.3" stroke="#ffe066" stroke-width="0.5"/>
+  <path d="M26.3 9 H27.7" stroke="#ffe066" stroke-width="0.5"/>
+</svg>

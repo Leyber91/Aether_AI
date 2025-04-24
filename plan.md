@@ -31,6 +31,108 @@
 
 ---
 
+# 🟢 **Project Status Update (2025-04-24)**
+
+## Major Features & Progress
+
+### 1. **Palette & Workflow Collection Refactor**
+- **Sidebar Layout:**
+  - The left sidebar is now split vertically: the top 40% is a compact 2-column grid of node/component buttons (palette), the bottom 60% is a scrollable, searchable workflow library.
+  - Palette buttons are larger, closer together, and visually premium.
+- **Workflow Library:**
+  - Searchable, scrollable list of saved workflows, with quick actions for duplicate and delete.
+  - Clicking a workflow loads it into the canvas; active workflow is visually highlighted.
+- **All palette and workflow UI logic is fully integrated and managed in React state.**
+
+### 2. **Modern, Premium UI Polish**
+- All palette icons are SVG, styled for a glassy, premium look.
+- Added a custom wizard SVG icon for the Goal-to-Flow Wizard button.
+- Sidebar, buttons, and workflow panel use updated CSS for a clean, modern, and accessible interface.
+
+### 3. **Workflow Storage & Logic**
+- Uses unified workflow storage utilities for listing, loading, saving, duplicating, and deleting workflows.
+- All quick actions (duplicate, delete) update state and UI instantly.
+
+### 4. **Goal-to-Flow Wizard**
+- Dedicated header button (now with wizard icon) opens the Goal-to-Flow Wizard panel.
+- Wizard generates a draft workflow from a user-supplied goal.
+
+### 5. **Bugfixes & Cleanups**
+- Fixed bug where empty conversations were created on refresh in chat interface.
+- Refactored to avoid code duplication and keep codebase organized and maintainable.
+- All new features are implemented by iterating on existing patterns, not introducing new ones unless necessary.
+
+### 6. **Testing & Dev Practices**
+- All major new features have corresponding test coverage or are tested interactively.
+- No stubbing or fake data in dev/prod; only real data and real workflows.
+- Codebase is kept clean, DRY, and organized, with no major files over 300 lines.
+
+### 🟦 **April 2025 Advancements: Neon-Glass UI, Workflow Icons, and Sidebar Evolution**
+
+### **1. Workflow Action Icons: Neon-Glass Evolution**
+- **Redesigned all workflow action icons** for a compact, horizontally-aligned, and visually integrated look:
+  - **Load:** Downward arrow into a glowing node, glassy/neon blue, soft drop shadow.
+  - **Rename:** Diagonal pencil with glowing underline, glass effect, compact.
+  - **Duplicate:** Two offset nodes with a glowing plus badge, visually distinct.
+  - **Delete:** Trash can with glowing red X, clear destructive intent.
+  - **Export:** Arrow leaving a glowing node, glass effect for theme cohesion.
+- **Design Principles:** Compactness, immediate recognizability, consistent stroke widths/corner radii, radial gradients, and drop shadows for a premium neon-glass aesthetic.
+- **Technical:** All icons are SVG, no new dependencies, integrated into React components and CSS modules.
+
+### **2. Components Bar: Modern Horizontal Redesign**
+- **Refactored the Components Bar** (palette) from a vertical to a horizontal, compact layout.
+  - **Colon removed** from the title for clarity and style consistency.
+  - **New CSS classes** (`componentsBarHorizontal`, etc.) for layout and neon-glass effect.
+  - **Visuals:** Glassy gradient background, neon-blue border, soft drop shadow, rounded corners, and tight spacing.
+  - **Improved usability:** Icons and labels are horizontally aligned, easier to scan and access.
+- **Backward compatibility:** Old vertical styles preserved for future reference or toggling.
+
+### **3. Sidebar & Workflow Library UI**
+- **WorkflowSidebar** now features:
+  - **Split vertical layout:** Palette (top 40%) and workflow library (bottom 60%).
+  - **Palette:** Larger, premium-feel buttons/icons, tightly packed for efficiency.
+  - **Workflow Library:** Searchable, scrollable, with instant quick actions (duplicate, delete).
+  - **Active workflow is visually highlighted** for clarity.
+- **All UI logic is managed in React state** for instant, reliable feedback.
+
+### **4. Robustness & Bugfixes**
+- **Chat Interface:** Fixed bug where empty conversations were created on refresh.
+  - Now only creates a new conversation if none exist, and sets the first as active otherwise.
+- **Auto-Naming:** Enhanced conversation auto-naming for reliability and quality.
+  - Improved LLM prompting, retry/fallback logic, validation, and multi-message context.
+  - UI polish: better “Auto-name” button, visual indicators, and auto-regeneration.
+
+### **5. UX Consistency & Theming**
+- **All new elements follow the neon-glass, premium UI theme:**
+  - Consistent gradients, border radii, drop shadows, and color palette.
+  - No mock/stub data in dev/prod—real data only, robust error handling.
+- **No code duplication:** All enhancements iterate on existing patterns, with careful refactoring for maintainability.
+
+---
+
+## Next Steps & Open Tasks
+- Gather user feedback on new sidebar and workflow collection layout.
+- Continue UI polish and accessibility improvements.
+- Expand test coverage for workflow actions and palette interactions.
+- Prepare for community template gallery and plugin SDK integration.
+
+---
+
+## Recent Notable Commits/Changes
+- Sidebar refactor: vertical split, 40/60 palette/workflow ratio.
+- Workflow quick actions (duplicate/delete).
+- Wizard icon SVG and integration.
+- Bugfix: chat empty conversation creation.
+- CSS polish: palette, sidebar, workflow collection.
+
+---
+
+## Meta
+- All changes follow the ruthless solo-dev system prompt: focus on velocity, DRY code, and user value.
+- Status table, Kanban, and dev log are updated as features are shipped.
+
+---
+
 # 🗂️ Current & Ideal File Structure
 
 ## Current (2025-04-23)
@@ -593,28 +695,53 @@ _Update this table as you shift focus. Keep it short and honest._
 
 ---
 
-## Feature Implementation Status (as of 2025-04-23)
+## 🔍 Prompt Hacking Techniques & Lessons Learned (2025-04-24)
 
-| ID    | Feature                                      | Owner/Lead      | Status         | Notes / Next Steps                      |
-|-------|-----------------------------------------------|------------------|---------------|-----------------------------------------|
-| F-01  | System-Check Wizard (HW, Ollama, CUDA, VRAM) | @BackendLead     | Complete      | Fully implemented and integrated        |
-| F-02  | Goal-→-Flow AI Wizard (Basic draft)          | @UX/AI           | In Progress   | Core logic complete, UI polish ongoing  |
-| F-03  | Canvas Editor (React-Flow, core interactions) | @FrontendLead    | Complete      | All basic interactions stable           |
-| F-04  | Explain Panel (Logs, Model, Latency, Tokens)  | @FrontendLead    | In Progress   | Logs & tokens live; latency UI pending  |
-| F-05  | Live VRAM Bar UI                             | @FrontendLead    | Complete      | Updates live, integrated with ModelMgr  |
-| F-06  | LRU Model Unload Daemon                      | @BackendLead     | In Progress   | LRU logic in place, more testing needed |
-| F-07  | Model Manager UI (List, Pin, Unload, Pull/Rm) | @FrontendLead    | In Progress   | Pin/Unload live, Pull/Rm next           |
-| F-08  | Groq Rate-Limiter & Quota Dashboard          | @BackendLead     | Not Started   | Awaiting Groq API key setup             |
-| F-09  | Cancel Model Load Action                     | @FrontendLead    | Not Started   | Design ready, backend signal needed     |
-| F-10  | Basic / Pro UI Mode Toggle                   | @FrontendLead    | Not Started   | Planned for Sprint 7                    |
-| F-11  | Predictive Pre-warm Next Model Logic         | @BackendLead     | Not Started   | Needs VRAM/flow integration             |
-| F-12  | Flow Time-Machine (CRDT basic scrub/revert)  | @FrontendLead    | Not Started   | Yjs integration planned                 |
-| F-13  | Plugin SDK Alpha (Local ESM load, hot reload)| @SDKLead         | Not Started   | Spec drafted, dev to start post-MVP     |
-| F-14  | Flow Doctor (AI Error Analysis & Fix Suggest) | @AI/Frontend     | Not Started   | Planned for v2.0                        |
-| F-15  | LAN / Multi-GPU Worker Support Architecture  | @BackendLead     | Not Started   | Future scaling path                     |
-| F-16  | Template Gallery & Community Sharing         | @FrontendLead    | Not Started   | UI/UX design in progress                |
-| F-17  | Vision Node (Reliable Granite or Groq Fallback)| @AI/Backend   | In Research   | Granite candidates under evaluation     |
-| F-18  | Quantization Switching (via Model Mgr)       | @FrontendLead    | Not Started   | UI planned, backend support needed      |
-| F-19  | Smart Groq Fallback Suggestions UI           | @FrontendLead    | Not Started   | To follow Groq limiter                  |
+## Best Prompt Engineering & Debugging Techniques
+- **Chain-of-Thought Prompting:** Explicitly ask the LLM to reason step-by-step through complex or multi-part problems. (Great for debugging and error analysis.)
+- **Self-Ask Prompting:** Instruct the LLM to generate its own clarifying questions before answering, surfacing hidden ambiguities and edge cases.
+- **Meta-Prompting:** Use prompts that tell the LLM to reflect on its own reasoning, critique its output, and suggest improvements or alternative solutions.
+- **Least-to-Most Prompting:** Start with simple sub-tasks/prompts, then escalate to more complex or abstract reasoning as needed.
+- **ReAct (Reason+Act):** Alternate between asking the LLM to reason about a problem and then take a concrete action, iteratively debugging and refining as you go.
+- **Iterative Prompting:** Re-prompt the LLM with new context or feedback after each output, gradually converging on the correct solution.
+- **Error Reflection:** After encountering a bug or failure, prompt the LLM to explain what went wrong, why, and how to fix or prevent it next time.
+- **Roleplay & Persona Switching:** Temporarily instruct the LLM to act as a specialist (e.g., "You are a senior React engineer" or "You are a ruthless bug hunter") to unlock new solution paths.
+
+## Lessons Learned from Conversation/Chat Bugs
+- **Root Cause:** Creating empty conversations on refresh was due to not checking for existing conversations before initializing a new one.
+- **Prompting for Error Reflection:** Prompting the LLM to explain the cause and impact of this bug, and to suggest robust state management patterns, led to a more reliable chat experience.
+- **Best Practices:**
+  - Always check for existing state before creating new objects in UI logic.
+  - When fixing bugs, prompt for edge cases and ask the LLM to simulate multiple user scenarios.
+  - Use meta-prompting to have the LLM critique its own solution and propose further improvements.
+- **Debugging Pattern:** Prompt the LLM to enumerate possible failure modes and recommend tests or logging to catch regressions.
+- **Continuous Reflection:** After each bugfix, prompt for a post-mortem: what patterns led to the bug, what new tests or checks should be added, and how to avoid similar issues in future features.
+
+---
+
+## 🔗 Subsystem Details
+
+### Plugin Loading
+- Plugins are JavaScript files placed in the `plugins/` directory.
+- On file drop or hot-reload event, the system scans for new plugins.
+- Valid ESM plugin files are dynamically imported and registered.
+- New node types from plugins appear in the Canvas node palette automatically.
+- Plugins can define custom node config UIs (rendered in NodeInspectorPanel).
+- Plugins are isolated; errors in one plugin do not crash the canvas.
+
+### GoalToFlowWizard
+- UI panel for goal-driven flow generation.
+- User enters a goal (natural language or template selection).
+- Wizard uses LLM or heuristics to generate a flow structure (nodes + edges).
+- Generated nodes/edges are injected into the canvas state.
+- User can edit, run, or further refine the generated flow.
+
+### Error Propagation
+- Errors during node or flow execution are caught in `useFlowRunner`.
+- Error details (type, message, context) are stored in `nodeExecutionData[nodeId].error`.
+- Node status is set to 'error'.
+- ExplainPanel displays error and suggests fixes based on error pattern.
+- OutputSidebar logs all errors as they occur.
+- Errors never block UI or other node execution; system remains responsive.
 
 ---

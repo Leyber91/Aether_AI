@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useEffect, useContext } from 'react';
+import React, { useCallback, useMemo, useState, useEffect, useContext, useRef } from 'react';
 import ReactFlow, {
   addEdge,
   useNodesState,
@@ -11,6 +11,7 @@ import { ReactComponent as AgentIcon } from './icons/AgentIcon.svg';
 import { ReactComponent as ToolIcon } from './icons/ToolIcon.svg';
 import { ReactComponent as FilterIcon } from './icons/FilterIcon.svg';
 import { ReactComponent as OutputIcon } from './icons/OutputIcon.svg';
+import { ReactComponent as WizardIcon } from './icons/WizardIcon.svg';
 import GoalToFlowWizardPanel from './components/GoalToFlowWizardPanel';
 import CanvasFlow from './components/CanvasFlow';
 import { FaTerminal } from 'react-icons/fa';
@@ -32,7 +33,6 @@ import AetherCanvasToolbar from './components/AetherCanvasToolbar';
 import useCanvasShortcuts from './hooks/useCanvasShortcuts';
 import useCanvasHandlers from './hooks/useCanvasHandlers';
 import { getNodeStyle, minimapNodeStrokeColor, minimapNodeColor } from './utils/AetherCanvasStyleUtils';
-import NodePalette from './components/NodePalette';
 import MinimapPanel from './components/MinimapPanel';
 import FlowControlsPanel from './components/FlowControlsPanel';
 import ExplainPanel from './components/ExplainPanel';
@@ -40,6 +40,15 @@ import VRAMBar from './components/VRAMBar';
 import NodeInspectorPanel from './components/NodeInspectorPanel';
 import StartNode from './components/StartNode';
 import { ModelContext } from '../../contexts/ModelContext';
+import { ReactComponent as HeaderExportIcon } from './icons/HeaderExportIcon.svg';
+import { ReactComponent as HeaderImportIcon } from './icons/HeaderImportIcon.svg';
+import { ReactComponent as HeaderRunIcon } from './icons/HeaderRunIcon.svg';
+import { ReactComponent as HeaderUndoIcon } from './icons/HeaderUndoIcon.svg';
+import { ReactComponent as HeaderRedoIcon } from './icons/HeaderRedoIcon.svg';
+import { ReactComponent as HeaderDeleteIcon } from './icons/HeaderDeleteIcon.svg';
+import { ReactComponent as HeaderDuplicateIcon } from './icons/HeaderDuplicateIcon.svg';
+import WorkflowSidebar from './components/WorkflowSidebar';
+import ComponentsBar from './components/ComponentsBar';
 
 const initialNodes = [
   {
@@ -89,6 +98,7 @@ const initialEdges = [
 ];
 
 const AetherCanvas = () => {
+  const sidebarRef = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [draggedType, setDraggedType] = React.useState(null);
@@ -110,7 +120,7 @@ const AetherCanvas = () => {
   // Example VRAM data (replace with real data integration)
   const vramData = [
     { modelName: 'qwen2.5:7b', color: '#7ad0ff', usedGB: 6.2, totalGB: 12 },
-    { modelName: 'llama3:8b', color: '#ff7ad0', usedGB: 3.8, totalGB: 12 },
+    { modelName: 'llama3.2:3b', color: '#ff7ad0', usedGB: 2.8, totalGB: 12 },
   ];
   // Example node execution data (replace with real data integration)
   const [nodeExecutionData, setNodeExecutionData] = React.useState({});
@@ -138,7 +148,7 @@ const AetherCanvas = () => {
     setNodes(prevNodes => prevNodes.map(n => n.id === updatedNode.id ? updatedNode : n));
   };
 
-  const flowRunner = useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNodes);
+  const flowRunner = useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNodes, setNodeExecutionData);
   const runningNodes = flowRunner.runningNodes;
   const isFlowRunning = flowRunner.isFlowRunning;
   const runNode = flowRunner.runNode;
@@ -312,12 +322,43 @@ const AetherCanvas = () => {
   });
   const { handleCanvasClick, handleDragStart, handleDrop, handleDragOver, handleGroupNodes } = handlers;
 
-  // Connect and selection handlers
+  // --- WORKFLOW STATE ---
+  const [activeWorkflow, setActiveWorkflow] = React.useState(null);
+
+  // Handler for selecting/loading a workflow from sidebar
+  const handleWorkflowSelect = (workflow) => {
+    if (workflow && workflow.nodes && workflow.edges) {
+      setNodes(workflow.nodes);
+      setEdges(workflow.edges);
+      setActiveWorkflow(workflow);
+    } else {
+      setNodes(initialNodes);
+      setEdges(initialEdges);
+      setActiveWorkflow(null);
+    }
+  };
+
+  const handleRenameGroup = (groupId, newName) => {
+    setNodes(nds => nds.map(n =>
+      n.id === groupId ? { ...n, data: { ...n.data, label: newName } } : n
+    ));
+  };
+
+  useEffect(() => {
+    if (selectedNodeIds.length === 1) {
+      setSelectedInspectorNode(nodes.find(n => n.id === selectedNodeIds[0]) || null);
+    } else {
+      setSelectedInspectorNode(null);
+    }
+  }, [selectedNodeIds, nodes]);
+
+  // --- CANVAS FLOW HANDLERS ---
   const onConnect = useCallback((params) => setEdges((eds) => addEdge({ ...params, animated: true }, eds)), [setEdges]);
   const onSelectionChange = useCallback(({ nodes: selectedNodes }) => {
     setSelectedNodeIds(selectedNodes.map(n => n.id));
   }, []);
 
+  // --- GOAL FLOW WIZARD HANDLER ---
   const handleGenerateGoalFlow = async (goalText) => {
     setGoalLoading(true);
     try {
@@ -338,20 +379,6 @@ const AetherCanvas = () => {
       setGoalLoading(false);
     }
   };
-
-  const handleRenameGroup = (groupId, newName) => {
-    setNodes(nds => nds.map(n =>
-      n.id === groupId ? { ...n, data: { ...n.data, label: newName } } : n
-    ));
-  };
-
-  useEffect(() => {
-    if (selectedNodeIds.length === 1) {
-      setSelectedInspectorNode(nodes.find(n => n.id === selectedNodeIds[0]) || null);
-    } else {
-      setSelectedInspectorNode(null);
-    }
-  }, [selectedNodeIds, nodes]);
 
   // Memoized visible nodes and edges
   const visibleNodes = useMemo(() => {
@@ -380,57 +407,85 @@ const AetherCanvas = () => {
     <div className={styles.canvasContainer}>
       <div className={styles.headerBar}>
         <div className={styles.headerTitle}>Aether Canvas</div>
-        <div className={styles.headerDesc}>Visual workflow builder for orchestrating agent and tool flows</div>
+        <div className={styles.headerDesc}></div>
         {showVRAMBar && (
           <VRAMBar vramData={vramData} onBarClick={() => {/* TODO: Open Model Manager filtered to loaded */}} />
         )}
-        <button
-          className={styles.headerBarBtn}
-          style={{ marginLeft: 12 }}
-          onClick={() => setShowExplainPanel(v => !v)}
-          title={showExplainPanel ? 'Hide Explain Panel' : 'Show Explain Panel'}
-        >
-          {showExplainPanel ? 'Hide Explain' : 'Show Explain'}
-        </button>
-        <AetherCanvasToolbar
-          onExport={handleExport}
-          onImport={handleImport}
-          onShowGoalWizard={() => setShowGoalWizard(true)}
-          onRunFlow={runFlow}
-          isFlowRunning={isFlowRunning}
-          nodes={nodes}
-          showOutputSidebar={showOutputSidebar}
-          setShowOutputSidebar={setShowOutputSidebar}
-          onUndo={undoRedo.handleUndo}
-          onRedo={undoRedo.handleRedo}
-          undoDisabled={undoRedo.history.length === 0}
-          redoDisabled={undoRedo.future.length === 0}
-          selectedNodeIds={selectedNodeIds}
-          onDeleteSelected={() => {
-            setNodes(nds => nds.filter(n => !selectedNodeIds.includes(n.id)));
-            setEdges(eds => eds.filter(e => !selectedNodeIds.includes(e.source) && !selectedNodeIds.includes(e.target)));
-            setSelectedNodeIds([]);
-          }}
-          onDuplicateSelected={() => {
-            const newIds = [];
-            const dupNodes = nodes.filter(n => selectedNodeIds.includes(n.id)).map((n, i) => {
-              const newId = `d${Date.now()}${i}`;
-              newIds.push(newId);
-              return { ...n, id: newId, position: { ...n.position, x: n.position.x + 40, y: n.position.y + 40 } };
-            });
-            const dupEdges = edges.filter(e => selectedNodeIds.includes(e.source) && selectedNodeIds.includes(e.target)).map((e, i) => {
-              const srcIdx = selectedNodeIds.indexOf(e.source);
-              const tgtIdx = selectedNodeIds.indexOf(e.target);
-              if (srcIdx !== -1 && tgtIdx !== -1) {
-                return { ...e, id: `de${Date.now()}${srcIdx}${tgtIdx}`, source: newIds[srcIdx], target: newIds[tgtIdx] };
-              }
-              return null;
-            }).filter(Boolean);
-            setNodes(nds => [...nds, ...dupNodes]);
-            setEdges(eds => [...eds, ...dupEdges]);
-            setSelectedNodeIds(newIds);
-          }}
-        />
+        {/* Insert ComponentsBar directly in the header for better alignment */}
+        <div style={{ marginLeft: 18, marginRight: 12, display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+          <ComponentsBar sidebarRef={sidebarRef} onComponentDragStart={handleDragStart} compact={true} />
+        </div>
+        <div className={styles.headerActions}>
+          <button className={styles.headerIconBtn} onClick={handleExport} title="Export Workflow">
+            <HeaderExportIcon />
+          </button>
+          <label className={styles.headerIconBtn} title="Import Workflow">
+            <HeaderImportIcon />
+            <input type="file" accept="application/json" style={{ display: 'none' }} onChange={handleImport} />
+          </label>
+          <button className={styles.headerIconBtn} onClick={() => setShowGoalWizard(true)} title="Goal-to-Flow Wizard">
+            <WizardIcon style={{ width: 28, height: 28, display: 'block' }} />
+          </button>
+          <button className={styles.headerIconBtn} onClick={runFlow} title="Run Flow" disabled={isFlowRunning || nodes.length === 0}>
+            <HeaderRunIcon />
+          </button>
+          <button className={styles.headerIconBtn} onClick={() => setShowOutputSidebar(v => !v)} title={showOutputSidebar ? 'Hide Output Log' : 'Show Output Log'}>
+            {showOutputSidebar ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="12" cy="12" rx="8.5" ry="5.5" stroke="#7ad0ff" strokeWidth="2" fill="#23253a" />
+                <circle cx="12" cy="12" r="2.8" fill="#7ad0ff" stroke="#00eaff" strokeWidth="1.2"/>
+                <path d="M4 4L20 20" stroke="#ff5f5f" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="12" cy="12" rx="8.5" ry="5.5" stroke="#7ad0ff" strokeWidth="2" fill="#23253a" />
+                <circle cx="12" cy="12" r="2.8" fill="#7ad0ff" stroke="#00eaff" strokeWidth="1.2"/>
+                <ellipse cx="12" cy="12" rx="8.5" ry="5.5" stroke="#00eaff" strokeWidth="0.8" fill="none"/>
+              </svg>
+            )}
+          </button>
+          <button className={styles.headerIconBtn} onClick={undoRedo.handleUndo} title="Undo (Ctrl+Z)" disabled={undoRedo.history.length === 0}>
+            <HeaderUndoIcon />
+          </button>
+          <button className={styles.headerIconBtn} onClick={undoRedo.handleRedo} title="Redo (Ctrl+Y or Ctrl+Shift+Z)" disabled={undoRedo.future.length === 0}>
+            <HeaderRedoIcon />
+          </button>
+          {selectedNodeIds.length > 0 && (
+            <button className={styles.headerIconBtn} onClick={() => {
+              setNodes(nds => nds.filter(n => !selectedNodeIds.includes(n.id)));
+              setEdges(eds => eds.filter(e => !selectedNodeIds.includes(e.source) && !selectedNodeIds.includes(e.target)));
+              setSelectedNodeIds([]);
+            }} title="Delete Selected (Del/Backspace)">
+              <HeaderDeleteIcon />
+            </button>
+          )}
+          {selectedNodeIds.length > 0 && (
+            <button className={styles.headerIconBtn} onClick={() => {
+              const newIds = [];
+              const dupNodes = nodes.filter(n => selectedNodeIds.includes(n.id)).map((n, i) => {
+                const newId = `d${Date.now()}${i}`;
+                newIds.push(newId);
+                return { ...n, id: newId, position: { ...n.position, x: n.position.x + 40, y: n.position.y + 40 } };
+              });
+              const dupEdges = edges.filter(e => selectedNodeIds.includes(e.source) && selectedNodeIds.includes(e.target)).map((e, i) => {
+                const srcIdx = selectedNodeIds.indexOf(e.source);
+                const tgtIdx = selectedNodeIds.indexOf(e.target);
+                if (srcIdx !== -1 && tgtIdx !== -1) {
+                  return { ...e, id: `de${Date.now()}${srcIdx}${tgtIdx}`, source: newIds[srcIdx], target: newIds[tgtIdx] };
+                }
+                return null;
+              }).filter(Boolean);
+              setNodes(nds => [...nds, ...dupNodes]);
+              setEdges(eds => [...eds, ...dupEdges]);
+              setSelectedNodeIds(newIds);
+            }} title="Duplicate Selected (Ctrl+D)">
+              <HeaderDuplicateIcon />
+            </button>
+          )}
+          <button className={styles.headerBarBtn} style={{ marginLeft: 12 }} onClick={() => setShowExplainPanel(v => !v)} title={showExplainPanel ? 'Hide Explain Panel' : 'Show Explain Panel'}>
+            {showExplainPanel ? 'Hide Explain' : 'Show Explain'}
+          </button>
+        </div>
       </div>
       {showGoalWizard && (
         <GoalToFlowWizardPanel
@@ -441,13 +496,18 @@ const AetherCanvas = () => {
         />
       )}
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+        <div ref={sidebarRef} style={{ height: '100%' }}>
+          <WorkflowSidebar
+            onWorkflowSelect={handleWorkflowSelect}
+            activeWorkflow={activeWorkflow}
+            nodes={nodes}
+            edges={edges}
+            setNodes={setNodes}
+            setEdges={setEdges}
+          />
+        </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className={styles.canvasArea} onClick={handleCanvasClick}>
-            <NodePalette
-              onDragStart={handleDragStart}
-              selectedNodeIds={selectedNodeIds}
-              onGroupNodes={handleGroupNodes}
-            />
             <div style={{ flex: 1, height: '100%', position: 'relative', display: 'flex' }}>
               <CanvasFlow
                 visibleNodes={visibleNodes.map(n => nodesWithHandlers.find(nn => nn.id === n.id) || n)}
@@ -474,9 +534,9 @@ const AetherCanvas = () => {
               {showExplainPanel && (
                 <ExplainPanel
                   selectedNode={selectedNodeIds.length === 1 ? nodes.find(n => n.id === selectedNodeIds[0]) : null}
-                  nodeExecutionData={nodeExecutionData}
+                  nodeExecutionData={selectedNodeIds.length === 1 ? { ...(nodeExecutionData[selectedNodeIds[0]] || {}) } : {}}
                   loading={explainPanelLoading}
-                  error={explainPanelError}
+                  error={explainPanelError || (selectedNodeIds.length === 1 && nodeExecutionData[selectedNodeIds[0]] && nodeExecutionData[selectedNodeIds[0]].error) || null}
                 />
               )}
             </div>

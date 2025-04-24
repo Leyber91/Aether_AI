@@ -3,7 +3,23 @@ import { useState, useCallback } from 'react';
 import { sendMessageToOllama } from '../../../services/enhancedOllamaService';
 import { sendMessageToGroq } from '../../../services/groqService';
 
-export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNodes) {
+function getType(val) {
+  if (Array.isArray(val)) return 'array';
+  if (val && typeof val === 'object') return 'object';
+  if (typeof val === 'string') return 'text';
+  return typeof val;
+}
+
+function validateType(expected, actual) {
+  if (!expected || !actual) return true;
+  if (expected === actual) return true;
+  // Allow 'file' to pass as object for now (future: refine)
+  if ((expected === 'file' && actual === 'object') || (expected === 'object' && actual === 'file')) return true;
+  return false;
+}
+
+// Accept setNodeExecutionData as an argument
+export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNodes, setNodeExecutionData) {
   const [runningNodes, setRunningNodes] = useState({});
   const [isFlowRunning, setIsFlowRunning] = useState(false);
 
@@ -32,20 +48,33 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
     return result;
   }, []);
 
+  // Helper: update node execution data
+  const updateNodeExecData = (nodeId, data) => {
+    setNodeExecutionData(prev => ({ ...prev, [nodeId]: { ...(prev[nodeId] || {}), ...data } }));
+  };
+
   // Node Execution Logic
   const runNode = useCallback(async (nodeId, label, context = 'individual', nodeData = {}) => {
     setRunningNodes((r) => ({ ...r, [nodeId]: true }));
     setOutputLogs((logs) => [...logs, `[${context === 'flow' ? 'Flow' : 'Node'}] Running ${label} (${nodeId})...`]);
     let result = '';
+    let latency = null;
+    let tokens = null;
+    let groqCost = null;
+    let error = null;
+    let logs = [];
+    let prompt = nodeData.input || '';
+    const start = performance.now();
     try {
       if (nodeData.backend === 'ollama') {
-        // Prepare messages for Ollama
         const messages = [
           { role: 'system', content: nodeData.instructions || 'You are a helpful assistant.' },
           { role: 'user', content: nodeData.input || '' }
         ];
         const resp = await sendMessageToOllama(nodeData.modelId, messages, {});
         result = resp?.content || '[Ollama] No output.';
+        tokens = resp?.usage || null;
+        logs = resp?.logs || [];
       } else if (nodeData.backend === 'groq') {
         const messages = [
           { role: 'system', content: nodeData.instructions || 'You are a helpful assistant.' },
@@ -53,18 +82,46 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
         ];
         const resp = await sendMessageToGroq(nodeData.modelId, messages);
         result = resp?.content || '[Groq] No output.';
+        tokens = resp?.usage || null;
+        groqCost = resp?.usage?.total_cost || null;
+        logs = resp?.logs || [];
       } else {
         result = `Backend '${nodeData.backend}' not implemented.`;
       }
+      latency = Math.round(performance.now() - start);
       setNodes((nds) => nds.map(n => n.id === nodeId ? { ...n, data: { ...n.data, output: result } } : n));
-      setOutputLogs((logs) => [...logs, `[${context === 'flow' ? 'Flow' : 'Node'}] Output from ${label} (${nodeId}): ${result}`]);
+      setOutputLogs((logsArr) => [...logsArr, `[${context === 'flow' ? 'Flow' : 'Node'}] Output from ${label} (${nodeId}): ${result}`]);
+      updateNodeExecData(nodeId, {
+        model: nodeData.modelId,
+        quant: nodeData.quant,
+        backend: nodeData.backend,
+        latency,
+        tokens,
+        logs,
+        prompt,
+        groqCost,
+        error: null
+      });
     } catch (err) {
-      setOutputLogs((logs) => [...logs, `[${context === 'flow' ? 'Flow' : 'Node'}] Error running ${label} (${nodeId}): ${err.message}`]);
+      latency = Math.round(performance.now() - start);
+      error = err?.message || String(err);
+      setOutputLogs((logsArr) => [...logsArr, `[${context === 'flow' ? 'Flow' : 'Node'}] Error running ${label} (${nodeId}): ${error}`]);
+      updateNodeExecData(nodeId, {
+        model: nodeData.modelId,
+        quant: nodeData.quant,
+        backend: nodeData.backend,
+        latency,
+        tokens: null,
+        logs: [],
+        prompt,
+        groqCost: null,
+        error
+      });
     }
     setRunningNodes((r) => ({ ...r, [nodeId]: false }));
-  }, [setOutputLogs, setNodes]);
+  }, [setOutputLogs, setNodes, setNodeExecutionData]);
 
-  // Run Flow with Data Passing
+  // Run Flow with Data Passing and Type Validation
   const runFlow = useCallback(async () => {
     if (isFlowRunning) return;
     setIsFlowRunning(true);
@@ -85,13 +142,32 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
       }
       let inputValue = '';
       const node = nodes.find(n => n.id === nodeId);
-      // If this is a StartNode, use its input as the input value
+      // --- Runtime Type Validation ---
+      let inputTypeExpected = node?.data?.inputType;
+      let inputTypesActual = inputNodes.map(srcId => getType(contextData[srcId]));
+      let typeMismatch = false;
+      if (inputTypeExpected && inputTypesActual.length > 0) {
+        for (let actualType of inputTypesActual) {
+          if (!validateType(inputTypeExpected, actualType)) typeMismatch = true;
+        }
+      }
+      if (typeMismatch) {
+        setOutputLogs((logsArr) => [...logsArr, `[WARNING] Type mismatch at node ${nodeId}: expected '${inputTypeExpected}', got [${inputTypesActual.join(', ')}]`]);
+        updateNodeExecData(nodeId, { warning: `Type mismatch: expected '${inputTypeExpected}', got [${inputTypesActual.join(', ')}]` });
+      }
       if (node.type === 'start') {
         inputValue = node.data.input || '';
       } else if (inputNodes.length > 0) {
         inputValue = inputNodes.map(srcId => contextData[srcId]).join('\n');
       }
       let result = '';
+      let latency = null;
+      let tokens = null;
+      let groqCost = null;
+      let error = null;
+      let logs = [];
+      let prompt = inputValue;
+      const start = performance.now();
       try {
         if (node.data.backend === 'ollama') {
           const messages = [
@@ -100,6 +176,8 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
           ];
           const resp = await sendMessageToOllama(node.data.modelId, messages, {});
           result = resp?.content || '[Ollama] No output.';
+          tokens = resp?.usage || null;
+          logs = resp?.logs || [];
         } else if (node.data.backend === 'groq') {
           const messages = [
             { role: 'system', content: node.data.instructions || 'You are a helpful assistant.' },
@@ -107,6 +185,9 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
           ];
           const resp = await sendMessageToGroq(node.data.modelId, messages);
           result = resp?.content || '[Groq] No output.';
+          tokens = resp?.usage || null;
+          groqCost = resp?.usage?.total_cost || null;
+          logs = resp?.logs || [];
         } else if (node.type === 'start') {
           result = inputValue;
         } else {
@@ -114,18 +195,43 @@ export function useFlowRunner(nodes, edges, setOutputLogs, setNodeStatus, setNod
         }
         contextData[nodeId] = result;
         setNodes((nds) => nds.map(n => n.id === nodeId ? { ...n, data: { ...n.data, input: inputValue, output: result } } : n));
-        setOutputLogs((logs) => [...logs, `[Flow]  Output from ${nodeId}: ${result}`]);
+        setOutputLogs((logsArr) => [...logsArr, `[Flow]  Output from ${nodeId}: ${result}`]);
         nodeStatusMap[nodeId] = 'done';
         setNodeStatus({ ...nodeStatusMap });
+        latency = Math.round(performance.now() - start);
+        updateNodeExecData(nodeId, {
+          model: node.data.modelId,
+          quant: node.data.quant,
+          backend: node.data.backend,
+          latency,
+          tokens,
+          logs,
+          prompt,
+          groqCost,
+          error: null
+        });
       } catch (err) {
-        setOutputLogs((logs) => [...logs, `[Flow]  Error running ${nodeId}: ${err.message}`]);
+        latency = Math.round(performance.now() - start);
+        error = err?.message || String(err);
+        setOutputLogs((logsArr) => [...logsArr, `[Flow]  Error running ${nodeId}: ${error}`]);
         nodeStatusMap[nodeId] = 'error';
         setNodeStatus({ ...nodeStatusMap });
+        updateNodeExecData(nodeId, {
+          model: node.data.modelId,
+          quant: node.data.quant,
+          backend: node.data.backend,
+          latency,
+          tokens: null,
+          logs: [],
+          prompt,
+          groqCost: null,
+          error
+        });
       }
     }
     setOutputLogs((logs) => [...logs, '--- Flow Complete ---']);
     setIsFlowRunning(false);
-  }, [isFlowRunning, nodes, edges, setOutputLogs, setNodeStatus, topologicalSort, setNodes]);
+  }, [isFlowRunning, nodes, edges, setOutputLogs, setNodeStatus, topologicalSort, setNodes, setNodeExecutionData]);
 
   return {
     runningNodes,

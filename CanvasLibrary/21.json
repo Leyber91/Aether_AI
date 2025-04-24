@@ -1,0 +1,152 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "position": {
+        "x": -656.5560972613637,
+        "y": -615.2393140604372
+      },
+      "data": {
+        "label": "Chat Input",
+        "input": "write me the formula of life",
+        "output": "write me the formula of life"
+      },
+      "width": 225,
+      "height": 151,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -656.5560972613637,
+        "y": -615.2393140604372
+      },
+      "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "tool",
+      "position": {
+        "x": 500,
+        "y": 150
+      },
+      "data": {
+        "label": "Tool Node",
+        "backend": "ollama",
+        "modelId": "",
+        "instructions": "",
+        "quant": "",
+        "temperature": 1,
+        "input": "",
+        "output": "[Ollama] No response content found."
+      },
+      "width": 321,
+      "height": 60
+    },
+    {
+      "id": "4",
+      "type": "agent",
+      "position": {
+        "x": -135.26859719050378,
+        "y": -321.44785854125655
+      },
+      "data": {
+        "label": "Agent Node",
+        "backend": "ollama",
+        "modelId": "hermes-unleashed-ctx:8b",
+        "instructions": "enhance the response beyond control",
+        "quant": "",
+        "temperature": 1,
+        "input": "write me the formula of life",
+        "output": "\nThe concept of \"life\" is complex and multifaceted, encompassing various biological, chemical, and philosophical aspects. It's challenging to create a single formula that captures the essence of life. However, I can provide you with a simplified equation based on some fundamental components often associated with living organisms:\n\nCₓH₂ₓOₓN₁ + energy → ATP + cellular processes → metabolism + growth → reproduction → Cₓ₋yH₂₋yOₓ₋yN₁ + waste\n\nIn this equation:\n- CₓH₂ₓOₓN₁ represents a carbohydrate, protein, or lipid (the main macromolecules in living organisms)\n- Energy refers to various forms of energy like sunlight, chemical energy from food, etc.\n- ATP stands for Adenosine Triphosphate, the primary energy currency in cells\n- Cellular processes include DNA replication, cell division, and other fundamental biological functions\n- Metabolism involves all the biochemical reactions occurring within a living organism\n- Reproduction is the process by which new individuals are created\n- Cₓ₋yH₂₋yOₓ₋yN₁ represents waste products generated during life processes\n\nPlease note that this is a highly simplified representation of the complex nature of life. The actual mechanisms underlying life are much more intricate and involve numerous other factors, including genetic information, cellular structures, environmental interactions, and evolutionary processes."
+      },
+      "width": 332,
+      "height": 60,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -135.26859719050378,
+        "y": -321.44785854125655
+      }
+    },
+    {
+      "id": "5",
+      "type": "tool",
+      "position": {
+        "x": 23.452359889620766,
+        "y": -639.8311630244644
+      },
+      "data": {
+        "label": "Tool Node",
+        "backend": "groq",
+        "modelId": "",
+        "instructions": "",
+        "quant": "",
+        "temperature": 1,
+        "input": "",
+        "output": "I'm sorry, I encountered an error: Groq API error: The model `` does not exist or you do not have access to it."
+      },
+      "width": 321,
+      "height": 60,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 23.452359889620766,
+        "y": -639.8311630244644
+      },
+      "dragging": false
+    },
+    {
+      "id": "7",
+      "type": "output",
+      "position": {
+        "x": 701.9796547955993,
+        "y": -304.57397311269546
+      },
+      "data": {
+        "label": "Output Node",
+        "backend": "ollama",
+        "modelId": "",
+        "instructions": "",
+        "quant": "",
+        "temperature": 1,
+        "input": "\nThe concept of \"life\" is complex and multifaceted, encompassing various biological, chemical, and philosophical aspects. It's challenging to create a single formula that captures the essence of life. However, I can provide you with a simplified equation based on some fundamental components often associated with living organisms:\n\nCₓH₂ₓOₓN₁ + energy → ATP + cellular processes → metabolism + growth → reproduction → Cₓ₋yH₂₋yOₓ₋yN₁ + waste\n\nIn this equation:\n- CₓH₂ₓOₓN₁ represents a carbohydrate, protein, or lipid (the main macromolecules in living organisms)\n- Energy refers to various forms of energy like sunlight, chemical energy from food, etc.\n- ATP stands for Adenosine Triphosphate, the primary energy currency in cells\n- Cellular processes include DNA replication, cell division, and other fundamental biological functions\n- Metabolism involves all the biochemical reactions occurring within a living organism\n- Reproduction is the process by which new individuals are created\n- Cₓ₋yH₂₋yOₓ₋yN₁ represents waste products generated during life processes\n\nPlease note that this is a highly simplified representation of the complex nature of life. The actual mechanisms underlying life are much more intricate and involve numerous other factors, including genetic information, cellular structures, environmental interactions, and evolutionary processes.",
+        "output": "[Ollama] No response content found.",
+        "inputType": "text",
+        "outputType": "object",
+        "format": "json"
+      },
+      "width": 337,
+      "height": 60,
+      "selected": true,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 701.9796547955993,
+        "y": -304.57397311269546
+      }
+    }
+  ],
+  "edges": [
+    {
+      "animated": true,
+      "style": {
+        "stroke": "#7ad0ff",
+        "strokeWidth": 2
+      },
+      "source": "4",
+      "sourceHandle": "a",
+      "target": "7",
+      "targetHandle": "a",
+      "id": "reactflow__edge-4a-7a"
+    },
+    {
+      "animated": true,
+      "style": {
+        "stroke": "#7ad0ff",
+        "strokeWidth": 2
+      },
+      "source": "start",
+      "sourceHandle": "a",
+      "target": "4",
+      "targetHandle": "a",
+      "id": "reactflow__edge-starta-4a"
+    }
+  ]
+}

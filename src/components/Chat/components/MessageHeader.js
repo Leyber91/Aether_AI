@@ -1,4 +1,5 @@
 import React from 'react';
+import MessageContent from './MessageContent.js';
 
 const MessageHeader = ({ isUserMessage, conversation, message }) => {
   return (

@@ -1,4 +1,4 @@
-import { getTokenUsageStats, getModelLimits, calculateUsagePercent } from './statistics';
+import { getTokenUsageStats, getModelLimits, calculateUsagePercent } from './statistics.js';
 
 /**
  * Check if a model has reached its usage limits

@@ -1,5 +1,5 @@
-import { saveToStorage, getFromStorage } from '../storage';
-import { STORAGE_KEYS, EXPIRATION } from './constants';
+import { saveToStorage, getFromStorage } from '../storage.js';
+import { STORAGE_KEYS, EXPIRATION } from './constants.js';
 
 /**
  * Generate date keys for current usage tracking

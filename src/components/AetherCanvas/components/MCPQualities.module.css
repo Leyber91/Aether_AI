@@ -1,0 +1,113 @@
+/* MCPQualities.module.css - Custom styling for the MCP Qualities section in the Node Inspector Panel */
+
+.mcpQualitiesSection {
+  margin-top: 18px;
+  margin-bottom: 12px;
+}
+
+.mcpQualityBox {
+  background: rgba(36, 48, 80, 0.98);
+  border: 1.5px solid #35385a;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 #00eaff33;
+  padding: 12px 16px 12px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border 0.18s, box-shadow 0.18s;
+}
+.mcpQualityBox:hover {
+  border-color: #7ad0ff;
+  box-shadow: 0 4px 16px 0 #7ad0ff44;
+}
+
+.mcpQualityHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.mcpQualityType {
+  font-weight: 600;
+  color: #7ad0ff;
+  font-size: 1.08em;
+  margin-right: 8px;
+}
+.mcpQualityStatus {
+  font-size: 0.98em;
+  font-weight: 500;
+  margin-right: 8px;
+}
+.mcpRemoveBtn {
+  background: none;
+  border: none;
+  color: #ff5c5c;
+  font-size: 1.25em;
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 0.15s;
+}
+.mcpRemoveBtn:hover {
+  color: #ffe066;
+}
+.mcpQualityConfig {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+.mcpQualityLabel {
+  color: #b0b6c9;
+  font-size: 0.98em;
+  margin-right: 4px;
+}
+.mcpQualityInput {
+  background: #23253a;
+  border: 1.5px solid #35385a;
+  border-radius: 6px;
+  color: #e3e5f7;
+  padding: 4px 8px;
+  font-size: 0.98em;
+  outline: none;
+  min-width: 120px;
+  transition: border 0.15s;
+}
+.mcpQualityInput:focus {
+  border-color: #7ad0ff;
+}
+.mcpTestBtn {
+  background: linear-gradient(90deg, #23253a 60%, #00eaff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 0.97em;
+  cursor: pointer;
+  margin-left: 6px;
+  box-shadow: 0 1px 4px 0 #00eaff33;
+  transition: background 0.17s, color 0.17s;
+}
+.mcpTestBtn:hover {
+  background: linear-gradient(90deg, #00eaff 20%, #23253a 100%);
+  color: #7ad0ff;
+}
+.mcpAddBtn {
+  background: linear-gradient(90deg, #23253a 60%, #7ad0ff 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 0;
+  font-weight: 600;
+  font-size: 1em;
+  margin-top: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 6px 0 #7ad0ff33;
+  transition: background 0.17s, color 0.17s;
+}
+.mcpAddBtn:hover {
+  background: linear-gradient(90deg, #7ad0ff 20%, #23253a 100%);
+  color: #00eaff;
+}

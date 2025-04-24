@@ -1,0 +1,18 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <defs>
+    <radialGradient id="export-glow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#7ad0ff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#23253a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="export-shadow" x="0" y="0" width="28" height="28">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#7ad0ff" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect x="3" y="3" width="22" height="22" rx="6" fill="#181a2a" stroke="#7ad0ff" stroke-width="2.2"/>
+  <circle cx="14" cy="14" r="11" fill="url(#export-glow)"/>
+  <g filter="url(#export-shadow)">
+    <ellipse cx="14" cy="19" rx="4" ry="2" fill="#23253a" stroke="#7ad0ff" stroke-width="1.2"/>
+    <path d="M14 9l5 5" stroke="#7ad0ff" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="17,8 21,8 19,6" fill="#7ad0ff"/>
+  </g>
+</svg>

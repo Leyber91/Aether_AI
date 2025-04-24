@@ -1,0 +1,18 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <defs>
+    <radialGradient id="delete-glow" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#ff5f5f" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#23253a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="delete-shadow" x="0" y="0" width="28" height="28">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#ff5f5f" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect x="3" y="3" width="22" height="22" rx="6" fill="#181a2a" stroke="#ff5f5f" stroke-width="2.2"/>
+  <circle cx="14" cy="14" r="11" fill="url(#delete-glow)"/>
+  <g filter="url(#delete-shadow)">
+    <rect x="10" y="13" width="8" height="5" rx="2" fill="#23253a" stroke="#ff5f5f" stroke-width="1.2"/>
+    <rect x="13" y="11" width="2" height="2" rx="1" fill="#ff5f5f" fill-opacity="0.7"/>
+    <path d="M12 16l4 4m0-4l-4 4" stroke="#ff5f5f" stroke-width="2.1" stroke-linecap="round"/>
+  </g>
+</svg>
