@@ -32,6 +32,16 @@ const Navigation = ({ showLabels = true }) => {
             {showLabels && <span className="nav-label">Settings</span>}
           </button>
         </li>
+        <li className={`nav-item ${currentRoute === ROUTES.META_LOOP_LAB ? 'active' : ''}`}>
+          <button 
+            className="nav-button"
+            onClick={() => navigateTo(ROUTES.META_LOOP_LAB)}
+            aria-label="MetaLoopLab"
+          >
+            <span className="nav-icon">🔁</span>
+            {showLabels && <span className="nav-label">MetaLoopLab</span>}
+          </button>
+        </li>
       </ul>
     </nav>
   );

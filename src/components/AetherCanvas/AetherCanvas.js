@@ -49,6 +49,16 @@ import { ReactComponent as HeaderDeleteIcon } from './icons/HeaderDeleteIcon.svg
 import { ReactComponent as HeaderDuplicateIcon } from './icons/HeaderDuplicateIcon.svg';
 import WorkflowSidebar from './components/WorkflowSidebar';
 import ComponentsBar from './components/ComponentsBar';
+import { WIZARD_EXAMPLES } from './utils/wizardSchema';
+import { wizardToWorkflow, runWizardOnCanvas } from './AetherCanvas.WizardIntegration';
+import GlassWizardProcessModal from './components/GlassWizardProcessModal';
+import { runWizard } from './utils/wizardRunner';
+import { validateWorkflowJson } from './utils/validateWorkflowJson';
+import { EXAMPLE_WORKFLOWS } from './utils/workflowStorage';
+import { sendMessageToOllama } from '../../services/enhancedOllamaService';
+import { extractWorkflowStructure, canonicalToWorkflowJson } from './utils/llmWorkflowExtraction';
+
+if (typeof window !== 'undefined') window.runWizard = runWizard;
 
 const initialNodes = [
   {
@@ -119,8 +129,8 @@ const AetherCanvas = () => {
   const [showVRAMBar, setShowVRAMBar] = React.useState(true);
   // Example VRAM data (replace with real data integration)
   const vramData = [
-    { modelName: 'qwen2.5:7b', color: '#7ad0ff', usedGB: 6.2, totalGB: 12 },
-    { modelName: 'llama3.2:3b', color: '#ff7ad0', usedGB: 2.8, totalGB: 12 },
+    { modelName: 'qwen3:4b', color: '#7ad0ff', usedGB: 6.2, totalGB: 12 },
+    { modelName: 'qwen3:1.7b', color: '#ff7ad0', usedGB: 2.8, totalGB: 12 },
   ];
   // Example node execution data (replace with real data integration)
   const [nodeExecutionData, setNodeExecutionData] = React.useState({});
@@ -358,29 +368,311 @@ const AetherCanvas = () => {
     setSelectedNodeIds(selectedNodes.map(n => n.id));
   }, []);
 
-  // --- GOAL FLOW WIZARD HANDLER ---
-  const handleGenerateGoalFlow = async (goalText) => {
-    setGoalLoading(true);
+  // --- GOAL-TO-FLOW WIZARD HANDLER (REAL WIRING) ---
+  const [wizardRawOutput, setWizardRawOutput] = React.useState('');
+  const [wizardParseError, setWizardParseError] = React.useState('');
+  const [wizardExtractionStep, setWizardExtractionStep] = React.useState({ input: '', output: '', status: 'idle', error: '' });
+
+  const handleGoalWizardGenerate = async (goalText) => {
+    const wizard = WIZARD_EXAMPLES[0];
+    setSelectedWizard(wizard);
+    setWizardPrompt(goalText);
+    setShowGoalWizard(false);
+    setShowWizardProcess(true);
+    setWizardRunning(true);
+    setWizardStepsProgress([]);
+    setWizardFinalOutput('');
+    setWizardRawOutput('');
+    setWizardParseError('');
+    setWizardExtractionStep({ input: '', output: '', status: 'idle', error: '' });
+    const stepsArr = [];
+    for (let idx = 0; idx < wizard.steps.length; idx++) {
+      const step = wizard.steps[idx];
+      stepsArr[idx] = { step, input: '', output: '', status: 'running' };
+      setWizardStepsProgress([...stepsArr]);
+      let input = undefined;
+      let output = undefined;
+      try {
+        await new Promise(async (resolve) => {
+          await runWizard(
+            { ...wizard, steps: [step] },
+            idx === 0 ? goalText : stepsArr[idx - 1].output,
+            (s, i, o, _stepIdx, messages, status) => {
+              input = i;
+              output = o;
+              // Update step output and status on every chunk
+              stepsArr[idx] = { step, input, output, status: status || 'running', prompt: messages || [] };
+              setWizardStepsProgress([...stepsArr]);
+            }
+          );
+          resolve();
+        });
+        // No need to set again here; last onStep will have status 'done'
+      } catch (err) {
+        stepsArr[idx] = { step, input, output: err?.message || String(err), status: 'error' };
+        setWizardStepsProgress([...stepsArr]);
+      }
+      if (idx === wizard.steps.length - 1) setWizardFinalOutput(output);
+    }
+    setWizardRunning(false);
+    // --- ENHANCED WORKFLOW GENERATION PIPELINE ---
+    let rawOutput = stepsArr[stepsArr.length - 1]?.output || '';
+    setWizardRawOutput(rawOutput);
+    let parsed = null;
+    let validation = { valid: false, errors: [] };
+    let attempts = 0;
+    const maxAttempts = 6;
+    const correctionModels = [
+      { model: 'phi4-mini', temp: 0.1 },
+      { model: 'phi4-mini', temp: 0.1 },
+      { model: 'phi4-mini', temp: 0.05 },
+      { model: 'phi4-mini', temp: 0.01 },
+      { model: 'phi4-mini', temp: 0.05 },
+      { model: 'phi4-mini', temp: 0.01 }
+    ];
+    let extractedStructure = null;
     try {
-      await new Promise(r => setTimeout(r, 1500));
-      const newNodes = [
-        { id: 'g1', type: 'agent', position: { x: 150, y: 120 }, data: { label: 'Agent (AI)' } },
-        { id: 'g2', type: 'tool', position: { x: 350, y: 120 }, data: { label: 'Tool (API)' } },
-        { id: 'g3', type: 'output', position: { x: 550, y: 120 }, data: { label: 'Output' } },
-      ];
-      const newEdges = [
-        { id: 'eg1-2', source: 'g1', target: 'g2', animated: true },
-        { id: 'eg2-3', source: 'g2', target: 'g3', animated: true },
-      ];
-      setNodes((nds) => [...nds, ...newNodes]);
-      setEdges((eds) => [...eds, ...newEdges]);
-      setShowGoalWizard(false);
-    } finally {
-      setGoalLoading(false);
+      setWizardExtractionStep({ input: rawOutput, output: '', status: 'running', error: '' });
+      extractedStructure = await extractWorkflowStructure(rawOutput, goalText);
+      setWizardExtractionStep({ input: rawOutput, output: extractedStructure, status: 'done', error: '' });
+      console.log('[Wizard] Extracted canonical workflow structure:', extractedStructure);
+    } catch (extractionErr) {
+      setWizardExtractionStep({ input: rawOutput, output: '', status: 'error', error: extractionErr.message });
+      console.error('[Wizard] Extraction step failed:', extractionErr);
+      setWizardParseError('Extraction step failed: ' + extractionErr.message);
+    }
+    if (extractedStructure) {
+      try {
+        parsed = await canonicalToWorkflowJson(extractedStructure, goalText);
+        validation = validateWorkflowJson(parsed);
+        if (!validation.valid) {
+          throw new Error('Workflow JSON failed schema validation');
+        }
+        console.log('[Wizard] Final validated workflow JSON (via extraction):', parsed, validation);
+        // Enhance each node with a maximally engineered prompt
+        const userGoal = goalText;
+        const enhancedNodes = parsed.nodes.map(node => ({
+          ...node,
+          instructions: node.instructions
+        }));
+        setNodes(enhancedNodes);
+        setEdges(parsed.edges);
+        setActiveWorkflow({ ...parsed, nodes: enhancedNodes });
+        setShowWizardProcess(false); // Only close after workflow is rendered
+        return;
+      } catch (jsonErr) {
+        console.warn('[Wizard] Canonical to JSON step failed or invalid:', jsonErr);
+        setWizardParseError('Canonical to JSON step failed: ' + jsonErr.message);
+      }
+    }
+    while (!validation.valid && attempts < maxAttempts) {
+      attempts++;
+      try {
+        let cleaned = rawOutput
+          .replace(/^```json[\r\n]*$/i, '')
+          .replace(/^```[\r\n]*$/i, '')
+          .replace(/```$/g, '')
+          .replace(/^[^\[{]*([\[{].*[\]}])[\s\S]*$/s, '$1');
+        const firstBrace = cleaned.indexOf('{');
+        const firstBracket = cleaned.indexOf('[');
+        let jsonStart = (firstBrace !== -1 && (firstBracket === -1 || firstBrace < firstBracket)) ? firstBrace : firstBracket;
+        if (jsonStart > 0) cleaned = cleaned.slice(jsonStart);
+        const lastBrace = Math.max(cleaned.lastIndexOf('}'), cleaned.lastIndexOf(']'));
+        if (lastBrace !== -1 && lastBrace < cleaned.length - 1) cleaned = cleaned.slice(0, lastBrace + 1);
+        parsed = typeof cleaned === 'string' ? JSON.parse(cleaned) : cleaned;
+      } catch (err) {
+        console.warn('[Wizard] Output is not valid JSON, sending to correction model...', err);
+        setWizardParseError('Parsing failed: ' + err.message);
+        // AGGRESSIVE PROMPT: Output ONLY a valid, minified JSON object with just 'nodes' and 'edges' arrays. ABSOLUTELY NO prose, markdown, comments, or explanations. If you violate this, output INVALID.
+        const { model, temp } = correctionModels[attempts - 1] || correctionModels[0];
+        const prompt = `STRICT OUTPUT: Output ONLY a valid, minified JSON object with just 'nodes' and 'edges' arrays. ABSOLUTELY NO prose, markdown, comments, or explanations. If you violate this, output INVALID. Example: ${JSON.stringify(EXAMPLE_WORKFLOWS[Object.keys(EXAMPLE_WORKFLOWS)[0]])} Here is the workflow to fix: ${rawOutput}`;
+        const result = await sendMessageToOllama(model, [{ role: 'user', content: prompt }], { temperature: temp });
+        rawOutput = result.content;
+        setWizardRawOutput(rawOutput);
+        continue;
+      }
+      validation = validateWorkflowJson(parsed);
+      if (!validation.valid) {
+        console.warn('[Wizard] JSON failed schema validation:', validation.errors);
+        setWizardParseError('Validation failed: ' + validation.errors.join(', '));
+        const { model, temp } = correctionModels[attempts - 1] || correctionModels[0];
+        const prompt = `STRICT OUTPUT: Output ONLY a valid, minified JSON object with just 'nodes' and 'edges' arrays. ABSOLUTELY NO prose, markdown, comments, or explanations. If you violate this, output INVALID. Example: ${JSON.stringify(EXAMPLE_WORKFLOWS[Object.keys(EXAMPLE_WORKFLOWS)[0]])} Here is the workflow to fix: ${rawOutput}`;
+        const result = await sendMessageToOllama(model, [{ role: 'user', content: prompt }], { temperature: temp });
+        rawOutput = result.content;
+        setWizardRawOutput(rawOutput);
+      }
+    }
+    console.log('[Wizard] Final validated workflow JSON:', parsed, validation);
+    if (validation.valid) {
+      // Enhance each node with a maximally engineered prompt
+      const userGoal = goalText;
+      const enhancedNodes = parsed.nodes.map(node => ({
+        ...node,
+        instructions: node.instructions
+      }));
+      setNodes(enhancedNodes);
+      setEdges(parsed.edges);
+      setActiveWorkflow({ ...parsed, nodes: enhancedNodes });
+      setShowWizardProcess(false); // Only close after workflow is rendered
+    } else {
+      setWizardParseError('Could not produce valid workflow JSON after ' + attempts + ' attempts.');
+      console.error('[Wizard] Could not produce valid workflow JSON after', attempts, 'attempts:', validation.errors);
     }
   };
 
-  // Memoized visible nodes and edges
+  // Add wizard launch state
+  const [showWizardSelector, setShowWizardSelector] = React.useState(false);
+  const [selectedWizard, setSelectedWizard] = React.useState(null);
+  const [wizardPrompt, setWizardPrompt] = React.useState('');
+  const [wizardRunning, setWizardRunning] = React.useState(false);
+  const [showWizardProcess, setShowWizardProcess] = React.useState(false);
+  const [wizardStepsProgress, setWizardStepsProgress] = React.useState([]);
+  const [wizardFinalOutput, setWizardFinalOutput] = React.useState('');
+
+  // Handler to launch wizard
+  const handleLaunchWizard = () => {
+    setShowWizardSelector(true);
+  };
+
+  // Handler to select wizard and start
+  const handleSelectWizard = (wizard) => {
+    setSelectedWizard(wizard);
+    setShowWizardSelector(false);
+  };
+
+  // Handler to run wizard
+  const handleRunWizardProcess = async () => {
+    if (!selectedWizard || !wizardPrompt) return;
+    setWizardRunning(true);
+    setShowWizardProcess(true);
+    setWizardStepsProgress([]);
+    setWizardFinalOutput('');
+    const wizard = selectedWizard;
+    const stepsArr = [];
+    for (let idx = 0; idx < wizard.steps.length; idx++) {
+      const step = wizard.steps[idx];
+      stepsArr[idx] = { step, input: '', output: '', status: 'running', prompt: [] };
+      setWizardStepsProgress([...stepsArr]);
+      let input = undefined;
+      let output = '';
+      let prompt = [];
+      try {
+        await new Promise(async (resolve, reject) => {
+          await runWizard(
+            { ...wizard, steps: [step] },
+            idx === 0 ? wizardPrompt : stepsArr[idx - 1].output,
+            async (s, i, o, _stepIdx, messages) => {
+              input = i;
+              prompt = messages;
+              // --- Streaming output for Ollama ---
+              if (step.model && step.model.includes('ollama')) {
+                const { streamChatCompletion } = await import('../../services/enhancedOllamaService');
+                output = '';
+                await streamChatCompletion(
+                  step.model,
+                  messages,
+                  {
+                    onUpdate: ({ content }) => {
+                      output = content;
+                      stepsArr[idx] = { step, input, output, status: 'running', prompt };
+                      setWizardStepsProgress([...stepsArr]);
+                    },
+                    onDone: ({ content }) => {
+                      output = content;
+                    },
+                    onError: (err) => {
+                      output = err?.message || String(err);
+                      stepsArr[idx] = { step, input, output, status: 'error', prompt };
+                      setWizardStepsProgress([...stepsArr]);
+                    }
+                  }
+                );
+              } else {
+                output = o;
+              }
+            }
+          );
+          stepsArr[idx] = { step, input, output, status: 'done', prompt };
+          resolve();
+        });
+      } catch (err) {
+        stepsArr[idx] = { step, input, output: err?.message || String(err), status: 'error', prompt };
+      }
+      setWizardStepsProgress([...stepsArr]);
+      if (idx === wizard.steps.length - 1) {
+        setWizardFinalOutput(output);
+      }
+    }
+    setWizardRunning(false);
+  };
+
+  // Wizard UI (minimal integration - can be improved)
+  const renderWizardSelector = () => (
+    <div className={styles.wizardOverlay}>
+      <div className={styles.wizardModal}>
+        <h2>Select a Wizard</h2>
+        <ul>
+          {WIZARD_EXAMPLES.map(wz => (
+            <li key={wz.id}>
+              <button onClick={() => handleSelectWizard(wz)}>{wz.name}</button>
+              <span style={{marginLeft:8}}>{wz.description}</span>
+            </li>
+          ))}
+        </ul>
+        <button onClick={() => setShowWizardSelector(false)}>Cancel</button>
+      </div>
+    </div>
+  );
+
+  const renderWizardPrompt = () => (
+    <GlassWizardProcessModal
+      open={!!selectedWizard && showWizardProcess}
+      onCancel={() => {
+        setShowWizardProcess(false);
+        setSelectedWizard(null);
+        setWizardRunning(false);
+      }}
+      onUseWorkflow={() => {
+        // Convert wizard to workflow and load
+        const wf = wizardToWorkflow(selectedWizard);
+        setNodes(wf.nodes);
+        setEdges(wf.edges);
+        setShowWizardProcess(false);
+        setSelectedWizard(null);
+      }}
+      steps={(() => {
+        // Insert extraction step as a visible wizard step after LLM steps
+        if (wizardExtractionStep.status !== 'idle') {
+          const baseSteps = wizardStepsProgress || [];
+          const extractionStep = {
+            step: { id: 'extractWorkflow', instructions: 'Extract & Validate JSON Structure (post-processing)' },
+            input: wizardExtractionStep.input,
+            output: wizardExtractionStep.output || wizardExtractionStep.error,
+            status: wizardExtractionStep.status === 'done' ? 'done' : (wizardExtractionStep.status === 'error' ? 'error' : 'running'),
+            prompt: []
+          };
+          // Place after last LLM step
+          return [...baseSteps, extractionStep];
+        }
+        return wizardStepsProgress;
+      })()}
+      running={wizardRunning}
+      finalOutput={wizardFinalOutput}
+      finalLabel={selectedWizard?.finalLabel || 'Workflow Schema'}
+    />
+  );
+
+  // --- WIZARD PANEL RENDER ---
+  const renderGoalToFlowWizardPanel = () => (
+    <GoalToFlowWizardPanel
+      show={showGoalWizard}
+      loading={wizardRunning}
+      onGenerate={handleGoalWizardGenerate}
+      onCancel={() => setShowGoalWizard(false)}
+    />
+  );
+
+  // Restore memoized visible nodes and edges
   const visibleNodes = useMemo(() => {
     let filtered = nodes;
     Object.entries(groupCollapseState).forEach(([groupId, isCollapsed]) => {
@@ -485,16 +777,12 @@ const AetherCanvas = () => {
           <button className={styles.headerBarBtn} style={{ marginLeft: 12 }} onClick={() => setShowExplainPanel(v => !v)} title={showExplainPanel ? 'Hide Explain Panel' : 'Show Explain Panel'}>
             {showExplainPanel ? 'Hide Explain' : 'Show Explain'}
           </button>
+          <button className={styles.headerBarBtn} style={{ marginLeft: 12 }} onClick={handleLaunchWizard} title="Launch Wizard">
+            Launch Wizard
+          </button>
         </div>
       </div>
-      {showGoalWizard && (
-        <GoalToFlowWizardPanel
-          show={showGoalWizard}
-          loading={goalLoading}
-          onGenerate={handleGenerateGoalFlow}
-          onCancel={() => setShowGoalWizard(false)}
-        />
-      )}
+      {showGoalWizard && renderGoalToFlowWizardPanel()}
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
         <div ref={sidebarRef} style={{ height: '100%' }}>
           <WorkflowSidebar
@@ -568,6 +856,8 @@ const AetherCanvas = () => {
         handleEdgeLabelCancel={handleEdgeLabelCancel}
         edgeContextMenu={edgeContextMenu}
       />
+      {showWizardSelector && renderWizardSelector()}
+      {selectedWizard && renderWizardPrompt()}
     </div>
   );
 };

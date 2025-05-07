@@ -1,0 +1,15 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "seedPrompt": "lets play a twisted game",
+  "messages": [
+    "**qwen3:4b**: _[Error: Failed to fetch]_"
+  ],
+  "timestamp": "2025-05-06T17:59:58.113Z"
+}

@@ -20,12 +20,17 @@ export function useMessageHandlers({
   const { selectedModel } = useContext(ModelContext);
 
   // Send a message to a conversation
-  const sendMessage = useCallback(async (conversationId, content) => {
+  const sendMessage = useCallback(async (conversationId, content, options = {}) => {
     try {
       setIsLoading(true);
       setError(null);
       const conversation = getConversation(conversationId);
       if (!conversation) throw new Error('Conversation not found');
+      
+      // Log MCP state if present
+      if (options && typeof options.mcpEnabled !== 'undefined') {
+        console.log('[useMessageHandlers] MCP enabled:', options.mcpEnabled);
+      }
       
       const userMessage = createUserMessage(content);
       addMessageToConversation(conversationId, userMessage);
@@ -43,14 +48,11 @@ export function useMessageHandlers({
 
       // Use processModelMessage to route based on conversation.provider/modelId
       const { processModelMessage } = await import('./utils/messageHandlers');
-      // Streaming: update the assistant message as partials arrive
-      await processModelMessage(
-        conversation,
-        content,
-        messages,
-        updateTokenUsage,
-        setLastResponseUsage,
-        ({ content: partialContent, thinking, partial }) => {
+      
+      // Create a callback with guard clause to prevent unnecessary re-renders
+      const handleStreamUpdate = ({ content: partialContent, thinking, partial }) => {
+        // Only update state if we actually have new content to show
+        if (partialContent || thinking !== undefined) {
           setConversations(prev => {
             if (!Array.isArray(prev)) return prev;
             return prev.map(conv => {
@@ -70,6 +72,19 @@ export function useMessageHandlers({
             });
           });
         }
+      };
+      
+      // Streaming: update the assistant message as partials arrive
+      await processModelMessage(
+        // Pass MCP enabled flag as part of conversation if needed
+        options && typeof options.mcpEnabled !== 'undefined'
+          ? { ...conversation, mcpEnabled: options.mcpEnabled }
+          : conversation,
+        content,
+        messages,
+        updateTokenUsage,
+        setLastResponseUsage,
+        handleStreamUpdate
       ).then(response => {
         // Update assistant message with the final response
         setConversations(prev => {

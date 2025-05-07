@@ -9,13 +9,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 // API URLs
 const OLLAMA_API_URL = config.ollamaApiUrl;
-const DIRECT_OLLAMA_URL = 'http://127.0.0.1:11434/api';
+const DIRECT_OLLAMA_URL = 'http://localhost:11434/api';
+const BACKUP_OLLAMA_URLS = [
+  'http://127.0.0.1:11434/api',
+  'http://localhost:11434/api',
+];
 
 // Model IDs for app-wide consistency
 export const OLLAMA_MODELS = {
-  GENERAL: 'llama3.2:3b',
+  GENERAL: 'qwen3:1.7b',
   TITLE_GEN: 'llama3.2:1b',
   AUTOCOMPLETE: 'llama3.2:1b',
+  CODING: 'phi4-mini:latest',   // Add specialized model for code explanations
 };
 
 // --- Availability state (module-scoped, resettable for tests) ---
@@ -154,60 +159,117 @@ const sendChatCompletion = async (modelId, messages, options = {}) => {
 
 // --- Send text completion (single prompt, always streaming) ---
 export const enhanceTextWithOllama = async (modelId, messages, options = {}) => {
-  // If messages is an array with only one user message, treat as single prompt
-  let prompt = '';
-  if (Array.isArray(messages) && messages.length === 1 && messages[0].role === 'user') {
-    prompt = messages[0].content;
-  } else {
-    // Fallback: concatenate all messages
-    prompt = messages.map(msg => `${msg.role === 'system' ? 'System: ' : msg.role === 'user' ? 'User: ' : 'Assistant: '}${msg.content}`).join('\n\n');
-  }
-  const requestData = {
-    model: modelId,
-    prompt: prompt,
-    stream: true
-  };
-  if (options.temperature || options.maxTokens) {
+  let requestData = {};
+  try {
+    // Check if Ollama is running
+    const isRunning = await isOllamaRunning();
+    if (!isRunning) {
+      throw new Error('Ollama service is not running. Please start Ollama and try again.');
+    }
+
+    if (Array.isArray(messages)) {
+      // Format for API
+      requestData = {
+        model: modelId,
+        prompt: messages.length === 1 
+          ? messages[0].content 
+          : `${messages.map(m => `${m.role}: ${m.content}`).join('\n\n')}`
+      };
+    } else {
+      // Single string
+      requestData = {
+        model: modelId,
+        prompt: messages
+      };
+    }
+  
+    // Apply options
     requestData.options = {};
     if (options.temperature) requestData.options.temperature = options.temperature;
     if (options.maxTokens) requestData.options.num_predict = options.maxTokens;
-  }
-  // Use /api/generate endpoint for single prompt completion with streaming
-  const response = await fetch(`${DIRECT_OLLAMA_URL}/generate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(requestData),
-    signal: options.signal
-  });
-  if (!response.body) throw new Error('No stream body from Ollama');
-  const reader = response.body.getReader();
-  let decoder = new TextDecoder('utf-8');
-  let buffer = '';
-  let modelReply = '';
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    let lines = buffer.split('\n');
-    buffer = lines.pop();
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      let data;
-      try { data = JSON.parse(line); } catch { continue; }
-      const token = data.response || '';
-      modelReply += token;
-      if (typeof options.onUpdate === 'function') {
-        options.onUpdate({ content: modelReply, partial: true });
+    
+    // Try multiple possible Ollama endpoints
+    let response = null;
+    let errorMessages = [];
+    
+    // First try the direct URL
+    try {
+      response = await fetch(`${DIRECT_OLLAMA_URL}/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData),
+        signal: options.signal
+      });
+      
+      if (!response.ok) {
+        errorMessages.push(`Failed to reach Ollama at ${DIRECT_OLLAMA_URL}: ${response.status} ${response.statusText}`);
+        response = null;
+      }
+    } catch (error) {
+      errorMessages.push(`Error accessing ${DIRECT_OLLAMA_URL}: ${error.message}`);
+    }
+    
+    // If that fails, try backup URLs
+    if (!response) {
+      for (const backupUrl of BACKUP_OLLAMA_URLS) {
+        if (backupUrl === DIRECT_OLLAMA_URL) continue; // Skip if already tried
+        
+        try {
+          response = await fetch(`${backupUrl}/generate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData),
+            signal: options.signal
+          });
+          
+          if (response.ok) break;
+          errorMessages.push(`Failed to reach Ollama at ${backupUrl}: ${response.status} ${response.statusText}`);
+          response = null;
+        } catch (error) {
+          errorMessages.push(`Error accessing ${backupUrl}: ${error.message}`);
+        }
       }
     }
+    
+    // If all attempts fail
+    if (!response || !response.ok) {
+      console.error('All Ollama endpoints failed:', errorMessages);
+      throw new Error('Could not connect to Ollama. Please ensure Ollama is running and accessible.');
+    }
+    
+    if (!response.body) throw new Error('No stream body from Ollama');
+    const reader = response.body.getReader();
+    let decoder = new TextDecoder('utf-8');
+    let buffer = '';
+    let modelReply = '';
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        let data;
+        try { data = JSON.parse(line); } catch { continue; }
+        const token = data.response || '';
+        modelReply += token;
+        if (typeof options.onUpdate === 'function') {
+          options.onUpdate({ content: modelReply, partial: true });
+        }
+      }
+    }
+    if (!modelReply) {
+      modelReply = '[Ollama] No response content found.';
+    }
+    if (typeof options.onUpdate === 'function') {
+      options.onUpdate({ content: modelReply, partial: false });
+    }
+    return modelReply;
+  } catch (error) {
+    console.error('Error enhancing text:', error);
+    return '[Ollama] Error enhancing text.';
   }
-  if (!modelReply) {
-    modelReply = '[Ollama] No response content found.';
-  }
-  if (typeof options.onUpdate === 'function') {
-    options.onUpdate({ content: modelReply, partial: false });
-  }
-  return modelReply;
 };
 
 // --- Stream chat completion (multi-turn chat, streaming) ---

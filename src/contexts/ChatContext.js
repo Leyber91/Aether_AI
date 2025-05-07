@@ -134,7 +134,32 @@ const conversationHelpers = {
   sendMessage,
   addMessageToConversation,
   getCurrentModelUsage,
-  updateMessageInConversation
+  updateMessageInConversation,
+  // Add function to update messages locally (for UI only without persisting)
+  updateLocalMessages: (updatedConversation) => {
+    if (!updatedConversation || !updatedConversation.id) return;
+    
+    // Set the conversations with the updated conversation
+    setConversations(prev => 
+      prev.map(conv => 
+        conv.id === updatedConversation.id ? updatedConversation : conv
+      )
+    );
+    
+    // The conversations are automatically saved to storage via the useEffect in useConversations.js
+  },
+  
+  // Add a convenience method to directly save conversations
+  saveConversation: (conversation) => {
+    if (!conversation || !conversation.id) return;
+    
+    // Update the conversations in state, which will trigger the useEffect that saves to storage
+    setConversations(prev => 
+      prev.map(conv => 
+        conv.id === conversation.id ? conversation : conv
+      )
+    );
+  }
 };
 
 return (

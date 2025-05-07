@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import sidebarStyles from '../AetherCanvas.Sidebar.module.css';
-import mcpStyles from './MCPQualities.module.css';
 import ToolNodeConfig from './ToolNodeConfig';
 import FilterNodeConfig from './FilterNodeConfig';
 import OutputNodeConfig from './OutputNodeConfig';
@@ -130,101 +129,12 @@ const NodeInspectorPanel = ({ node, modelsByBackend, onChange, onRun, loading, e
             <input className={sidebarStyles.sidebarInput} type="number" min={0} max={2} step={0.01} value={temperature} onChange={e => onChange({ temperature: parseFloat(e.target.value) })} />
           </div>
         </div>
-        <div className={mcpStyles.mcpQualitiesSection}>
-          <label className={sidebarStyles.sidebarLabel}>MCP Qualities</label>
-          <div>
-            {(node.data?.mcpQualities || []).map((mcp, idx) => (
-              <div key={idx} className={mcpStyles.mcpQualityBox}>
-                <div className={mcpStyles.mcpQualityHeader}>
-                  <span className={mcpStyles.mcpQualityType}>{mcp.type}</span>
-                  <span className={mcpStyles.mcpQualityStatus} data-status={mcp.status || 'disconnected'}>
-                    {mcp.status === 'connected' ? '🟢 Connected' : '⚪ Disconnected'}
-                  </span>
-                  <button
-                    className={mcpStyles.mcpRemoveBtn}
-                    title="Remove MCP Quality"
-                    type="button"
-                    onClick={() => {
-                      const newQualities = (node.data.mcpQualities || []).filter((_, i) => i !== idx);
-                      onChange({ mcpQualities: newQualities });
-                    }}
-                  >
-                    ❌
-                  </button>
-                </div>
-                {/* MCP-specific config UI */}
-                {mcp.type === 'filesystem' && (
-                  <div className={mcpStyles.mcpQualityConfig}>
-                    <label className={mcpStyles.mcpQualityLabel}>Allowed Path:</label>
-                    <input
-                      className={mcpStyles.mcpQualityInput}
-                      type="text"
-                      value={mcp.allowedPath || ''}
-                      onChange={e => {
-                        const newQualities = [...(node.data.mcpQualities || [])];
-                        newQualities[idx] = { ...mcp, allowedPath: e.target.value };
-                        onChange({ mcpQualities: newQualities });
-                      }}
-                      placeholder="/data/project-alpha"
-                    />
-                    <button
-                      type="button"
-                      className={mcpStyles.mcpTestBtn}
-                      onClick={() => {/* TODO: Implement test connection */}}
-                    >
-                      Test Connection
-                    </button>
-                  </div>
-                )}
-                {mcp.type === 'api' && (
-                  <div className={mcpStyles.mcpQualityConfig}>
-                    <label className={mcpStyles.mcpQualityLabel}>Endpoint:</label>
-                    <input
-                      className={mcpStyles.mcpQualityInput}
-                      type="text"
-                      value={mcp.endpoint || ''}
-                      onChange={e => {
-                        const newQualities = [...(node.data.mcpQualities || [])];
-                        newQualities[idx] = { ...mcp, endpoint: e.target.value };
-                        onChange({ mcpQualities: newQualities });
-                      }}
-                      placeholder="https://api.example.com"
-                    />
-                    <label className={mcpStyles.mcpQualityLabel}>Token:</label>
-                    <input
-                      className={mcpStyles.mcpQualityInput}
-                      type="password"
-                      value={mcp.token || ''}
-                      onChange={e => {
-                        const newQualities = [...(node.data.mcpQualities || [])];
-                        newQualities[idx] = { ...mcp, token: e.target.value };
-                        onChange({ mcpQualities: newQualities });
-                      }}
-                      placeholder="API Token"
-                    />
-                  </div>
-                )}
-              </div>
-            ))}
-            <button
-              type="button"
-              className={mcpStyles.mcpAddBtn}
-              onClick={() => {
-                // Example: show a prompt or dropdown for available MCP types
-                const type = window.prompt('Enter MCP type (filesystem, api):', 'filesystem');
-                if (!type) return;
-                const newQualities = [...(node.data.mcpQualities || []), { type, status: 'disconnected' }];
-                onChange({ mcpQualities: newQualities });
-              }}
-            >
-              + Add MCP Quality
-            </button>
-          </div>
-        </div>
         <div className={sidebarStyles.sidebarActions}>
           <button type="button" className={sidebarStyles.runNodeBtn} onClick={onRun} disabled={loading}>{loading ? 'Running...' : 'Run Node'}</button>
         </div>
-        {error && <div className={sidebarStyles.sidebarError}>{error}</div>}
+        {error && (
+          <div className={sidebarStyles.sidebarError}>{error}</div>
+        )}
       </div>
     );
   }

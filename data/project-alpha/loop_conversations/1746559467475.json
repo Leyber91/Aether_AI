@@ -1,0 +1,13 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "seedPrompt": "Lets discuss abotu singularity",
+  "messages": [],
+  "timestamp": "2025-05-06T19:24:27.475Z"
+}

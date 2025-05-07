@@ -1,0 +1,15 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:8b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:8b"
+  },
+  "seedPrompt": "lets play a game",
+  "messages": [
+    "**qwen3:8b**: _lets play a game_\n\n(Imagine this is a real LLM response.)"
+  ],
+  "timestamp": "2025-05-06T17:58:07.524Z"
+}

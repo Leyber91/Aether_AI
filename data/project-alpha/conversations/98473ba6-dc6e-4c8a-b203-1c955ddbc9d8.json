@@ -1,0 +1,26 @@
+{
+  "id": "98473ba6-dc6e-4c8a-b203-1c955ddbc9d8",
+  "title": "New Conversation",
+  "modelId": "phi4-mini:latest",
+  "provider": "ollama",
+  "createdAt": "2025-04-25T03:11:03.668Z",
+  "updatedAt": "2025-05-07T01:55:43.281Z",
+  "messages": [
+    {
+      "id": "1ab68592-5d03-49eb-abe5-bd819b95628c",
+      "role": "user",
+      "timestamp": "2025-04-25T03:11:17.763Z",
+      "content": "analzye the filesstustame and make me alsit of the diles oin the directory\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "1b8e380d-4425-43c0-b222-d6db10e06ce1",
+      "role": "assistant",
+      "timestamp": "2025-04-25T03:11:17.763Z",
+      "content": "Of course! It looks like you meant \"file system\" instead. I'll help analyze a typical Linux file structure.\n\nA standard layout for directories in an Ubuntu-based Debian installation could look something like this:\n\n```\n/home/user/\n\u2502\n\u251c\u2500\u2500 .",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

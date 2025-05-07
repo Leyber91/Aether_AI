@@ -17,6 +17,7 @@ export const ROUTES = {
   LOGIN: 'login',
   CANVAS: 'canvas', // Aether Canvas tab
   VISION: 'vision', // Vision tab for canvas vision and opportunities
+  META_LOOP_LAB: 'meta_loop_lab', // Experimental self-dialogue playground
 };
 
 // Create the navigation context

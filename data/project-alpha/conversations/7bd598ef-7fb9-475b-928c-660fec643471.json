@@ -1,0 +1,42 @@
+{
+  "id": "7bd598ef-7fb9-475b-928c-660fec643471",
+  "title": "Life Story Unfolding",
+  "modelId": "deepseek-r1:8b",
+  "provider": "ollama",
+  "createdAt": "2025-04-25T21:08:16.598Z",
+  "updatedAt": "2025-05-07T01:55:43.279Z",
+  "messages": [
+    {
+      "id": "4c4067de-438c-48c1-a23c-6bdba2765c8c",
+      "role": "user",
+      "timestamp": "2025-04-25T21:08:23.023Z",
+      "content": "Hey tell me about yourself",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "03fa97a4-aee6-4be9-9eeb-511ee9dde09c",
+      "role": "assistant",
+      "timestamp": "2025-04-25T21:08:23.023Z",
+      "content": "Hi! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have.",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "eac71b3d-98c7-469a-b97e-289da677cb18",
+      "role": "user",
+      "timestamp": "2025-04-25T21:08:47.217Z",
+      "content": "tell me further",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "e22cdfaf-b213-4cfc-9801-b32737f0ff66",
+      "role": "assistant",
+      "timestamp": "2025-04-25T21:08:47.217Z",
+      "content": "\n\nSure! Let me give you a bit more detail about myself. I'm DeepSeek-R1, an artificial intelligence assistant created by the Chinese company **DeepSeek**, which focuses on developing advanced AI technologies for research and applications.\n\nMy primary function is to assist with information retrieval, problem-solving, and answering questions across a wide range of topics. I\u2019m designed to understand and respond to natural language, making me versatile in my interactions with users.\n\nWhat would you like to know more about?",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

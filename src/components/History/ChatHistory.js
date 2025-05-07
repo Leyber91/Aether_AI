@@ -120,67 +120,75 @@ const ChatHistory = () => {
             <p>Start a new chat to begin</p>
           </div>
         ) : (
-          conversations.map(conversation => (
-            <div 
-              key={conversation.id} 
-              className={`conversation-item ${activeConversationId === conversation.id ? 'active' : ''} ${titleGeneratingId === conversation.id ? 'title-generating' : ''}`}
-              onClick={() => handleConversationClick(conversation.id)}
-            >
-              {editingConversationId === conversation.id ? (
-                <form onSubmit={saveTitle}>
-                  <input
-                    type="text"
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                    autoFocus
-                    onBlur={saveTitle}
-                    onKeyDown={e => e.key === 'Escape' && cancelEditing()}
-                  />
-                </form>
-              ) : (
-                <>
-                  <div className="conversation-title">
-                    {titleGeneratingId === conversation.id ? (
-                      <>
-                        <span className="auto-title-badge">Auto-naming</span>
-                        <span className="title-dots">
-                          <span className="dot"></span>
-                          <span className="dot"></span>
-                          <span className="dot"></span>
-                        </span>
-                      </>
-                    ) : (
-                      conversation.title
-                    )}
-                  </div>
-                  <div className="conversation-meta">
-                    <div className="conversation-model">
-                      {conversation.provider === 'groq' ? 'Groq: ' : 'Ollama: '}
-                      {formatModelName(conversation.modelId)}
+          // Sort conversations by updatedAt in descending order (newest first)
+          [...conversations]
+            .sort((a, b) => {
+              // Use updatedAt if available, otherwise fallback to createdAt
+              const dateA = a.updatedAt || a.createdAt;
+              const dateB = b.updatedAt || b.createdAt;
+              return new Date(dateB) - new Date(dateA); // Descending order
+            })
+            .map(conversation => (
+              <div 
+                key={conversation.id} 
+                className={`conversation-item ${activeConversationId === conversation.id ? 'active' : ''} ${titleGeneratingId === conversation.id ? 'title-generating' : ''}`}
+                onClick={() => handleConversationClick(conversation.id)}
+              >
+                {editingConversationId === conversation.id ? (
+                  <form onSubmit={saveTitle}>
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      autoFocus
+                      onBlur={saveTitle}
+                      onKeyDown={e => e.key === 'Escape' && cancelEditing()}
+                    />
+                  </form>
+                ) : (
+                  <>
+                    <div className="conversation-title">
+                      {titleGeneratingId === conversation.id ? (
+                        <>
+                          <span className="auto-title-badge">Auto-naming</span>
+                          <span className="title-dots">
+                            <span className="dot"></span>
+                            <span className="dot"></span>
+                            <span className="dot"></span>
+                          </span>
+                        </>
+                      ) : (
+                        conversation.title
+                      )}
                     </div>
-                    <div className="conversation-date">{formatDate(conversation.updatedAt)}</div>
-                  </div>
-                  <div className="conversation-actions">
-                    <button 
-                      className="rename-button" 
-                      onClick={(e) => startEditing(conversation, e)}
-                      title="Rename conversation"
-                      disabled={titleGeneratingId === conversation.id}
-                    >
-                      ✏️
-                    </button>
-                    <button 
-                      className="delete-button" 
-                      onClick={(e) => handleDeleteConversation(conversation.id, e)}
-                      title="Delete conversation"
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          ))
+                    <div className="conversation-meta">
+                      <div className="conversation-model">
+                        {conversation.provider === 'groq' ? 'Groq: ' : 'Ollama: '}
+                        {formatModelName(conversation.modelId)}
+                      </div>
+                      <div className="conversation-date">{formatDate(conversation.updatedAt)}</div>
+                    </div>
+                    <div className="conversation-actions">
+                      <button 
+                        className="rename-button" 
+                        onClick={(e) => startEditing(conversation, e)}
+                        title="Rename conversation"
+                        disabled={titleGeneratingId === conversation.id}
+                      >
+                        ✏️
+                      </button>
+                      <button 
+                        className="delete-button" 
+                        onClick={(e) => handleDeleteConversation(conversation.id, e)}
+                        title="Delete conversation"
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))
         )}
       </div>
     </div>

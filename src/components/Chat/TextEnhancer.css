@@ -1,6 +1,6 @@
 .text-enhancer-container {
   position: absolute;
-  z-index: 50; /* Raise above suggestions */
+  z-index: 1100; /* Higher than next-step-suggestions to layer properly */
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);

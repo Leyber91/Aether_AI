@@ -1,0 +1,42 @@
+{
+  "id": "a401ae1a-dc5c-46a9-b647-0d786b62c275",
+  "title": "Good Morning Conversation Starters",
+  "modelId": "deepseek-r1:8b",
+  "provider": "ollama",
+  "createdAt": "2025-04-25T16:20:58.318Z",
+  "updatedAt": "2025-05-07T01:55:43.282Z",
+  "messages": [
+    {
+      "id": "f379139a-20ff-4669-8381-b3c0c9b746f8",
+      "role": "user",
+      "timestamp": "2025-04-25T16:21:03.324Z",
+      "content": "hiiii",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "abc74c36-a288-4d45-9a6f-27ceb0397c0d",
+      "role": "assistant",
+      "timestamp": "2025-04-25T16:21:03.325Z",
+      "content": "Hello! How can I assist you today? \ud83d\ude0a",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "f0fa5a25-7ce8-4252-9ed0-c8bfa2060017",
+      "role": "user",
+      "timestamp": "2025-04-25T16:27:24.069Z",
+      "content": "analzye me the file system\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "4af74ce8-be61-4178-8bf3-6990de953e39",
+      "role": "assistant",
+      "timestamp": "2025-04-25T16:27:24.069Z",
+      "content": "\n\nIt seems like you might be asking about analyzing a file system, but your request is a bit unclear. Could you clarify what you mean by \"analyze me the file system\"? Are you referring to:\n\n1. **Understanding how a file system works**?  \n2. **Diagnosing issues with your computer's file system**?  \n3. **Optimizing a file system for better performance**?  \n4. Something else entirely?\n\nLet me know, and I\u2019d be happy to help! \ud83d\ude0a",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

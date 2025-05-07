@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoginPage from './components/LoginPage';
 import AppHeader from './components/common/AppHeader';
 import SystemCheckWizard from './components/SystemCheckWizard';
+import MetaLoopLab from './components/MetaLoopLab';
 
 /**
  * Main application component
@@ -23,6 +24,16 @@ const MainContent = () => {
   // Show login page if not authenticated or explicitly on login route
   if (!user || currentRoute === ROUTES.LOGIN) {
     return <LoginPage onAuthSuccess={() => navigateTo(ROUTES.CHAT)} />;
+  }
+
+  // Render MetaLoopLab as a full premium page, but keep AppHeader for navigation
+  if (currentRoute === ROUTES.META_LOOP_LAB) {
+    return (
+      <>
+        <AppHeader />
+        <MetaLoopLab fullPage />
+      </>
+    );
   }
 
   return (
@@ -49,7 +60,7 @@ const MainContent = () => {
 function App() {
   const [showWizard, setShowWizard] = React.useState(() => {
     // Show wizard only on first launch or if not passed
-    return !localStorage.getItem('systemCheckPassed');
+    return false; // PATCH: Always skip wizard for now
   });
   const handleWizardComplete = () => {
     localStorage.setItem('systemCheckPassed', '1');
@@ -59,8 +70,9 @@ function App() {
     <div className="App space-bg">
       <AuthProvider>
         <AppProvider>
-          {showWizard && <SystemCheckWizard onComplete={handleWizardComplete} />}
-          {!showWizard && <MainContent />}
+          {/* PATCH: Always skip SystemCheckWizard for now */}
+          {/* {showWizard && <SystemCheckWizard onComplete={handleWizardComplete} />} */}
+          <MainContent />
         </AppProvider>
       </AuthProvider>
     </div>

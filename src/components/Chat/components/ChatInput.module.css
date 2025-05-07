@@ -129,3 +129,33 @@
   color: #a6f1ff;
   pointer-events: none;
 }
+
+.mcp-toggle-button {
+  background: linear-gradient(135deg, #35385a 0%, #74d0fc22 100%);
+  border: 1.5px solid #74d0fc66;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 20px #a6f1ff11;
+  color: #74d0fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  padding: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mcp-toggle-button:hover {
+  background: linear-gradient(135deg, #74d0fc33 0%, #35385a 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 24px #74d0fc33;
+  color: #fff;
+}
+
+.mcp-toggle-button:active {
+  transform: scale(0.98);
+}
+
+.mcp-toggle-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

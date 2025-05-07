@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MarkdownRenderer from '../../common/MarkdownRenderer';
-import { FiCopy } from 'react-icons/fi';
+import { FiCopy, FiCode } from 'react-icons/fi';
 import { LuLightbulb } from 'react-icons/lu';
 import styles from './MessageItem.module.css';
 
-const MessageContent = ({ isUserMessage, message, copyMessageToClipboard, explainCode }) => {
-  // Always use the correct class for content
+/**
+ * MessageContent component renders the content of a message with proper
+ * formatting, action buttons, and accessibility features.
+ */
+const MessageContent = ({ isUserMessage, message, copyMessageToClipboard, explainCode, isLoading }) => {
+  const [showRawMarkdown, setShowRawMarkdown] = useState(false);
+  
+  // Helper to check if message likely contains code
+  const containsCodeBlock = (content) => {
+    return content && (
+      content.includes('```') || 
+      content.includes('<svg') ||
+      content.includes('<html') ||
+      content.includes('function') ||
+      content.includes('class ') ||
+      /<style>[\s\S]*?<\/style>/i.test(content) ||
+      /<script>[\s\S]*?<\/script>/i.test(content)
+    );
+  };
+  
+  const hasCode = !isUserMessage && containsCodeBlock(message.content);
+  
+  // For user messages, render simple text
   if (isUserMessage) {
     return (
-      <div className={`${styles["message-content"]} ${styles["user-message-content"] || ""}`}>{message.content}</div>
+      <div className={`${styles["message-content"]} ${styles["user-message-content"]}`}>
+        {message.content}
+      </div>
     );
   }
-  // For assistant/Ollama messages, show main content and (if present) thinking
+  
+  // For AI messages, render with markdown, thinking content, and action buttons
   return (
     <>
       {message.thinking && (
-        <div className={styles["thinking-content"] || "thinking-content-default"}>
+        <div className={styles["thinking-content"]}>
           <strong>🤔 Model's reasoning:</strong>
-          <div className={styles["thinking-text"] || ""}>{message.thinking}</div>
+          <div className={styles["thinking-text"]}>{message.thinking}</div>
         </div>
       )}
-      <div className={styles["message-actions"] || ""}>
+      
+      <div className={styles["message-actions"]}>
         <button 
-          className={`${styles["message-action-button"]} ${styles["copy-button"] || ""}`}
+          className={`${styles["message-action-button"]} ${styles["copy-button"]}`}
           onClick={() => copyMessageToClipboard(message.id, message.content)}
           title="Copy message"
           aria-label="Copy message"
@@ -30,20 +55,40 @@ const MessageContent = ({ isUserMessage, message, copyMessageToClipboard, explai
           <FiCopy />
           <span className={styles["action-label"]}>Copy</span>
         </button>
+        
+        {hasCode && (
+          <button 
+            className={`${styles["message-action-button"]} ${styles["view-raw-button"]} ${showRawMarkdown ? styles["active"] : ""}`}
+            onClick={() => setShowRawMarkdown(!showRawMarkdown)}
+            title={showRawMarkdown ? "View rendered" : "View raw markdown"}
+            aria-label={showRawMarkdown ? "View rendered" : "View raw markdown"}
+          >
+            <FiCode />
+            <span className={styles["action-label"]}>{showRawMarkdown ? "Rendered" : "Raw"}</span>
+          </button>
+        )}
+        
         <button 
-          className={`${styles["message-action-button"]} ${styles["explain-button"] || ""}`}
-          onClick={() => explainCode(message)}
-          title="Explain code"
-          aria-label="Explain code"
+          className={`${styles["message-action-button"]} ${styles["explain-button"]} ${isLoading ? styles["loading"] : ""}`}
+          onClick={() => explainCode(message.id, message.content)}
+          title={isLoading ? "Generating explanation..." : "Explain code"}
+          aria-label={isLoading ? "Generating explanation..." : "Explain code"}
+          disabled={isLoading}
         >
           <LuLightbulb />
-          <span className={styles["action-label"]}>Explain</span>
+          <span className={styles["action-label"]}>{isLoading ? "Explaining..." : "Explain"}</span>
         </button>
       </div>
-      {/* Ensure markdown is always rendered with the correct class for the container */}
-      <div className={styles["markdown-content"] || ""}>
-        <MarkdownRenderer content={message.content} />
-      </div>
+      
+      {showRawMarkdown ? (
+        <div className={styles["raw-markdown"]}>
+          <pre>{message.content}</pre>
+        </div>
+      ) : (
+        <div className={styles["markdown-content"]}>
+          <MarkdownRenderer content={message.content} />
+        </div>
+      )}
     </>
   );
 };

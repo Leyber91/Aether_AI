@@ -1,0 +1,26 @@
+{
+  "id": "82a5c5f7-ece8-4a53-bd2d-bd2bd21cce32",
+  "title": "New Conversation",
+  "createdAt": "2025-04-25T14:29:33.191Z",
+  "updatedAt": "2025-05-07T01:55:43.280Z",
+  "provider": null,
+  "modelId": null,
+  "messages": [
+    {
+      "id": "bee2d106-ba0d-48f9-9184-c41d10e6a59f",
+      "role": "user",
+      "timestamp": "2025-04-25T14:29:57.022Z",
+      "content": "we need still to make the file system better, can you analzyer it?\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "9c81eabd-6a92-4347-a64d-4480b5bbe48e",
+      "role": "assistant",
+      "timestamp": "2025-04-25T14:29:57.022Z",
+      "content": "",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

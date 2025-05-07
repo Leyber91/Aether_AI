@@ -1,0 +1,15 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:8b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:8b"
+  },
+  "seedPrompt": "ihiiidasdas",
+  "messages": [
+    "**qwen3:8b**: _<think>\nOkay, the user wrote \"ihiiidasdas\". That looks like a random string of letters, maybe a typo or a test. I should check if there's any meaning or if they need help with something. Let me see... Maybe they tried to type something but made a mistake. I'll respond in a friendly way, ask if they need assistance, and offer help. Keep it open-ended so they can clarify their request.\n</think>\n\nHai! Tampaknya kamu mengetik sesuatu yang tidak terduga. Apakah kamu ingin membantu saya dengan sesuatu? \ud83d\ude0a Saya siap membantu dengan berbagai pertanyaan atau tugas!_"
+  ],
+  "timestamp": "2025-05-06T18:12:52.130Z"
+}

@@ -34,3 +34,14 @@ export const SendIcon = ({ size = 22 }) => (
     <path d="M3 11l16-6-6 16-2.5-6.5L3 11z" fill="url(#sendGrad)" stroke="#244e82" strokeWidth="1.2"/>
   </svg>
 );
+
+// MCP Toggle Icon: Plug/Unplug (custom)
+export const MCPToggleIcon = ({ size = 22, enabled = false }) => (
+  <svg width={size} height={size} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="10" width="10" height="5" rx="2.5" fill={enabled ? "#74d0fc" : "#2a3650"} stroke="#244e82" strokeWidth="1.2"/>
+    <rect x="9" y="5" width="4" height="6" rx="2" fill={enabled ? "#a6f1ff" : "#3d4a6b"} stroke="#244e82" strokeWidth="1.2"/>
+    <circle cx="11" cy="17.5" r="1.2" fill={enabled ? "#74d0fc" : "#244e82"}/>
+    <path d="M8 13v2m6-2v2" stroke={enabled ? "#a6f1ff" : "#244e82"} strokeWidth="1.2" strokeLinecap="round"/>
+    <rect x="5.5" y="9.5" width="11" height="6" rx="3" stroke="#a6f1ff" strokeWidth="0.7" fill="none"/>
+  </svg>
+);

@@ -29,6 +29,8 @@ const ChatInterface = () => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [editedTitle, setEditedTitle] = useState('');
   const [showInsights, setShowInsights] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
+  const [explainLoading, setExplainLoading] = useState(false); // Add explainLoading state
 
   // Refs
   const messagesEndRef = useRef(null);
@@ -36,15 +38,13 @@ const ChatInterface = () => {
 
   // Context values
   const context = useContext(ChatContext);
-  console.log('ChatContext value:', context);
   const conversationState = context && context.conversationState ? context.conversationState : {};
   const conversationActions = context && context.conversationActions ? context.conversationActions : {};
   const conversationHelpers = context && context.conversationHelpers ? context.conversationHelpers : {};
-  console.log('conversationHelpers:', conversationHelpers);
   const {
     conversations = [],
     activeConversationId,
-    isLoading,
+    isLoading: isLoadingContext,
     error,
     isTitleGenerating,
     titleGeneratingId
@@ -57,7 +57,8 @@ const ChatInterface = () => {
   } = conversationActions;
   const {
     getActiveConversationData = () => null,
-    sendMessage = () => {}
+    sendMessage = () => {},
+    updateLocalMessages = () => {}
   } = conversationHelpers;
 
   const { selectedModel, selectedProvider } = useContext(ModelContext);
@@ -116,10 +117,11 @@ const ChatInterface = () => {
   /**
    * Handles form submission for sending a new message
    * @param {Event} e - Form submission event
+   * @param {boolean} mcpEnabled - MCP toggle state
    */
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, mcpEnabled) => {
     e.preventDefault();
-    if (!userInput.trim() || isLoading) return;
+    if (!userInput.trim() || isLoadingContext) return;
 
     // Analyze message for smart routing if provider is ollama
     if (selectedProvider === 'ollama') {
@@ -137,7 +139,8 @@ const ChatInterface = () => {
 
     // Call the sendMessage from ChatContext
     try {
-      await sendMessage(activeConversation.id, messageToSend);
+      // Pass MCP state to backend if needed (add as extra param or metadata)
+      await sendMessage(activeConversation.id, messageToSend, { mcpEnabled });
       setUserInput('');
       setShowInsights(false);
     } catch (error) {
@@ -172,32 +175,160 @@ const ChatInterface = () => {
   };
 
   /**
-   * Shows explanation for code in a message
+   * Explains code found in a message by using the Ollama service
    * @param {string} messageId - ID of the message containing code
+   * @param {string} content - Content of the message to analyze
    */
-  const explainCode = async (messageId) => {
-    const msg = activeConversation?.messages?.find(m => m.id === messageId);
-    if (!msg || !msg.content) {
-      setCopySuccess('No code found to explain.');
-      setTimeout(() => setCopySuccess(''), 2000);
-      return;
-    }
+  const explainCode = async (messageId, content) => {
     try {
-      // Use Ollama LLM to explain code
-      // Use a clear prompt for code explanation
-      const prompt = `Explain the following code in clear, concise language for a developer. If it is not code, say so.\n\n${msg.content}`;
-      // Prefer a short, safe output (adjust maxTokens as needed)
-      const { sendMessageToOllama, OLLAMA_MODELS } = await import('../../services/ollama');
-      const response = await sendMessageToOllama(
-        OLLAMA_MODELS.GENERAL,
-        [{ role: 'user', content: prompt }],
-        { maxTokens: 200, force: true } // force: true bypasses cooldown
+      setExplainLoading(true);
+      
+      // Extract code blocks from the message content
+      const codeBlockRegex = /```([a-zA-Z0-9+-]+)?[\s\n]([^```]+)```/g;
+      const inlineCodeRegex = /`([^`]+)`/g;
+      
+      let codeBlocks = [];
+      let match;
+      
+      // Extract code blocks
+      while ((match = codeBlockRegex.exec(content)) !== null) {
+        codeBlocks.push({
+          type: 'block',
+          language: match[1] || 'text',
+          code: match[2].trim()
+        });
+      }
+      
+      // If no code blocks found, look for inline code
+      if (codeBlocks.length === 0) {
+        while ((match = inlineCodeRegex.exec(content)) !== null) {
+          codeBlocks.push({
+            type: 'inline',
+            language: 'text',
+            code: match[1].trim()
+          });
+        }
+      }
+      
+      let codeToExplain = '';
+      
+      if (codeBlocks.length > 0) {
+        if (codeBlocks.length > 1) {
+          // Explain all code blocks with context
+          const allCodeContent = codeBlocks.map((block, index) => 
+            `Block ${index + 1} (${block.language}):\n${block.code}`
+          ).join('\n\n----- Next Block -----\n\n');
+          
+          codeToExplain = `Multiple code blocks found:\n\n${allCodeContent}`;
+        } else {
+          // Use the single code block for explanation
+          codeToExplain = `Language: ${codeBlocks[0].language}\n${codeBlocks[0].code}`;
+        }
+      } else {
+        // If no code blocks are found, use the entire content
+        codeToExplain = content;
+      }
+      
+      // More comprehensive prompt for better explanations
+      const prompt = `You are a code explanation expert. Analyze and explain the following code clearly and comprehensively.
+      
+${codeToExplain}
+
+Provide a structured explanation including:
+1. Summary: A concise overview of what this code does
+2. Key components: Breakdown of functions, classes, or major sections
+3. Logic flow: How the code executes step by step
+4. Notable patterns or techniques used
+5. Potential improvements or issues to be aware of
+
+If this doesn't appear to be code or is too simple to explain in depth, provide a brief explanation appropriate to the content.
+Format your explanation with markdown for readability, using headers, lists, and code blocks where helpful.`;
+
+      // Import and use Enhanced Ollama service
+      const { enhanceTextWithOllama, OLLAMA_MODELS } = await import('../../services/enhancedOllamaService');
+      
+      // Select appropriate model based on code complexity
+      const isComplexCode = codeToExplain.length > 500 || codeBlocks.length > 1;
+      const modelToUse = isComplexCode 
+        ? OLLAMA_MODELS.CODING  // Use CODING model for complex code
+        : OLLAMA_MODELS.GENERAL; // Use GENERAL model for simpler code
+      
+      const response = await enhanceTextWithOllama(
+        modelToUse,
+        prompt,
+        { 
+          maxTokens: 1000, // Increased token limit for more comprehensive explanations
+          temperature: 0.3 // Lower temperature for more focused responses
+        }
       );
-      setCopySuccess(response?.content || 'No explanation available.');
-      setTimeout(() => setCopySuccess(''), 5000);
+      
+      // Display the explanation as a special message
+      if (response) {
+        // Create a well-formatted explanation message
+        const explanationTitle = codeBlocks.length > 1 
+          ? "## Code Explanation (Multiple Blocks)" 
+          : "## Code Explanation";
+          
+        const explanationContent = `${explanationTitle}\n\n${response}`;
+        
+        // Create an explanation message
+        const explanationMessage = {
+          id: `explanation-${Date.now()}`,
+          role: 'assistant',
+          content: explanationContent,
+          timestamp: new Date().toISOString(),
+          isExplanation: true,
+          parentMessageId: messageId,
+          metadata: {
+            explanationType: codeBlocks.length > 0 ? 'code' : 'text',
+            codeType: codeBlocks.length > 0 ? codeBlocks[0].type : null,
+            codeLanguage: codeBlocks.length > 0 ? codeBlocks[0].language : null,
+            blocksCount: codeBlocks.length
+          }
+        };
+        
+        // Add the message to the conversation
+        if (activeConversation && context.conversationHelpers.updateLocalMessages) {
+          const updatedMessages = [...activeConversation.messages, explanationMessage];
+          const updatedConversation = { ...activeConversation, messages: updatedMessages };
+          
+          // Sort messages chronologically
+          const sortedMessages = [...updatedMessages].sort(
+            (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+          );
+          
+          // Update the conversation with sorted messages
+          const sortedConversation = {
+            ...activeConversation,
+            messages: sortedMessages
+          };
+          
+          // Update conversation in context
+          context.conversationHelpers.updateLocalMessages(sortedConversation);
+          
+          // Also save the conversation to persistence
+          if (context.conversationHelpers.saveConversation) {
+            context.conversationHelpers.saveConversation(sortedConversation);
+          }
+          
+          // Scroll to the new explanation
+          setTimeout(() => {
+            const explanationElement = document.getElementById(`message-${explanationMessage.id}`);
+            if (explanationElement) {
+              explanationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+        }
+      } else {
+        setCopySuccess("Failed to generate code explanation.");
+        setTimeout(() => setCopySuccess(''), 2000);
+      }
     } catch (error) {
-      setCopySuccess('Failed to explain code.');
+      console.error("Error explaining code:", error);
+      setCopySuccess(`Error explaining code: ${error.message}`);
       setTimeout(() => setCopySuccess(''), 2000);
+    } finally {
+      setExplainLoading(false);
     }
   };
 
@@ -271,7 +402,8 @@ const ChatInterface = () => {
                   <div className={styles["messages-container"]}>
                     <ChatMessages
                       activeConversation={activeConversation}
-                      isLoading={isLoading}
+                      isLoading={isLoadingContext}
+                      explainLoading={explainLoading}
                       error={error}
                       copySuccess={copySuccess}
                       copyMessageToClipboard={copyMessageToClipboard}
@@ -283,8 +415,8 @@ const ChatInterface = () => {
                     userInput={userInput}
                     setUserInput={setUserInput}
                     handleSubmit={handleSubmit}
-                    isLoading={isLoading}
-                    conversationHistory={activeConversation?.messages || []}
+                    isLoading={isLoadingContext}
+                    conversationHistory={activeConversation.messages}
                     error={error}
                   />
                 </div>

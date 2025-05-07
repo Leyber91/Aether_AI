@@ -1,11 +1,11 @@
 import React from 'react';
 import MessageItem from './MessageItem';
 import styles from './ChatMessages.module.css';
-console.log('ChatMessages styles:', styles);
 
 const ChatMessages = ({
   activeConversation,
   isLoading,
+  explainLoading,
   error,
   copySuccess,
   copyMessageToClipboard,
@@ -24,6 +24,8 @@ const ChatMessages = ({
           conversation={activeConversation}
           copyMessageToClipboard={copyMessageToClipboard}
           explainCode={explainCode}
+          isLoading={message.id === messages[messages.length - 1]?.id && explainLoading}
+          isLastMessage={message.id === messages[messages.length - 1]?.id}
         />
       ))}
       {isLoading && (
@@ -34,13 +36,13 @@ const ChatMessages = ({
         </div>
       )}
       {error && (
-        <div className={styles["error-message"] || ""}>
-          {error}
+        <div className={`${styles["error-message"] || ""}`}>
+          <p>{error}</p>
         </div>
       )}
       {copySuccess && (
-        <div className={styles["copy-notification"] || ""}>
-          {copySuccess}
+        <div className={`${styles["success-message"] || ""}`}>
+          <p>{copySuccess}</p>
         </div>
       )}
       <div ref={messagesEndRef} />

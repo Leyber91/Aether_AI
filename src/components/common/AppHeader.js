@@ -49,6 +49,15 @@ const ControlBar = ({ currentRoute, navigateTo }) => (
       <span className={styles['nav-label']}>Data</span>
     </button>
     <button
+      className={currentRoute === ROUTES.META_LOOP_LAB ? styles['active-app'] : styles['app-switch-btn']}
+      onClick={() => navigateTo(ROUTES.META_LOOP_LAB)}
+      aria-label="MetaLoopLab"
+      title="MetaLoopLab"
+    >
+      <span className={styles['nav-icon']} role="img" aria-label="MetaLoopLab">🔁</span>
+      <span className={styles['nav-label']}>MetaLoopLab</span>
+    </button>
+    <button
       className={currentRoute === ROUTES.SETTINGS ? styles['active-app'] : styles['app-switch-btn']}
       onClick={() => navigateTo(ROUTES.SETTINGS)}
       aria-label="Settings"

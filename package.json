@@ -28,6 +28,7 @@
     "http-proxy-middleware": "^3.0.5",
     "lottie-react": "^2.4.1",
     "mermaid": "^11.6.0",
+    "prismjs": "^1.30.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^4.10.1",

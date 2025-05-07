@@ -1,0 +1,20 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "seedPrompt": "lets get crazy",
+  "messages": [
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_",
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_",
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_",
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_",
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_",
+    "**qwen3:4b**: _{\"detail\":\"Not Found\"}_"
+  ],
+  "timestamp": "2025-05-06T19:29:27.645Z"
+}

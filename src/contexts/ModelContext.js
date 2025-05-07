@@ -80,7 +80,6 @@ export const ModelProvider = ({ children }) => {
   // Function to update token usage from API response
   const updateTokenUsage = (modelId, usageData) => {
     const { total_tokens, prompt_tokens, completion_tokens } = usageData;
-    console.log(`Updating token usage for ${modelId}: ${total_tokens} tokens`);
     
     // Track this usage event
     const updatedUsage = trackTokenUsage(modelId, {

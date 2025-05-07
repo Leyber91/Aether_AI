@@ -8,6 +8,7 @@ import {
   renameWorkflow,
   duplicateWorkflow
 } from '../utils/workflowStorage';
+import { EXAMPLE_WORKFLOWS } from '../utils/workflowStorage';
 import { exportWorkflow, importWorkflow } from '../utils/AetherCanvasExportImport';
 import { ReactComponent as EditIcon } from '../icons/HeaderDuplicateIcon.svg';
 import { ReactComponent as DuplicateIcon } from '../icons/HeaderDuplicateIcon.svg';
@@ -46,6 +47,8 @@ const WorkflowSidebar = ({
   const [deleting, setDeleting] = useState(null);
   const [importing, setImporting] = useState(false);
   const [search, setSearch] = useState('');
+  const exampleNames = Object.keys(EXAMPLE_WORKFLOWS);
+  const [loadedExample, setLoadedExample] = useState(null);
 
   useEffect(() => {
     refreshList();
@@ -160,6 +163,14 @@ const WorkflowSidebar = ({
     setShowSaveAs(false);
   }
 
+  function handleLoadExample(exampleName) {
+    const example = EXAMPLE_WORKFLOWS[exampleName];
+    if (example && onWorkflowSelect) {
+      onWorkflowSelect(example, null);
+      setLoadedExample(exampleName);
+    }
+  }
+
   const iconButton = (Icon, onClick, title, extraProps = {}) => (
     <button className={styles.workflowActionIcon} onClick={onClick} title={title} {...extraProps}>
       <Icon />
@@ -171,7 +182,22 @@ const WorkflowSidebar = ({
   return (
     <div className={styles.sidebarPanel}>
       <div className={styles.sidebarSection}>
-        <span className={styles.sidebarLabel}>Workflows</span>
+        <h2 className={styles.sidebarHeader}>Examples</h2>
+        <ul className={styles.exampleList}>
+          {exampleNames.map(name => (
+            <li key={name} className={loadedExample === name ? styles.loadedExample : ''}>
+              <span>{name}</span>
+              <button
+                className={styles.loadButton}
+                title="Load Example"
+                onClick={() => handleLoadExample(name)}
+              >Load</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={styles.sidebarSection}>
+        <h2 className={styles.sidebarHeader}>Workflows</h2>
         <input
           className={styles.workflowSearchBar}
           type="text"

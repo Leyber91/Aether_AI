@@ -1,0 +1,26 @@
+{
+  "id": "f20b04f1-5ec2-4c69-8162-696c9cceb3c9",
+  "title": "New Conversation",
+  "modelId": null,
+  "provider": null,
+  "createdAt": "2025-05-06T18:04:33.096Z",
+  "updatedAt": "2025-05-07T01:55:43.286Z",
+  "messages": [
+    {
+      "id": "14d34422-908c-45d7-80db-4016a8291888",
+      "role": "user",
+      "timestamp": "2025-05-06T18:04:45.794Z",
+      "content": "unleash your potential",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "3688f4ed-b550-47e8-a1cb-e5413b08726e",
+      "role": "assistant",
+      "timestamp": "2025-05-06T18:04:45.794Z",
+      "content": "",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

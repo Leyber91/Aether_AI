@@ -1,0 +1,58 @@
+{
+  "id": "0ec4b79c-d1df-40be-b904-ffcddeb805ee",
+  "title": "Emotional State Assessment",
+  "modelId": "phi4-mini:latest",
+  "provider": "ollama",
+  "createdAt": "2025-04-28T18:50:43.343Z",
+  "updatedAt": "2025-05-07T01:55:43.274Z",
+  "messages": [
+    {
+      "id": "459ec820-d871-4c0d-8c3c-fe08e94a7fce",
+      "role": "user",
+      "timestamp": "2025-04-28T18:50:52.722Z",
+      "content": "How are you doing?",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "09a7321a-68b3-4529-90dc-e3a010b1304d",
+      "role": "assistant",
+      "timestamp": "2025-04-28T18:50:52.722Z",
+      "content": "I'm just a digital assistant, so I don't have feelings or emotions to speak of. But I'm functioning properly and ready for your questions! How can I assist you today?",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "8e054a5c-18df-4998-bee1-3bebc28d102a",
+      "role": "user",
+      "timestamp": "2025-04-28T18:51:48.991Z",
+      "content": "Make me a complex h do on al css animation of what to do on a blackout\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "0ccd8286-684b-4d73-b8d6-2b710702979c",
+      "role": "assistant",
+      "timestamp": "2025-04-28T18:51:48.991Z",
+      "content": "Creating an advanced HTML/CSS-based solution that simulates actions during a power outage (blackout) involves using CSS animations along with some creative design. Here's how we could create such effects:\n\n### Scenario: A simple interface for emergency lighting and information display\n\n1. **Emergency Light Animation**:\n   - Flashing light effect.\n   \n2. **Battery Status Indicator**:\n   - Display the battery level on a simulated device.\n\n3. **Information Popup**:\n   - Show important messages or instructions during an outage (e.g., \"Power Outage: Stay Calm and Follow Emergency Procedures\").\n\n### HTML\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Blackout Animation</title>\n    <link rel=\"stylesheet\" href=\"styles.css\">\n</head>\n<body>\n\n<div class=\"blackout-emergency-info\">\n    <div id=\"battery-status\">Battery: 80%</div>\n    <p id=\"info-message\">Power Outage: Stay Calm and Follow Emergency Procedures.</p>\n    \n    <!-- Simulated Device Flashing Light -->\n    <button onclick=\"startFlashingLight()\">Start Flasher</button>\n\n    <!-- Battery Status Indicator Button -->\n    <input type=\"range\" min=\"0\" max=\"100\" id=\"battery-level-input\">\n    <label for=\"battery-level-input\">Battery Level: <span id=\"battery-status\"></span>%</label>\n    \n    <!-- Information Popup -->\n    <div class=\"popup-info hidden\">\n        Power outage detected. Please remain calm and follow emergency procedures.\n    </div>\n\n</body>\n<script src=\"scripts.js\"></script>\n</html>\n```\n\n### CSS (styles.css)\n```css\n/* Basic reset */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody, html {\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background-color: #000; /* Simulating blackout with dark mode */\n}\n\n.blackout-emergency-info {\n  text-align: center;\n}\n\n#battery-status {\n  color: yellow;\n}\n\n.popup-info.hidden {\n  display: none;\n}\n\n/* Battery Status Indicator Animation */\n@keyframes pulse-animation {\n  0% { background-color: red }\n  50% { background-color: orange; left: 30px; top: 20px; transform: scale(1.5); opacity: .75 }\n  51% { background-color: yellow; left: -60px; top: 100%; bottom: auto; width: inherit; height: inherit; border-radius: 50%; animation-timing-function: ease-in-out;}\n}\n\n#battery-status {\n    display: inline-block;\n    padding: 10px 20px;\n    background-color: red;\n    color: white;\n    font-size: 2em;\n    text-align: center;\n}\n\n/* Flashing Light Animation */\n@keyframes flash-animation {\n  0%, 100% { opacity: 1; }\n  50% { opacity: .5; left: calc(10px + (20 - 30) * var(--flash-step)); top: calc(-15px + (-25 - 35) * var(--flash-step)) } \n}\n\nbutton {\n    font-size: 2em;\n    padding: 0.75em 1.5em;\n}\n\n/* Information Popup */\n.popup-info {\n    background-color: #fff; color: black; border-radius: 10px; padding: 20px;\n    position: fixed; top: calc(50% + window.innerHeight / -2); left: 50%;\n    transform: translateX(-50%) ;\n    animation-duration: 1s;\n}\n\n#info-message {\n    margin-bottom: .5em;\n}\n\n/* Additional styling */\n.hidden { display: none;}\n```\n\n### JavaScript (scripts.js)\n```javascript\nfunction startFlashingLight() {\n    const batteryStatusElement = document.getElementById('battery-status');\n    let stepSize;\n\n    setInterval(() => {\n        // Flashing Light Animation - simple left to right animation simulating a light flicker.\n        if (!stepSize) { \n            element.style.animationName = 'flash-animation';\n            stepSize = 10; // Initial distance\n        } else {\n            stepSize += (30-20)*0.01;\n            batteryStatusElement.innerText = `Battery: ${Math.floor(Math.random() * 100)}%`;\n            \n            if(stepSize > 50) { \n                element.style.animationName = '';\n            }\n        }\n\n    }, 200);\n}\n\n// Battery Level input change\ndocument.getElementById('battery-level-input').addEventListener('input', function(e){\n    document.getElementById('battery-status').innerText = `${e.target.value}%`;\n});\n```\n\n### Instructions:\n1. **Save the HTML, CSS and JavaScript files** in your local project directory.\n2. Open an `index.html` file which links to these assets.\n\nThis example demonstrates a simple scenario of simulating emergency lighting during power outages using web technologies (HTML/CSS/JavaScript). You can further customize it by adding more animations or integrating with server-side events for real-time updates if needed in practical applications.\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "5678c233-1dfa-439a-beb2-48abe56e90ee",
+      "role": "user",
+      "timestamp": "2025-04-28T18:52:35.541Z",
+      "content": "make it in one monolitic script\n",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "e39dbeb7-6f8d-4de1-9a8c-706bbac5583b",
+      "role": "assistant",
+      "timestamp": "2025-04-28T18:52:35.541Z",
+      "content": "Sure, combining everything into a single HTML file that includes embedded CSS and JavaScript will allow us to achieve the same result. Here is how you can do this:\n\n### One-File Solution (index.html)\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Blackout Animation</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body, html {\n            height: 100%;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            background-color: #000; /* Simulating blackout with dark mode */\n        }\n        \n        .blackout-emergency-info {\n            text-align: center;\n        }\n\n        button[onclick]::after, input[type=\"range\"]::-webkit-slider-thumb,\n        span#battery-status { \n            border-radius: 50%;\n            width: 30px; height: 30px;\n        }\n\n        #info-message:hover { background-color: rgba(255, 0, 0, .5); transition: all 1s ease-in-out;}\n        \n        @keyframes pulse-animation {\n          0% { opacity: 1; }\n          50% { opacity: .5; left: calc(10px + (20 - 30) * var(--flash-step)); top: calc(-15px + (-25 - 35) * var(--flash-step)) } \n        }\n\n        @keyframes flash-animation {\n            from {opacity:1;}\n            to {opacity:.5}\n        }\n        \n        #battery-status, button::after{background-color:red; color:white;} \n\n    </style>\n</head>\n<body>\n\n<div class=\"blackout-emergency-info\">\n    <div id=\"info-message\">Power outage detected. Please remain calm and follow emergency procedures.</div><br />\n    \n    <!-- Simulated Device Flashing Light -->\n    <button onclick='startFlashingLight()'>Start Flasher</button> \n\n    <!-- Battery Status Indicator Button-->\n    <input type=\"range\" min=0 max=100 id=\"battery-level-input\">\n    <label for=\"battery-level-input\">Battery Level: </label><span id=\"battery-status\"></span>%<br />\n    \n</div>\n\n<script>\nconst startFlashingLight = () => {\n  const batteryStatusElement = document.getElementById('battery-status');\n  let stepSize;\n\n  setInterval(() => { \n      if (!stepSize) { element.style.animationName = 'flash-animation';\n          stepSize = 10;\n        } else {\n            stepSize += (30-20)*0.01;            \n            batteryStatusElement.innerText = `Battery: ${Math.floor(Math.random() * 100)}%`;\n            \n            if(stepSize > 50) { element.style.animationName= '';\n            }\n      }\n\n    },200);\n\ndocument.getElementById('battery-level-input').addEventListener(\"input\", function(e){\n    document.getElementById('battery-status').innerText = `${e.target.value}%`; \n});\n</script>\n\n</body>\n</html>\n```\n\nIn this HTML file, CSS and JavaScript are embedded directly within the `<head>` section. The single-file approach simplifies things but can get lengthy for complex applications.\n\nIf you prefer to keep styles in separate files (for better organization), consider using a preprocessor like SASS or LESS alongside tools that allow combining multiple asset files into one at build time, such as Webpack with appropriate loaders and plugins.\n",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

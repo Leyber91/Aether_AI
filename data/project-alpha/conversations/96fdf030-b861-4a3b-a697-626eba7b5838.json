@@ -1,0 +1,26 @@
+{
+  "id": "96fdf030-b861-4a3b-a697-626eba7b5838",
+  "title": "New Conversation",
+  "createdAt": "2025-04-25T20:57:05.684Z",
+  "updatedAt": "2025-05-07T01:55:43.281Z",
+  "provider": null,
+  "modelId": null,
+  "messages": [
+    {
+      "id": "42ee6a0f-84eb-4062-a335-98994aa44177",
+      "role": "user",
+      "timestamp": "2025-04-25T20:57:15.364Z",
+      "content": "who are you_",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "807149ca-09a6-48c7-abcb-4c71b3ac6393",
+      "role": "assistant",
+      "timestamp": "2025-04-25T20:57:15.364Z",
+      "content": "",
+      "usage": null,
+      "thinking": null
+    }
+  ]
+}

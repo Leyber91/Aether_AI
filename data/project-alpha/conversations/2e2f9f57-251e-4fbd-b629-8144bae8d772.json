@@ -1,0 +1,9 @@
+{
+  "id": "2e2f9f57-251e-4fbd-b629-8144bae8d772",
+  "title": "New Conversation",
+  "modelId": "deepseek-r1:8b",
+  "provider": "ollama",
+  "createdAt": "2025-04-25T04:26:13.257Z",
+  "updatedAt": "2025-05-07T01:55:43.278Z",
+  "messages": []
+}

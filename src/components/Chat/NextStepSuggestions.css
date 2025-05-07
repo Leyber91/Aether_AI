@@ -1,6 +1,6 @@
 .next-step-suggestions {
   position: absolute;
-  z-index: 40;
+  z-index: 1000;
   bottom: 100%;
   left: 0;
   right: 0;

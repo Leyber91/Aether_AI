@@ -1,0 +1,13 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "seedPrompt": "get crazy",
+  "messages": [],
+  "timestamp": "2025-05-06T18:32:37.558Z"
+}

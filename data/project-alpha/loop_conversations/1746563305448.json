@@ -1,0 +1,15 @@
+{
+  "modelA": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "modelB": {
+    "provider": "ollama",
+    "id": "qwen3:4b"
+  },
+  "seedPrompt": "get mad",
+  "messages": [
+    "**qwen3:4b**: _<think>\nOkay, the user said \"get mad.\" Hmm, that's pretty vague. I need to figure out what they mean. Maybe they're feeling frustrated or upset and want to vent. But I should be careful not to encourage negative emotions. Let me think... They might be looking for someone to talk to or want advice on how to handle their feelings.\n\nI should respond in a way that's supportive and non-judgmental. Maybe ask them to elaborate on what's happening. But I also need to make sure I don't come off as dismissive. Let me try to phrase it gently. \"I'm sorry to hear you're feeling that way. Could you share more about what's going on? I'm here to listen and help if you need it.\" That sounds good. It acknowledges their feelings and invites them to open up. I should keep the tone compassionate and open.\n</think>\n\nI'm sorry to hear you're feeling that way. If you'd like to talk about what's on your mind, I'm here to listen. Sometimes expressing your feelings can help lighten the load. Would you like to share more about what's happening? \ud83d\udc9b_"
+  ],
+  "timestamp": "2025-05-06T20:28:25.448Z"
+}

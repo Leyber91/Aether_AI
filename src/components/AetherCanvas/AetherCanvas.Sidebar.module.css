@@ -357,3 +357,91 @@
   background: linear-gradient(90deg, #7ad0ff 60%, #00eaff 100%);
   color: #181a2a;
 }
+
+.examplesSection {
+  margin-bottom: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #25304a44;
+}
+
+.examplesHeader {
+  font-size: 1.18rem;
+  font-weight: 900;
+  color: #7ad0ff;
+  text-shadow: 0 0 10px #00eaff66;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding-left: 2px;
+}
+
+.exampleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exampleList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #22263c 80%, #23253a 100%);
+  border: 2px solid #35385a;
+  border-radius: 13px;
+  padding: 10px 18px;
+  font-size: 1.09rem;
+  color: #ffe066;
+  font-weight: 600;
+  margin: 0;
+  box-shadow: 0 2px 12px 0 #00eaff22;
+  transition: border 0.18s, box-shadow 0.18s, background 0.18s, transform 0.13s;
+  cursor: pointer;
+  position: relative;
+}
+
+.exampleList li:hover {
+  border: 2px solid #7ad0ff;
+  background: linear-gradient(135deg, #23253a 90%, #1b2236 100%);
+  color: #7ad0ff;
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 4px 22px 0 #00eaff44;
+}
+
+.exampleList li.selected, .exampleList li.loadedExample {
+  border: 2px solid #ffe066;
+  background: linear-gradient(135deg, #23253a 85%, #181a2a 100%);
+  color: #ffe066;
+  box-shadow: 0 0 18px #ffe06644;
+}
+
+.loadButton, .loadExampleBtn {
+  background: linear-gradient(90deg, #7ad0ff 60%, #ffe066 100%);
+  color: #23253a;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 22px;
+  font-size: 1.01rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 #7ad0ff33;
+  margin-left: 16px;
+  transition: background 0.18s, color 0.18s, transform 0.12s;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.loadButton:hover, .loadExampleBtn:hover {
+  background: linear-gradient(90deg, #ffe066 60%, #7ad0ff 100%);
+  color: #181a2a;
+  transform: scale(1.07);
+  box-shadow: 0 0 18px #ffe06677;
+}
+
+.loadButton:active, .loadExampleBtn:active {
+  transform: scale(0.98);
+}

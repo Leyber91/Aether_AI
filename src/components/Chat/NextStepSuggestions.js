@@ -19,6 +19,7 @@ const NextStepSuggestions = ({
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   
   // Get the model context to check which provider is being used
   const { selectedProvider } = useContext(ModelContext);
@@ -63,8 +64,6 @@ const NextStepSuggestions = ({
   // Generate relevant suggestions based on conversation history and message contents
   const generateSuggestions = async () => {
     let currentHistory = getCurrentHistory();
-    // DEBUG: Log the current conversation history for troubleshooting
-    console.log('[DEBUG] NextStepSuggestions currentHistory:', currentHistory);
     // Take only the last 5 messages for suggestion context
     if (Array.isArray(currentHistory) && currentHistory.length > 5) {
       currentHistory = currentHistory.slice(-5);
@@ -123,87 +122,108 @@ const NextStepSuggestions = ({
   useEffect(() => {
     if (isVisible && !isLoading) {
       generateSuggestions();
+      setIsOpen(true);
     }
   }, [isVisible, conversationId, conversationHistory]); // Regenerate when conversation changes or history updates
 
   if (!isVisible) return null;
 
   return (
-    <div
-      className="next-step-suggestions"
-      style={{
-        display: 'block',
-        position: 'absolute',
-        zIndex: 9999,
-        left: 0,
-        right: 0,
-        bottom: '60px', // adjust as needed
-        background: 'rgba(18,24,38,0.99)',
-        border: '2px solid #74d0fc',
-        minHeight: '120px',
-        minWidth: '320px',
-        color: '#fff',
-        pointerEvents: 'auto'
-      }}
-    >
-      <div className="suggestions-header">
-        <h3 className="suggestions-title">
-          <span className="suggestions-title-icon"><NextStepsIcon size={20} /></span>
-          Suggested Next Steps
-        </h3>
-        <button 
-          className="close-suggestions" 
-          aria-label="Close suggestions" 
-          onClick={handleClose}
-        >
-          ×
-        </button>
-      </div>
-      <div className="suggestions-content">
-        {isLoading ? (
-          <div className="suggestions-loading">
-            <div className="suggestions-loading-spinner"></div>
-            <span>Analyzing conversation...</span>
-          </div>
-        ) : error ? (
-          <div className="suggestions-error">
-            <span>{error}</span>
-            <button 
-              onClick={generateSuggestions} 
-              className="retry-suggestions"
-            >
-              Try Again
-            </button>
-          </div>
-        ) : suggestions.length === 0 ? (
-          <div className="suggestions-empty">
-            <span className="suggestions-empty-icon"><NextStepsIcon size={18} /></span>
-            <p>No suggestions available for this conversation.</p>
-            {/* Always show a default actionable suggestion if array is empty */}
-            <div className="suggestion-item" style={{marginTop: '12px', cursor: 'default'}}>
-              <div className="suggestion-label">Tip</div>
-              <p className="suggestion-text">Ask a follow-up question or request clarification to continue the conversation.</p>
+    <>
+      {/* Add a translucent overlay when suggestions are open */}
+      {isOpen && (
+        <div 
+          className="suggestions-overlay"
+          onClick={() => setIsOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            zIndex: 999, // Just below the suggestions panel
+            pointerEvents: 'auto'
+          }}
+        />
+      )}
+    
+      <div
+        className="next-step-suggestions"
+        style={{
+          display: isOpen ? 'block' : 'none',
+          position: 'absolute',
+          zIndex: 1000, // Keep in sync with CSS
+          left: 0,
+          right: 0,
+          bottom: 60,
+          background: 'rgba(18, 24, 38, 0.99)',
+          border: '2px solid rgb(116, 208, 252)',
+          minHeight: 120,
+          minWidth: 320,
+          color: '#fff',
+          pointerEvents: 'auto'
+        }}
+      >
+        <div className="suggestions-header">
+          <h3 className="suggestions-title">
+            <span className="suggestions-title-icon"><NextStepsIcon size={20} /></span>
+            Suggested Next Steps
+          </h3>
+          <button 
+            className="close-suggestions" 
+            aria-label="Close suggestions" 
+            onClick={handleClose}
+          >
+            ×
+          </button>
+        </div>
+        <div className="suggestions-content">
+          {isLoading ? (
+            <div className="suggestions-loading">
+              <div className="suggestions-loading-spinner"></div>
+              <span>Analyzing conversation...</span>
             </div>
-          </div>
-        ) : (
-          suggestions.map(suggestion => (
-            <div
-              key={suggestion.id}
-              className="suggestion-item"
-              onClick={() => handleSelectSuggestion(suggestion)}
-            >
-              <div className="suggestion-label">{suggestion.label}</div>
-              <p className="suggestion-text">{suggestion.text}</p>
-              <div className="suggestion-footer">
-                <button className="use-suggestion" onClick={e => { e.stopPropagation(); handleSelectSuggestion(suggestion); }}>
-                  Use <span>→</span>
-                </button>
+          ) : error ? (
+            <div className="suggestions-error">
+              <span>{error}</span>
+              <button 
+                onClick={generateSuggestions} 
+                className="retry-suggestions"
+              >
+                Try Again
+              </button>
+            </div>
+          ) : suggestions.length === 0 ? (
+            <div className="suggestions-empty">
+              <span className="suggestions-empty-icon"><NextStepsIcon size={18} /></span>
+              <p>No suggestions available for this conversation.</p>
+              {/* Always show a default actionable suggestion if array is empty */}
+              <div className="suggestion-item" style={{marginTop: '12px', cursor: 'default'}}>
+                <div className="suggestion-label">Tip</div>
+                <p className="suggestion-text">Ask a follow-up question or request clarification to continue the conversation.</p>
               </div>
             </div>
-          ))
-        )}
+          ) : (
+            suggestions.map(suggestion => (
+              <div
+                key={suggestion.id}
+                className="suggestion-item"
+                onClick={() => handleSelectSuggestion(suggestion)}
+              >
+                <div className="suggestion-label">{suggestion.label}</div>
+                <p className="suggestion-text">{suggestion.text}</p>
+                <div className="suggestion-footer">
+                  <button className="use-suggestion" onClick={e => { e.stopPropagation(); handleSelectSuggestion(suggestion); }}>
+                    Use <span>→</span>
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

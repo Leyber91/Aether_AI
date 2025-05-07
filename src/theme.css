@@ -132,6 +132,8 @@
     radial-gradient(var(--star-large) var(--star-large) at 15% 80%, white, rgba(255,255,255,0)),
     radial-gradient(var(--star-medium) var(--star-medium) at 90% 10%, white, rgba(255,255,255,0));
   opacity: 0.4;
+  z-index: -1;
+
 }
 
 /* Enhanced Animated Gradient Border */

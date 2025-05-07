@@ -1,0 +1,1178 @@
+.code-block-container {
+  margin: 0.75rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1e1e2e;
+  border: 1px solid rgba(113, 128, 150, 0.2);
+  transition: all 0.3s ease;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  /* Remove any extra margins that might cause nesting issues */
+  max-width: 100%;
+  position: relative; /* Add positioning context for absolute children */
+}
+
+.code-block-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(113, 128, 150, 0.4);
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #2a2a3a;
+  border-bottom: 1px solid rgba(113, 128, 150, 0.2);
+}
+
+.code-language-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a9b1d6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-block-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.code-block-actions button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(113, 128, 150, 0.1);
+  color: #a9b1d6;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.code-block-actions button:hover {
+  background-color: rgba(113, 128, 150, 0.2);
+}
+
+.code-block-actions button.active {
+  background-color: rgba(82, 145, 255, 0.2);
+  color: #61dafb;
+}
+
+.code-block-actions button.copied {
+  background-color: rgba(72, 187, 120, 0.2);
+  color: #48bb78;
+}
+
+.code-block-actions button svg {
+  font-size: 1rem;
+}
+
+.code-block-actions button span {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .code-block-actions button span {
+    display: inline;
+  }
+}
+
+.code-content-container, .rendered-content-container {
+  transition: opacity 0.3s ease, height 0.3s ease;
+  overflow: auto;
+  max-height: 500px;
+}
+
+.code-content-container.hidden, .rendered-content-container.hidden {
+  display: none;
+  height: 0;
+  opacity: 0;
+}
+
+.code-block {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+  background-color: #1e1e2e;
+  /* Remove any borders that might cause duplication */
+  border: none;
+}
+
+/* Fix for pre tag duplicated borders */
+.pre-wrapper {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.pre-block {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* Streamlined inline code */
+:global(.inline-code) {
+  background-color: rgba(113, 128, 150, 0.15);
+  border-radius: 3px;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  color: #74d0fc;
+  word-break: break-word;
+  white-space: pre-wrap;
+  display: inline;
+}
+
+/* Fix for parent pre-block wrappers */
+:global(.markdown-content pre) {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+:global(.pre-wrapper .code-block-container) {
+  /* Fix for nested pre-blocks */
+  margin: 0.5rem 0;
+}
+
+.css-preview-container {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.css-demo {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.css-box {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4a5568;
+  color: white;
+  border-radius: 4px;
+}
+
+.css-sample-text {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.css-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.css-button {
+  padding: 8px 16px;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.js-console-output {
+  background-color: #2d3748;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+}
+
+.js-console-header {
+  padding: 8px 12px;
+  background-color: #4a5568;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.js-console-content {
+  padding: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.js-console-entry {
+  padding: 4px 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: #e2e8f0;
+}
+
+.js-run-button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #2b6cb0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.js-run-button:hover {
+  background-color: #4299e1;
+}
+
+.js-console-log {
+  color: #e2e8f0;
+}
+
+.js-console-error {
+  color: #fc8181;
+}
+
+.js-console-warn {
+  color: #f6ad55;
+}
+
+.js-console-info {
+  color: #63b3ed;
+}
+
+.rendered-content-container svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+}
+
+.render-error {
+  padding: 1rem;
+  background-color: rgba(252, 129, 129, 0.1);
+  border-left: 4px solid #fc8181;
+  color: #fc8181;
+}
+
+.dark-theme .rendered-content-container {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-theme .css-preview-container {
+  background-color: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-theme .css-box {
+  background-color: #4a5568;
+}
+
+.dark-theme .css-button {
+  background-color: #4299e1;
+}
+
+/* Fix for standalone words or numbers that shouldn't be styled as blocks */
+.markdown-content p code {
+  background-color: rgba(113, 128, 150, 0.15);
+  border-radius: 3px;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  color: #74d0fc;
+  word-break: break-word;
+  white-space: pre-wrap;
+  display: inline;
+}
+
+/* Fixes for the pre container and double border issues */
+pre {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+pre pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+pre .code-block-container {
+  margin: 0 0;
+}
+
+.code-block-container pre {
+  margin: 0;
+  padding: 0;
+}
+
+/* Enhance rendered content container styling */
+.rendered-content-container {
+  background-color: #1a1b26;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+  max-height: 500px;
+  overflow: auto;
+  width: 100%;
+  color: #a9b1d6;
+  transition: opacity 0.3s ease, height 0.3s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rendered-content-container.hidden {
+  display: none;
+}
+
+/* Improved iframe styling */
+.rendered-content-container iframe {
+  width: 100%;
+  height: 300px;
+  border: 1px solid rgba(113, 128, 150, 0.2);
+  border-radius: 8px;
+  background-color: #24283b; /* Dark theme background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.rendered-content-container iframe {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.rendered-content-container iframe:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Add custom styling for the iframe content using srcdoc */
+.rendered-content-container iframe[srcdoc] {
+  --iframe-bg: #24283b;
+  --iframe-text: #c0caf5;
+  --iframe-border: rgba(139, 148, 177, 0.3);
+}
+
+/* Style SVG content specifically */
+.rendered-content-container svg {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  background-color: #1a1b26;
+  border-radius: 8px;
+  padding: 1rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Ensure SVG content keeps proper proportions */
+.rendered-content-container svg,
+.rendered-content-container img {
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* CSS preview styling */
+.css-preview-container {
+  background-color: #292e42;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #a9b1d6;
+}
+
+.css-demo {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.css-box {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3d59a1;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.css-sample-text {
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.css-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.css-button {
+  padding: 0.5rem 1rem;
+  background-color: #7aa2f7;
+  color: #1a1b26;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Fix for the chat interface message styling with code blocks */
+:global(.message-content) .code-block-container {
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:global(.message-content) pre {
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+:global(.message-content) .rendered-content-container {
+  background-color: #f7fafc; /* Lighter background for the chat interface */
+}
+
+/* Fix for the line break in single-word code snippets */
+:global(.inline-code) {
+  display: inline;
+  white-space: normal;
+}
+
+/* No jump line for single numbers like 40 */
+:global(code:not(.code-block)) {
+  display: inline;
+  white-space: normal;
+}
+
+/* Style for simplified inline code display without code block UI */
+.simple-inline-code {
+  background-color: rgba(113, 128, 150, 0.15);
+  border-radius: 3px;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  color: #74d0fc;
+  word-break: break-word;
+  white-space: pre-wrap;
+  display: inline;
+  margin: 0 2px;
+  font-weight: 500;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+/* Fix for plain text rendering in paragraphs */
+p .simple-inline-code {
+  display: inline;
+  margin: 0 3px;
+  vertical-align: baseline;
+}
+
+p code {
+  display: inline;
+  margin: 0 2px;
+  vertical-align: baseline;
+}
+
+/* Prevent blocks of code in middle of paragraphs */
+p > .code-block-container {
+  display: inline-block;
+  margin: 0 3px;
+  vertical-align: middle;
+}
+
+/* Plain text styling - make it blend with normal text */
+.plain-text {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  display: inline;
+  white-space: normal;
+  line-height: inherit;
+}
+
+/* Ensure plain text works in chat interface */
+:global(.message-content) .plain-text {
+  display: inline;
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  white-space: normal;
+  font-family: inherit;
+}
+
+/* Make sure markdown doesn't apply code styling to plain text */
+:global(.markdown-content) span.plain-text {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Handle plain text that contains code snippets within it */
+.plain-text code, 
+.plain-text .inline-code {
+  display: inline;
+  background-color: rgba(113, 128, 150, 0.15);
+  border-radius: 3px;
+  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  color: #74d0fc;
+  margin: 0 2px;
+}
+
+/* Better error visualization */
+.render-error {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 86, 79, 0.1);
+  border: 1px solid rgba(255, 86, 79, 0.3);
+  color: #ff5649;
+  margin: 1rem 0;
+}
+
+.render-error p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Special styling for code language badges */
+.code-language-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7aa2f7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-language-label:before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background-color: #7aa2f7;
+}
+
+/* Different colors for different languages */
+.code-language-label[data-language="svg"]:before {
+  background-color: #ff9e64;
+}
+
+.code-language-label[data-language="html"]:before {
+  background-color: #9ece6a;
+}
+
+.code-language-label[data-language="css"]:before {
+  background-color: #7dcfff;
+}
+
+.code-language-label[data-language="javascript"]:before,
+.code-language-label[data-language="js"]:before {
+  background-color: #e0af68;
+}
+
+.code-language-label[data-language="mermaid"]:before {
+  background-color: #bb9af7;
+}
+
+/* Improve copy button feedback */
+.copy-code-btn.copied {
+  background-color: #9ece6a !important;
+  color: #1a1b26 !important;
+}
+
+.copy-code-btn.copied svg {
+  color: #1a1b26;
+}
+
+/* Fancy animation for render toggle button */
+.toggle-render-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-render-btn:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle at bottom right, #7aa2f7 0%, transparent 60%);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.toggle-render-btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Zoom controls styling */
+.zoom-out-btn,
+.zoom-in-btn,
+.fullscreen-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  background-color: rgba(113, 128, 150, 0.1);
+  color: #a9b1d6;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zoom-out-btn:hover,
+.zoom-in-btn:hover,
+.fullscreen-btn:hover {
+  background-color: rgba(113, 128, 150, 0.2);
+  color: #c0caf5;
+}
+
+.zoom-out-btn:disabled,
+.zoom-in-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.zoom-level {
+  font-size: 0.8rem;
+  color: #a9b1d6;
+  padding: 0 6px;
+  min-width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+/* Fullscreen mode styling */
+.code-block-container.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  background-color: #1a1b26;
+  display: flex;
+  flex-direction: column;
+  animation: fullscreen-in 0.3s ease;
+  overflow: hidden; /* Prevent any scrollbars on the main container */
+}
+
+/* Ensure clean layout for resizable content */
+.resizable-content {
+  resize: both;
+  overflow: auto;
+  min-height: 250px;
+  min-width: 300px;
+  max-width: 1200px;
+  width: 90%;
+  border: 1px solid rgba(113, 128, 150, 0.3);
+  border-radius: 8px;
+  padding: 0;
+  position: relative;
+  background-color: #24283b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Fix iframe sizing in fullscreen mode */
+.fullscreen-mode .rendered-content-container iframe {
+  min-height: 400px;
+  height: calc(100vh - 150px) !important;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+  border: 1px solid rgba(113, 128, 150, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Fix SVG container in fullscreen */
+.fullscreen-mode .svg-container {
+  height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Make the iframe content scale better */
+.svg-iframe, 
+.rendered-content-container iframe {
+  border: none !important;
+  background: transparent !important;
+  overflow: hidden;
+}
+
+/* Center and constrain SVG content better */
+.svg-container svg {
+  max-width: 90%;
+  max-height: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Ensure the resizable content actually looks clean and nice */
+.fullscreen-mode .resizable-content {
+  max-width: 100%;
+  width: 100%;
+  height: calc(100vh - 100px) !important;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 1rem;
+  overflow: auto;
+  resize: none; /* Don't allow resizing in fullscreen */
+}
+
+/* Fix zoom level display */
+.zoom-level {
+  font-size: 0.8rem;
+  color: #a9b1d6;
+  padding: 0 6px;
+  min-width: 50px;
+  text-align: center;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(113, 128, 150, 0.1);
+  border-radius: 4px;
+  height: 24px;
+}
+
+/* Hide size indicator in fullscreen mode */
+.fullscreen-mode .size-indicator {
+  display: none;
+}
+
+/* Improve the header in fullscreen mode */
+.fullscreen-mode .code-block-header {
+  padding: 0.8rem 1.5rem;
+  background-color: #24283b;
+  border-bottom: 1px solid rgba(113, 128, 150, 0.2);
+  position: relative;
+  z-index: 10;
+}
+
+/* Add animation to the fullscreen button */
+.fullscreen-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.fullscreen-btn:hover svg {
+  transform: scale(1.2);
+}
+
+/* Make scrollbars more subtle in fullscreen mode */
+.fullscreen-mode ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.fullscreen-mode ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.fullscreen-mode ::-webkit-scrollbar-thumb {
+  background: rgba(113, 128, 150, 0.3);
+  border-radius: 4px;
+}
+
+.fullscreen-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 128, 150, 0.5);
+}
+
+/* Extra styling for zoom effect on rendered content */
+.rendered-content-container iframe,
+.rendered-content-container svg {
+  transition: transform 0.2s ease;
+}
+
+/* ESC key instruction for fullscreen mode */
+.fullscreen-mode .code-block-header::after {
+  content: 'Press ESC to exit fullscreen';
+  position: absolute;
+  right: 1.5rem;
+  bottom: -1.5rem;
+  font-size: 0.75rem;
+  color: rgba(169, 177, 214, 0.5);
+  pointer-events: none;
+}
+
+/* Better styling for SVG wrapper */
+.svg-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  min-height: 200px;
+  transition: transform 0.3s ease;
+  transform-origin: top center;
+}
+
+.svg-wrapper svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Better sizing for SVG renderings */
+.rendered-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s ease;
+}
+
+/* Fix zoom issues for iframe content */
+.rendered-content-container iframe {
+  width: 100%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  transform-origin: top center;
+}
+
+/* Improve scrolling behavior in zoomed content */
+.rendered-content-container.zoomed {
+  overflow-x: auto;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 768px) {
+  .code-block-actions {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .zoom-level {
+    min-width: 40px;
+    font-size: 0.7rem;
+  }
+  
+  .zoom-out-btn,
+  .zoom-in-btn,
+  .fullscreen-btn {
+    padding: 3px 6px;
+  }
+  
+  .zoom-out-btn svg,
+  .zoom-in-btn svg,
+  .fullscreen-btn svg {
+    font-size: 0.8rem;
+  }
+}
+
+/* For SVG renderings, ensure proper centering and scaling */
+.rendered-content-container svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* Ensure SVG animations remain smooth while zooming */
+.rendered-content-container svg * {
+  transform-origin: center;
+}
+
+/* Add resizable container for SVG and HTML content */
+.resizable-content {
+  resize: both;
+  overflow: auto;
+  min-height: 200px;
+  min-width: 300px;
+  max-width: 90%;
+  border: 1px solid rgba(113, 128, 150, 0.3);
+  border-radius: 8px;
+  position: relative;
+}
+
+.resizable-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at bottom right, #7aa2f7 0%, transparent 60%);
+  border-bottom-right-radius: 4px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Handle SVG in resizable containers */
+.resizable-content svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Ensure fullscreen mode handles resizable containers properly */
+.fullscreen-mode .resizable-content {
+  min-height: 400px;
+  max-width: 95%;
+  height: auto !important;
+}
+
+/* Fixed size indicator for resizable containers */
+.size-indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  font-size: 0.7rem;
+  color: rgba(169, 177, 214, 0.5);
+  background-color: rgba(26, 27, 38, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.resizable-content:hover .size-indicator {
+  opacity: 1;
+}
+
+/* Fix for SVG animation smoothness and rendering in fullscreen */
+.fullscreen-mode .rendered-content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1b26;
+  overflow: auto;
+  height: calc(100vh - 100px);
+  max-height: none !important;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent scrolling in fullscreen body */
+body.has-fullscreen-code {
+  overflow: hidden;
+}
+
+/* Fix SVG container scaling */
+.fullscreen-mode .rendered-content-container .resizable-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+/* Ensure clean dimensions on SVG iframe */
+.svg-iframe {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: calc(100vh - 150px);
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Prevent iframe borders */
+iframe {
+  border: none !important;
+}
+
+/* Ensure the SVG has proper dimensions in fullscreen */
+.fullscreen-mode .svg-container svg {
+  width: auto !important;
+  height: auto !important;
+  max-width: 90% !important;
+  max-height: 90vh !important;
+  object-fit: contain !important;
+}
+
+/* Clean up animation issues */
+.fullscreen-mode svg * {
+  transform-origin: center !important;
+}
+
+/* Better positioning for controls */
+.fullscreen-mode .code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background-color: #24283b;
+  border-bottom: 1px solid rgba(113, 128, 150, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+}
+
+/* Fix dimensions of animation frames */
+@keyframes fullscreen-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.code-block-fade {
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.code-block-show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.code-block-hide {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.code-block-content-wrapper {
+  position: relative;
+}
+
+.code-block-content, .code-block-preview {
+  width: 100%;
+  min-height: 60px;
+}
+
+.text-panel {
+  background: linear-gradient(90deg, #f8fafc 90%, #e0e7ef 100%);
+  border: 1.5px solid #b6c4d6;
+  border-radius: 10px;
+  margin: 1.2em 0;
+  padding: 1.1em 1.4em 1.2em 1.4em;
+  font-family: var(--font-sans, 'Segoe UI', Arial, sans-serif);
+  color: #23272f;
+  box-shadow: 0 2px 10px #b6c4d655;
+  position: relative;
+  max-width: 100%;
+}
+
+.text-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 0.7em;
+}
+
+.text-panel-icon {
+  font-size: 1.2em;
+  color: #6c7a89;
+  margin-right: 0.2em;
+}
+
+.text-panel-label {
+  background: #e0e7ef;
+  color: #6c7a89;
+  font-size: 0.78em;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 2px 10px;
+  letter-spacing: 0.07em;
+  margin-right: 0.7em;
+}
+
+.text-panel-copy {
+  margin-left: auto;
+  background: #f0f4f8;
+  color: #6c7a89;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+  padding: 3px 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.text-panel-copy:hover {
+  background: #dbeafe;
+  color: #3b82f6;
+}
+
+.text-panel-content {
+  font-size: 1.05em;
+  line-height: 1.7;
+  white-space: pre-line;
+  word-break: break-word;
+  padding: 0.2em 0 0 0;
+}

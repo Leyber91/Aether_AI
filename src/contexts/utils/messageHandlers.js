@@ -1,6 +1,7 @@
 import { createMessage } from './conversationHelpers.js';
 import { sendMessageToGroq } from '../../services/groqService.js';
 import { sendMessageToOllama } from '../../services/ollamaService.js';
+import { sendMessageToAgent } from '../../services/agentApiService.js';
 
 /**
  * Handle token usage data from model response
@@ -27,22 +28,41 @@ const handleUsageData = (modelId, usageData, updateTokenUsage, setLastResponseUs
  * @param {Function} updateTokenUsage - Function to update token usage
  * @param {Function} setLastResponseUsage - Function to update last response usage
  * @param {Function} onPartialUpdate - Callback for streaming/partial updates
+ * @param {Object} conversation - Current conversation object
+ * @param {string} content - Message content
  * @returns {Promise<Object>} The response object with content and usage data
  */
-const sendToProvider = async (provider, modelId, messages, updateTokenUsage, setLastResponseUsage, onPartialUpdate) => {
+const sendToProvider = async (provider, modelId, messages, updateTokenUsage, setLastResponseUsage, onPartialUpdate, conversation, content) => {
   if (provider === 'groq') {
     return await sendMessageToGroq(
       modelId, 
       messages,
       (modelId, usageData) => handleUsageData(modelId, usageData, updateTokenUsage, setLastResponseUsage)
     );
+  } else if (provider === 'ollama') {
+    // Check if this is a chat context (has conversation and content)
+    if (conversation && conversation.type === 'chat') {
+      // Route through the backend agent for tool/MCP support
+      const response = await sendMessageToAgent({
+        message: content,
+        conversationId: conversation.id,
+        model: modelId,
+        mcpEnabled: conversation.mcpEnabled !== undefined ? conversation.mcpEnabled : true,
+        mcpQualities: conversation.mcpQualities || [],
+        history: messages
+      });
+      // Optionally handle streaming/partial updates if supported by backend
+      return { content: response.content || '', usage: response.usage || null, ...response };
+    } else {
+      // Fallback to direct Ollama call (non-chat or legacy)
+      const response = await sendMessageToOllama(modelId, messages, {
+        stream: true,
+        onUpdate: onPartialUpdate
+      });
+      return { content: typeof response.content === 'string' ? response.content : '', usage: null, ...response };
+    }
   } else {
-    // For Ollama, ensure content is always a string and support streaming
-    const response = await sendMessageToOllama(modelId, messages, {
-      stream: true,
-      onUpdate: onPartialUpdate
-    });
-    return { content: typeof response.content === 'string' ? response.content : '', usage: null, ...response };
+    throw new Error(`Unknown provider: ${provider}`);
   }
 };
 
@@ -65,15 +85,16 @@ export const processModelMessage = async (
   onPartialUpdate
 ) => {
   const { provider, modelId } = conversation;
-  
-  // Send the message to the appropriate provider
+  // Pass conversation and content for chat context detection
   return await sendToProvider(
-    provider, 
-    modelId, 
-    messages, 
-    updateTokenUsage, 
+    provider,
+    modelId,
+    messages,
+    updateTokenUsage,
     setLastResponseUsage,
-    onPartialUpdate
+    onPartialUpdate,
+    conversation,
+    content
   );
 };
 

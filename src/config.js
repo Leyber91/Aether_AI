@@ -17,17 +17,17 @@ const config = {
 };
 
 // Log available environment variables in development
-if (process.env.NODE_ENV === 'development') {
-  console.log(
-    'Available environment variables:',
-    Object.keys(process.env)
-      .filter(key => key.startsWith('REACT_APP_'))
-      .reduce((obj, key) => {
-        // Only log that keys exist, not their values (for security)
-        obj[key] = process.env[key] ? '[SET]' : '[NOT SET]';
-        return obj;
-      }, {})
-  );
-}
+// if (process.env.NODE_ENV === 'development') {
+//   console.log(
+//     'Available environment variables:',
+//     Object.keys(process.env)
+//       .filter(key => key.startsWith('REACT_APP_'))
+//       .reduce((obj, key) => {
+//         // Only log that keys exist, not their values (for security)
+//         obj[key] = process.env[key] ? '[SET]' : '[NOT SET]';
+//         return obj;
+//       }, {})
+//   );
+// }
 
 export default config;

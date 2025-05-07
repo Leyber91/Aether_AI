@@ -1,16 +1,16 @@
 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="run-glow" cx="50%" cy="50%" r="70%">
+    <radialGradient id="run-glow" cx="14" cy="14" r="11">
       <stop offset="0%" stop-color="#50e3c2" stop-opacity="0.7"/>
       <stop offset="100%" stop-color="#23253a" stop-opacity="0"/>
     </radialGradient>
+    <filter id="shadow" x="0" y="0" width="28" height="28">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#50e3c2" flood-opacity="0.35"/>
+    </filter>
   </defs>
   <rect x="3" y="3" width="22" height="22" rx="6" fill="#181a2a" stroke="#50e3c2" stroke-width="2.2"/>
   <circle cx="14" cy="14" r="11" fill="url(#run-glow)"/>
   <g filter="url(#shadow)">
     <polygon points="11,9 20,14 11,19" fill="#50e3c2" stroke="#50e3c2" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
-  <filter id="shadow" x="0" y="0" width="28" height="28">
-    <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#50e3c2" flood-opacity="0.35"/>
-  </filter>
 </svg>
