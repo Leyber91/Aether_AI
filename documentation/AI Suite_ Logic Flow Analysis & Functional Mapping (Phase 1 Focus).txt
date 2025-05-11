@@ -1,0 +1,437 @@
+﻿AI Suite: Logic Flow Analysis & Functional Mapping (Phase 1 Focus)
+Date: May 7, 2025
+Based on: AI Interaction & Orchestration Suite: Strategic Blueprint v2.0
+Objective: This document provides a deeper analysis of the three core components (Chat Interface, AetherCanvas, MetaLoopLab) and their planned integrations as outlined in the "Strategic Blueprint v2.0." It focuses on:
+1. Mapping current and planned (Phase 1) logic flows.
+2. Identifying existing key functionalities based on the blueprint and provided file structures.
+3. Detailing new functions and modules required to achieve the Phase 1 vision, thereby creating a more complete logical map for near-term development.
+1. The Chat Interface: The Conversational Gateway
+1.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.1.1 "Current Capabilities & Codebase References."
+* Key Files Implied: src/components/Chat/ChatInterface.js, src/components/ModelSelector/ModelSelector.js, src/contexts/ChatContext.js, src/contexts/useConversations.js, main.py (for /api/models/*, /api/conversations).
+graph TD
+   subgraph Chat Interface (Frontend - src/components/Chat)
+       UI_Chat[Chat UI / ChatInput.js] -- User Input --> ChatInterface_JS[ChatInterface.js]
+       ChatInterface_JS -- Uses --> ModelSelector_JS[ModelSelector.js]
+       ModelSelector_JS -- Fetches Models --> API_GetModels[apiService.js / Backend API: /api/models/*]
+       ChatInterface_JS -- Sends Message / Gets History --> ChatContext_JS[ChatContext.js / useConversations.js]
+       ChatContext_JS -- Interacts for Storage --> API_ChatHistory[apiService.js / Backend API: /api/conversations]
+       ChatInterface_JS -- Displays Messages --> ChatMessages_JS[ChatMessages.js]
+       ChatMessages_JS -- Renders Content --> MarkdownRenderer_JS[common/MarkdownRenderer.js]
+   end
+
+   subgraph Backend (Python - main.py)
+       API_GetModels --> MainPy_GetModels[main.py: get_ollama_models(), get_groq_models()]
+       API_ChatHistory --> MainPy_ChatHistory[main.py: save_conversation(), list_conversations()]
+       MainPy_GetModels -- Accesses --> OllamaLib[Ollama Library / Groq API]
+   end
+
+   style ChatInterface_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style ModelSelector_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style ChatContext_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_GetModels fill:#f9f,stroke:#333,stroke-width:2px
+   style MainPy_ChatHistory fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * ChatInterface.js: Main component orchestrating chat UI, input handling, message display.
+      * ModelSelector.js: UI for selecting models (Ollama, Groq).
+      * ChatContext.js/useConversations.js: State management for current conversation, history.
+      * ChatMessages.js: Rendering individual messages.
+      * apiService.js (or similar): Handling API calls to the backend for models and history.
+   * Backend (main.py):
+      * Endpoints for listing Ollama and Groq models.
+      * Endpoints for saving and retrieving chat conversations (currently file-based).
+      * Interaction with Ollama library and Groq API.
+1.2. Planned Phase 1 Enhancements & Logic Flow
+* Blueprint Reference: Section 3.1.3 "Planned Enhancements & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 5, 6).
+* Focus: Proactive assistance (basic), deeper context (session-level), tool invocation (placeholder for Canvas), multi-modal (basic image), integration with new backend services.
+graph TD
+   subgraph Chat Interface (Frontend - Phase 1)
+       UI_Chat[Chat UI / ChatInput.js] -- User Input (Text, Image) --> ChatInterface_P1[ChatInterface.js V2]
+       ChatInterface_P1 -- Uses --> ModelSelector_P1[Shared ModelSelector Component]
+       ModelSelector_P1 -- Fetches Models --> API_UnifiedModelService[apiService.js / Backend API: Unified Model Mgmt Service]
+
+       ChatInterface_P1 -- Handles State --> ChatContext_P1[ChatContext.js / useConversations.js V2]
+       ChatContext_P1 -- Stores/Retrieves --> API_UnifiedHistoryService[apiService.js / Backend API: Unified History Service (Chat)]
+       ChatInterface_P1 -- Displays Messages --> ChatMessages_P1[ChatMessages.js V2]
+       ChatMessages_P1 -- Renders --> MarkdownRenderer_P1[common/MarkdownRenderer.js with Image Support]
+
+       ChatInterface_P1 -- Suggests Action --> SuggestionEngine_FE[SuggestionEngine.js (Basic)]
+       SuggestionEngine_FE -- Triggers Handoff --> CanvasHandoff_FE[ChatToCanvasHandoff.js]
+       CanvasHandoff_FE -- Passes Context --> AetherCanvas_GoalWizard
+
+       ChatInterface_P1 -- Receives HumanInputRequest --> HumanInputHandler_FE[HumanInputHandler.js]
+       HumanInputHandler_FE -- Displays Prompt --> UI_Chat
+       UI_Chat -- User Response --> HumanInputHandler_FE
+       HumanInputHandler_FE -- Sends Response --> API_CanvasHumanInputResponse[apiService.js / Backend or Direct to Canvas Event]
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedModelService --> SB_ModelService[Unified Model Management Service]
+       API_UnifiedHistoryService --> SB_HistoryService[Unified History Service]
+       SB_ModelService -- Accesses --> OllamaLib[Ollama Library / Groq API / Other Providers]
+   end
+
+   AetherCanvas_GoalWizard((AetherCanvas GoalToFlowWizardPanel.js))
+
+   style ChatInterface_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style SuggestionEngine_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style CanvasHandoff_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style HumanInputHandler_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_ModelService fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_HistoryService fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (Chat):
+      * ChatInterface.js V2: Enhanced to handle basic image input, interact with new backend services, and integrate suggestion/handoff logic.
+      * SuggestionEngine.js (Basic): Rudimentary logic to suggest "Automate in AetherCanvas" based on conversation cues.
+      * ChatToCanvasHandoff.js: Module to package chat context and initiate handoff to AetherCanvas's GoalToFlowWizardPanel.js.
+      * HumanInputHandler.js: Module to receive requests for human input (from AetherCanvas), display them in chat, and send back responses.
+      * Enhanced ChatMessages.js / MarkdownRenderer.js: To support rendering of image inputs/outputs.
+      * Adaptation to use Shared ModelSelector Component.
+   * Backend (Shared Services - extending main.py or new microservices):
+      * Unified Model Management Service: (Blueprint 4.3.1, 5.1.2.1)
+         * list_all_models(): Consolidate Ollama, Groq, etc.
+         * get_model_details(model_id): Provide capabilities, context window.
+         * Secure API key management.
+      * Unified History Service: (Blueprint 4.3.2, 5.1.2.1)
+         * save_chat_transcript(transcript_data): Store chat with new schema.
+         * get_chat_transcript(conversation_id).
+         * list_chat_transcripts_for_user(user_id).
+         * (This service will also handle Canvas and Lab artifacts later).
+      * Common Model Interaction API (within Backend): (Blueprint 5.1.2.1)
+         * A standardized internal backend function/class that ChatInterface (via its backend endpoint), AetherCanvasFlowRunner, and MetaLoopLab engine will use to send prompts to any configured model provider (Ollama, Groq). This abstracts the direct provider-specific calls currently in main.py.
+         * execute_model_prompt(model_id, prompt, params, stream_callback)
+2. AetherCanvas: The Visual Workflow Orchestrator
+2.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.2.1 "Current Capabilities & Codebase References."
+* Key Files Implied: src/components/AetherCanvas/AetherCanvas.js, NodePalette.js, CanvasFlow.js, NodeInspectorPanel.js, AetherCanvasFlowRunner.js, workflowStorage.js, GoalToFlowWizardPanel.js, AgentNode.js, ToolNode.js, main.py (for model execution via agentApiService.js or similar).
+graph TD
+   subgraph AetherCanvas (Frontend - src/components/AetherCanvas)
+       AC_UI[Main UI: AetherCanvas.js]
+       AC_UI -- Manages --> NP[NodePalette.js]
+       AC_UI -- Manages --> CF[CanvasFlow.js (React Flow)]
+       AC_UI -- Manages --> NIP[NodeInspectorPanel.js]
+       AC_UI -- Manages --> WS[WorkflowSidebar.js]
+       AC_UI -- Manages --> OS[OutputSidebar.js]
+       AC_UI -- Uses --> FC[FlowControlsPanel.js]
+
+       NP -- Drags Node --> CF
+       CF -- Selects Node --> NIP
+       NIP -- Configures Node Data --> CF
+       WS -- Load/Save Workflow (JSON) --> StoreUtil[utils/workflowStorage.js]
+       StoreUtil -- Interacts with --> LocalStorage[Browser Local Storage / File System via Backend]
+
+       FC -- Run Workflow --> Runner[utils/AetherCanvasFlowRunner.js]
+       Runner -- Gets Nodes/Edges --> CF
+       Runner -- Executes Node (e.g., AgentNode) --> AgentNodeExec[AgentNode.js Logic]
+       AgentNodeExec -- Calls Backend for AI --> API_AgentExec[apiService.js / Backend API: /api/agent/chat or similar]
+
+       AC_UI -- Invokes --> GTFW[GoalToFlowWizardPanel.js]
+       GTFW -- Generates Workflow --> CF
+   end
+
+   subgraph Backend (Python - main.py)
+       API_AgentExec --> MainPy_AgentExec[main.py: agent_chat_endpoint()]
+       MainPy_AgentExec -- Uses --> OllamaLib_AC[Ollama Library / Groq (Planned)]
+       LocalStorage --> MainPy_FileStore[main.py: file save/load endpoints (if saving to server)]
+   end
+
+   style AC_UI fill:#ccf,stroke:#333,stroke-width:2px
+   style Runner fill:#ccf,stroke:#333,stroke-width:2px
+   style GTFW fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_AgentExec fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * AetherCanvas.js: Main orchestrator for the canvas UI.
+      * CanvasFlow.js: React Flow instance, manages nodes and edges visually.
+      * NodePalette.js: Displays available nodes.
+      * NodeInspectorPanel.js: Allows configuration of selected node properties.
+      * WorkflowSidebar.js: Handles loading/saving workflows.
+      * workflowStorage.js: Utility for workflow JSON persistence (likely LocalStorage or file via backend).
+      * AetherCanvasFlowRunner.js: Executes the workflow logic based on graph topology.
+      * AgentNode.js, ToolNode.js, etc.: Implementations for specific node types, including logic for execution (e.g., calling backend for AgentNode).
+      * GoalToFlowWizardPanel.js: Converts natural language to a basic workflow.
+   * Backend (main.py):
+      * Endpoint for executing agent tasks (e.g., /api/agent/chat called by AgentNode).
+      * (Potentially) Endpoints for saving/loading workflow JSON files if not purely client-side.
+2.2. Planned Phase 1 Enhancements & Logic Flow
+* Blueprint Reference: Section 3.2.3 "Planned Enhancements & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 4, 6).
+* Focus: Full Groq integration, refactor to use new shared backend services, "Human Input Node."
+graph TD
+   subgraph AetherCanvas (Frontend - Phase 1)
+       AC_UI_P1[Main UI: AetherCanvas.js V2]
+       AC_UI_P1 -- Manages --> NP_P1[NodePalette.js V2 (adds HumanInputNode)]
+       AC_UI_P1 -- Manages --> CF_P1[CanvasFlow.js V2]
+       AC_UI_P1 -- Manages --> NIP_P1[NodeInspectorPanel.js V2 (Groq config)]
+       AC_UI_P1 -- Manages --> WS_P1[WorkflowSidebar.js V2]
+       WS_P1 -- Load/Save Workflow --> API_UnifiedHistory_Canvas[apiService.js / Backend API: Unified History Service (Canvas)]
+
+       FC_P1[FlowControlsPanel.js V2] -- Run Workflow --> Runner_P1[utils/AetherCanvasFlowRunner.js V2]
+       Runner_P1 -- Gets Nodes/Edges --> CF_P1
+       Runner_P1 -- Executes AgentNode --> AgentNodeExec_P1[AgentNode.js Logic V2]
+       AgentNodeExec_P1 -- Uses Common Model API --> API_CommonModelExec_Canvas[apiService.js / Backend API: Common Model Interaction]
+
+       Runner_P1 -- Executes HumanInputNode --> HumanInputNode_FE[HumanInputNode.js]
+       HumanInputNode_FE -- Sends Request --> Chat_HumanInputRequest((Chat HumanInputHandler))
+       Chat_HumanInputRequest -- Response --> HumanInputNode_FE
+
+       AC_UI_P1 -- Invokes --> GTFW_P1[GoalToFlowWizardPanel.js V2]
+       GTFW_P1 -- Receives Context From --> Chat_CanvasHandoff((ChatToCanvasHandoff))
+       GTFW_P1 -- Generates Workflow --> CF_P1
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedHistory_Canvas --> SB_HistoryService[Unified History Service]
+       API_CommonModelExec_Canvas --> SB_CommonModelExec[Common Model Interaction API]
+   end
+
+   style AC_UI_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style Runner_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style HumanInputNode_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_HistoryService fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_CommonModelExec fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (AetherCanvas):
+      * AetherCanvas.js V2, NodePalette.js V2, NodeInspectorPanel.js V2: Updates to support new node types, Groq configuration in Agent nodes.
+      * WorkflowSidebar.js V2: Modified to use the Unified History Service for saving/loading workflows.
+      * AetherCanvasFlowRunner.js V2:
+         * Modified to call the new Common Model Interaction API via apiService.js for Agent Nodes (Ollama & Groq).
+         * Logic to handle execution of the new HumanInputNode.js.
+      * AgentNode.js V2: Updated to allow selection and configuration of Groq models, and to prepare calls for the Common Model Interaction API.
+      * HumanInputNode.js (New):
+         * Configuration for the prompt/data to send to the Chat interface.
+         * Logic to send a request to the Chat component (likely via a backend event or a direct API call if Chat exposes one) and await a response.
+      * GoalToFlowWizardPanel.js V2: Enhanced to accept context from the Chat handoff.
+   * Backend (Shared Services - already listed under Chat, but used by Canvas):
+      * Unified History Service: Must now support CRUD for AetherCanvas workflow definitions (JSON).
+         * save_canvas_workflow(workflow_json)
+         * get_canvas_workflow(workflow_id)
+         * list_canvas_workflows_for_user(user_id)
+      * Common Model Interaction API: Used by AetherCanvasFlowRunner for all model calls.
+3. MetaLoopLab: The Scape Discovery Lab
+3.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.3.1 "Current State & Evolution from MetaLoopLab.js."
+* Key Files Implied: src/components/MetaLoopLab.js, src/processGraph.js, src/components/History/LoopHistory.js, main.py (for /api/models/*, /api/agent/chat, /api/loop_conversations).
+graph TD
+   subgraph MetaLoopLab (Frontend - src/components/MetaLoopLab)
+       MLL_UI[Main UI: MetaLoopLab.js]
+       MLL_UI -- Uses --> MLL_ModelSelector[MetaLoopLabModelSelector.js or similar]
+       MLL_ModelSelector -- Fetches Models --> API_GetModels_MLL[apiService.js / Backend API: /api/models/*]
+
+       MLL_UI -- Loads Static Graph --> ProcGraphJS[processGraph.js]
+       MLL_UI -- Seed Prompt --> LoopEngine[Loop Execution Engine (in MetaLoopLab.js)]
+       LoopEngine -- Constructs Prompt --> LoopEngine
+       LoopEngine -- Calls Backend for AI --> API_AgentChat_MLL[apiService.js / Backend API: /api/agent/chat]
+       LoopEngine -- Handles Streaming Response --> MLL_UI
+       LoopEngine -- Parses Output (extractTrailingJson) --> LoopEngine
+       LoopEngine -- Decides Next Node --> LoopEngine
+       LoopEngine -- Saves Loop --> API_SaveLoop[apiService.js / Backend API: /api/loop_conversations]
+
+       MLL_UI -- Uses --> LoopHist[components/History/LoopHistory.js]
+       LoopHist -- Fetches History --> API_GetLoops[apiService.js / Backend API: /api/loop_conversations]
+   end
+
+   subgraph Backend (Python - main.py)
+       API_GetModels_MLL --> MainPy_GetModels_MLL[main.py: get_ollama_models(), get_groq_models()]
+       API_AgentChat_MLL --> MainPy_AgentChat_MLL[main.py: agent_chat_endpoint()]
+       MainPy_AgentChat_MLL -- Uses --> OllamaLib_MLL[Ollama Library]
+       API_SaveLoop --> MainPy_SaveLoop[main.py: save_loop_conversation()]
+       API_GetLoops --> MainPy_GetLoops[main.py: list_loop_conversations()]
+   end
+
+   style MLL_UI fill:#ccf,stroke:#333,stroke-width:2px
+   style LoopEngine fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_AgentChat_MLL fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * MetaLoopLab.js: Main component, UI, and the core loop execution engine. Loads static processGraph.js.
+      * MetaLoopLabModelSelector.js (or similar): For selecting models.
+      * processGraph.js: Static definition of the Ideation/Critic loop.
+      * LoopHistory.js: Displays past loop conversations.
+      * extractTrailingJson: Utility for basic structured output.
+   * Backend (main.py):
+      * Endpoints for model listing.
+      * /api/agent/chat: Endpoint for Ollama agent execution.
+      * /api/loop_conversations: Endpoints for saving/listing loop histories (file-based).
+3.2. Planned Phase 1 Enhancements & Logic Flow (Scape Discovery Lab)
+* Blueprint Reference: Section 3.3.3 "Planned Core Features & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 3, 6).
+* Focus: UI for defining/editing scapes (structured text), dynamic scape execution engine (conditional edges, basic nested loops), full Groq integration, specialized UI for observation, use of shared backend services.
+graph TD
+   subgraph MetaLoopLab (Frontend - Phase 1 Scape Discovery Lab)
+       MLL_UI_P1[Main UI: MetaLoopLab.js V2]
+       MLL_UI_P1 -- Uses --> Shared_ModelSelector_MLL[Shared ModelSelector Component]
+       Shared_ModelSelector_MLL -- Fetches Models --> API_UnifiedModelService_MLL[apiService.js / Backend API: Unified Model Mgmt Service]
+
+       MLL_UI_P1 -- Scape Definition (JSON/YAML) --> ScapeEditor_FE[StructuredTextEditor for Scapes]
+       ScapeEditor_FE -- Provides Scape JSON --> DynamicScapeEngine_FE[DynamicScapeEngine.js (New or heavily refactored MLL.js)]
+
+       MLL_UI_P1 -- Seed Prompt / Controls --> DynamicScapeEngine_FE
+       DynamicScapeEngine_FE -- Constructs Prompt --> DynamicScapeEngine_FE
+       DynamicScapeEngine_FE -- Uses Common Model API --> API_CommonModelExec_MLL[apiService.js / Backend API: Common Model Interaction]
+       DynamicScapeEngine_FE -- Handles Streaming Response --> MLL_UI_P1
+       DynamicScapeEngine_FE -- Parses Output (StructuredOutputUtil) --> DynamicScapeEngine_FE
+       DynamicScapeEngine_FE -- Handles Conditional Edges / Basic Nesting --> DynamicScapeEngine_FE
+       DynamicScapeEngine_FE -- Saves Scape Run --> API_UnifiedHistory_MLL_Run[apiService.js / Backend API: Unified History Service (Scape Runs)]
+
+       MLL_UI_P1 -- Manages Scape Definitions --> ScapeDefManager_FE[ScapeDefinitionManager.js]
+       ScapeDefManager_FE -- Save/Load Scape Definition --> API_UnifiedHistory_MLL_Def[apiService.js / Backend API: Unified History Service (Scape Definitions)]
+
+       MLL_UI_P1 -- Displays --> AdvancedObservabilityUI[Advanced Observability UI (Loop Iterations, Context Flow)]
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedModelService_MLL --> SB_ModelService[Unified Model Management Service]
+       API_CommonModelExec_MLL --> SB_CommonModelExec[Common Model Interaction API]
+       API_UnifiedHistory_MLL_Run --> SB_HistoryService[Unified History Service]
+       API_UnifiedHistory_MLL_Def --> SB_HistoryService
+   end
+
+   style MLL_UI_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style DynamicScapeEngine_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style ScapeEditor_FE fill:#lightgreen,stroke:#333,stroke-width:2px
+   style AdvancedObservabilityUI fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_ModelService fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_CommonModelExec fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_HistoryService fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (MetaLoopLab):
+      * MetaLoopLab.js V2: Overhauled to serve as the main UI container.
+      * StructuredTextEditor for Scapes (New): Component for users to define/edit scape graphs as JSON or YAML.
+      * DynamicScapeEngine.js (New/Major Refactor):
+         * Parses user-defined scape JSON (instead of static processGraph.js).
+         * Manages loop execution with support for conditional edges based on agent output (using StructuredOutputUtil).
+         * Basic support for one level of nested loops (calling another defined scape).
+         * Calls the Common Model Interaction API for all agent executions (Ollama & Groq).
+         * Integrates with AdvancedObservabilityUI.
+      * ScapeDefinitionManager.js (New): Handles CRUD operations for scape definitions via the Unified History Service.
+      * AdvancedObservabilityUI.js (New): Components to visualize loop iterations, context flow between agents, and agent decision points.
+      * StructuredOutputUtil.js (Shared/Enhanced): More robust version of extractTrailingJson, potentially using JSON schemas for validation, used by the DynamicScapeEngine.
+      * Adaptation to use Shared ModelSelector Component.
+   * Backend (Shared Services - already listed, but used by MetaLoopLab):
+      * Unified History Service: Must now support CRUD for:
+         * MetaLoopLab Scape Definitions (JSON/YAML).
+            * save_scape_definition(scape_json)
+            * get_scape_definition(scape_id)
+            * list_scape_definitions_for_user(user_id)
+         * MetaLoopLab Scape Execution Runs/Logs.
+            * save_scape_run_log(run_data)
+            * get_scape_run_log(run_id)
+      * Common Model Interaction API: Used by DynamicScapeEngine for all model calls.
+4. Inter-Component Integrations (Phase 1 Focus)
+* Blueprint Reference: Section 4.2 "Detailed Integration Points & Data Flows" and Section 5.1.2 (item 6) "Initial Cross-Component Integrations."
+graph TD
+   subgraph Chat
+       Chat_UI[Chat Interface]
+       Chat_To_Canvas_Handoff[ChatToCanvasHandoff.js]
+       Chat_Human_Input_Handler[HumanInputHandler.js]
+   end
+
+   subgraph AetherCanvas
+       AC_GoalWizard[GoalToFlowWizardPanel.js]
+       AC_HumanInputNode[HumanInputNode.js]
+       AC_WorkflowStorage[WorkflowSidebar.js / workflowStorage.js using Unified History]
+   end
+
+   subgraph MetaLoopLab
+       MLL_ScapeDefManager[ScapeDefinitionManager.js using Unified History]
+       MLL_ExportUtil[ScapeExportUtil.js (New)]
+   end
+
+   subgraph SharedBackend [Shared Backend Services]
+       UnifiedHistorySvc[Unified History Service]
+       CommonModelSvc[Common Model Interaction API]
+       UnifiedModelMgmtSvc[Unified Model Management Service]
+   end
+
+   Chat_UI -- User Action / AI Suggestion --> Chat_To_Canvas_Handoff
+   Chat_To_Canvas_Handoff -- Task Context --> AC_GoalWizard
+
+   AC_HumanInputNode -- Request for Input --> Chat_Human_Input_Handler
+   Chat_Human_Input_Handler -- User Response --> AC_HumanInputNode
+
+   MLL_ExportUtil -- Scape JSON --> AC_WorkflowStorage
+   %% AetherCanvas might also invoke MLL scapes later, but Phase 1 is MLL -> Canvas export
+
+   %% All components use Shared Backend Services
+   Chat_UI --> UnifiedModelMgmtSvc
+   Chat_UI --> UnifiedHistorySvc
+   Chat_UI --> CommonModelSvc
+
+   AC_GoalWizard --> UnifiedModelMgmtSvc
+   AC_GoalWizard --> CommonModelSvc
+   AetherCanvas --> UnifiedHistorySvc
+   AetherCanvas --> CommonModelSvc
+   AetherCanvas --> UnifiedModelMgmtSvc
+
+   MetaLoopLab --> UnifiedHistorySvc
+   MetaLoopLab --> CommonModelSvc
+   MetaLoopLab --> UnifiedModelMgmtSvc
+
+
+   style Chat_To_Canvas_Handoff fill:#lightyellow,stroke:#333,stroke-width:2px
+   style AC_HumanInputNode fill:#lightyellow,stroke:#333,stroke-width:2px
+   style MLL_ExportUtil fill:#lightyellow,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules for Integration (Phase 1):
+   * Chat:
+      * ChatToCanvasHandoff.js (as detailed in Chat section): Packages context for AC_GoalWizard.
+      * HumanInputHandler.js (as detailed in Chat section): Handles requests from AC_HumanInputNode.
+   * AetherCanvas:
+      * GoalToFlowWizardPanel.js (Enhancement): Ability to receive and parse initial context from Chat.
+      * HumanInputNode.js (New, as detailed in Canvas section): Initiates requests to Chat.
+      * (Implicit) WorkflowSidebar.js / workflowStorage.js: Must be able to import/understand a JSON workflow definition that might have originated from an exported MetaLoopLab scape.
+   * MetaLoopLab:
+      * ScapeExportUtil.js (New): Utility to convert a MetaLoopLab scape definition (JSON/YAML) into a compatible AetherCanvas workflow JSON format. This might involve simplifying certain Lab-specific features or mapping them to equivalent Canvas nodes.
+   * API Contracts / Shared Schemas (Implicitly New or Formalized):
+      * Schema for "task context" passed from Chat to Canvas.
+      * Schema for "human input requests" from Canvas to Chat and "responses" back.
+      * A common or translatable graph definition schema portion that allows MetaLoopLab scapes to be represented (even if simplified) as AetherCanvas workflows.
+5. Consolidated List of Key New Functions/Modules for Phase 1 (for a "Complete Logical Map" of this phase)
+This list summarizes the primary new functional blocks required to achieve the Phase 1 vision.
+* Shared Backend Services (Python - main.py evolution or new microservices):
+   1. Unified Model Management Service:
+      * Centralized model listing (Ollama, Groq, others).
+      * Model capability details.
+      * Secure API key/config management.
+   2. Unified History Service:
+      * CRUD for Chat Transcripts (new schema).
+      * CRUD for AetherCanvas Workflow Definitions (JSON).
+      * CRUD for MetaLoopLab Scape Definitions (JSON/YAML).
+      * CRUD for MetaLoopLab Scape Execution Runs/Logs.
+      * Versioning (basic), tagging, user-based access.
+   3. Common Model Interaction API (Internal Backend Abstraction):
+      * Standardized function/class for backend components to call any configured LLM (Ollama, Groq) with prompts, parameters, and streaming support.
+* Chat Interface (Frontend - JavaScript):
+   1. ChatInterface.js V2: Handle image input, integrate with new backend services.
+   2. SuggestionEngine.js (Basic): Suggest "Automate in AetherCanvas."
+   3. ChatToCanvasHandoff.js: Package and send context to AetherCanvas.
+   4. HumanInputHandler.js: Process human input requests from AetherCanvas.
+   5. Image rendering support in message display.
+   6. Adaptation to use Shared ModelSelector Component.
+* AetherCanvas (Frontend - JavaScript):
+   1. NodeInspectorPanel.js V2: Groq model configuration for Agent Nodes.
+   2. WorkflowSidebar.js V2: Use Unified History Service for workflow persistence.
+   3. AetherCanvasFlowRunner.js V2:
+      * Call Common Model Interaction API for Agent Nodes.
+      * Execute HumanInputNode.js.
+   4. AgentNode.js V2: Configure Groq models, use Common Model API.
+   5. HumanInputNode.js (New): Request input from Chat.
+   6. GoalToFlowWizardPanel.js V2: Accept context from Chat.
+* MetaLoopLab (Frontend - JavaScript - Scape Discovery Lab):
+   1. StructuredTextEditor for Scapes (New): Edit scapes as JSON/YAML.
+   2. DynamicScapeEngine.js (New/Major Refactor):
+      * Parse and execute dynamic scape JSON.
+      * Support conditional edges & basic nested loops.
+      * Use Common Model Interaction API.
+   3. ScapeDefinitionManager.js (New): CRUD for scape definitions via Unified History Service.
+   4. AdvancedObservabilityUI.js (New): Visualize scape execution.
+   5. StructuredOutputUtil.js (Shared/Enhanced): Robust JSON parsing/validation.
+   6. ScapeExportUtil.js (New): Convert MetaLoopLab scape to AetherCanvas workflow JSON.
+   7. Adaptation to use Shared ModelSelector Component.
+This detailed breakdown should provide a clearer logical map of the functionalities existing and those immediately needed to progress the AI Suite according to Phase 1 of your strategic blueprint.

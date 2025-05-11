@@ -1,0 +1,1056 @@
+﻿AI Suite: Logic Flow Analysis & Functional Mapping (Phase 1, 2 & 3 Focus)
+Date: May 7, 2025
+Based on: AI Interaction & Orchestration Suite: Strategic Blueprint v2.0
+Objective: This document provides a deeper analysis of the three core components (Chat Interface, AetherCanvas, MetaLoopLab) and their planned integrations as outlined in the "Strategic Blueprint v2.0." It focuses on:
+1. Mapping current and planned (Phase 1, 2 & 3) logic flows.
+2. Identifying existing key functionalities based on the blueprint and provided file structures.
+3. Detailing new functions and modules required to achieve the Phase 1, 2 & 3 visions, thereby creating a more complete logical map for development.
+1. The Chat Interface: The Conversational Gateway
+1.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.1.1 "Current Capabilities & Codebase References."
+* Key Files Implied: src/components/Chat/ChatInterface.js, src/components/ModelSelector/ModelSelector.js, src/contexts/ChatContext.js, src/contexts/useConversations.js, main.py (for /api/models/*, /api/conversations).
+graph TD
+   subgraph Chat Interface (Frontend - src/components/Chat)
+       UI_Chat[Chat UI / ChatInput.js] -- User Input --> ChatInterface_JS[ChatInterface.js]
+       ChatInterface_JS -- Uses --> ModelSelector_JS[ModelSelector.js]
+       ModelSelector_JS -- Fetches Models --> API_GetModels[apiService.js / Backend API: /api/models/*]
+       ChatInterface_JS -- Sends Message / Gets History --> ChatContext_JS[ChatContext.js / useConversations.js]
+       ChatContext_JS -- Interacts for Storage --> API_ChatHistory[apiService.js / Backend API: /api/conversations]
+       ChatInterface_JS -- Displays Messages --> ChatMessages_JS[ChatMessages.js]
+       ChatMessages_JS -- Renders Content --> MarkdownRenderer_JS[common/MarkdownRenderer.js]
+   end
+
+   subgraph Backend (Python - main.py)
+       API_GetModels --> MainPy_GetModels[main.py: get_ollama_models(), get_groq_models()]
+       API_ChatHistory --> MainPy_ChatHistory[main.py: save_conversation(), list_conversations()]
+       MainPy_GetModels -- Accesses --> OllamaLib[Ollama Library / Groq API]
+   end
+
+   style ChatInterface_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style ModelSelector_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style ChatContext_JS fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_GetModels fill:#f9f,stroke:#333,stroke-width:2px
+   style MainPy_ChatHistory fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * ChatInterface.js: Main component orchestrating chat UI, input handling, message display.
+      * ModelSelector.js: UI for selecting models (Ollama, Groq).
+      * ChatContext.js/useConversations.js: State management for current conversation, history.
+      * ChatMessages.js: Rendering individual messages.
+      * apiService.js (or similar): Handling API calls to the backend for models and history.
+   * Backend (main.py):
+      * Endpoints for listing Ollama and Groq models.
+      * Endpoints for saving and retrieving chat conversations (currently file-based).
+      * Interaction with Ollama library and Groq API.
+1.2. Planned Phase 1 Enhancements & Logic Flow
+* Blueprint Reference: Section 3.1.3 "Planned Enhancements & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 5, 6).
+* Focus: Proactive assistance (basic), deeper context (session-level), tool invocation (placeholder for Canvas), multi-modal (basic image), integration with new backend services.
+graph TD
+   subgraph Chat Interface (Frontend - Phase 1)
+       UI_Chat_P1[Chat UI / ChatInput.js V2] -- User Input (Text, Image) --> ChatInterface_P1[ChatInterface.js V2]
+       ChatInterface_P1 -- Uses --> ModelSelector_P1[Shared ModelSelector Component]
+       ModelSelector_P1 -- Fetches Models --> API_UnifiedModelService[apiService.js / Backend API: Unified Model Mgmt Service]
+
+       ChatInterface_P1 -- Handles State --> ChatContext_P1[ChatContext.js / useConversations.js V2]
+       ChatContext_P1 -- Stores/Retrieves --> API_UnifiedHistoryService_Chat[apiService.js / Backend API: Unified History Service (Chat)]
+       ChatInterface_P1 -- Displays Messages --> ChatMessages_P1[ChatMessages.js V2]
+       ChatMessages_P1 -- Renders --> MarkdownRenderer_P1[common/MarkdownRenderer.js with Image Support]
+
+       ChatInterface_P1 -- Suggests Action --> SuggestionEngine_FE_P1[SuggestionEngine.js (Basic)]
+       SuggestionEngine_FE_P1 -- Triggers Handoff --> CanvasHandoff_FE_P1[ChatToCanvasHandoff.js]
+       CanvasHandoff_FE_P1 -- Passes Context --> AetherCanvas_GoalWizard
+
+       ChatInterface_P1 -- Receives HumanInputRequest --> HumanInputHandler_FE_P1[HumanInputHandler.js]
+       HumanInputHandler_FE_P1 -- Displays Prompt --> UI_Chat_P1
+       UI_Chat_P1 -- User Response --> HumanInputHandler_FE_P1
+       HumanInputHandler_FE_P1 -- Sends Response --> API_CanvasHumanInputResponse[apiService.js / Backend or Direct to Canvas Event]
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedModelService --> SB_ModelService_P1[Unified Model Management Service V1]
+       API_UnifiedHistoryService_Chat --> SB_HistoryService_P1[Unified History Service V1]
+       SB_ModelService_P1 -- Accesses --> ModelProviderLibs[Ollama Lib / Groq API / Other Providers]
+   end
+
+   AetherCanvas_GoalWizard((AetherCanvas GoalToFlowWizardPanel.js))
+
+   style ChatInterface_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style SuggestionEngine_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style CanvasHandoff_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style HumanInputHandler_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_ModelService_P1 fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_HistoryService_P1 fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (Chat):
+      * ChatInterface.js V2: Enhanced to handle basic image input, interact with new backend services, and integrate suggestion/handoff logic.
+      * SuggestionEngine.js (Basic): Rudimentary logic to suggest "Automate in AetherCanvas" based on conversation cues.
+      * ChatToCanvasHandoff.js: Module to package chat context and initiate handoff to AetherCanvas's GoalToFlowWizardPanel.js.
+      * HumanInputHandler.js: Module to receive requests for human input (from AetherCanvas), display them in chat, and send back responses.
+      * Enhanced ChatMessages.js / MarkdownRenderer.js: To support rendering of image inputs/outputs.
+      * Adaptation to use Shared ModelSelector Component.
+   * Backend (Shared Services - extending main.py or new microservices):
+      * Unified Model Management Service V1: (Blueprint 4.3.1, 5.1.2.1)
+         * list_all_models(): Consolidate Ollama, Groq, etc.
+         * get_model_details(model_id): Provide capabilities, context window.
+         * Secure API key management.
+      * Unified History Service V1: (Blueprint 4.3.2, 5.1.2.1)
+         * save_chat_transcript(transcript_data): Store chat with new schema.
+         * get_chat_transcript(conversation_id).
+         * list_chat_transcripts_for_user(user_id).
+         * (This service will also handle Canvas and Lab artifacts later).
+      * Common Model Interaction API (within Backend): (Blueprint 5.1.2.1)
+         * A standardized internal backend function/class that ChatInterface (via its backend endpoint), AetherCanvasFlowRunner, and MetaLoopLab engine will use to send prompts to any configured model provider (Ollama, Groq). This abstracts the direct provider-specific calls currently in main.py.
+         * execute_model_prompt(model_id, prompt, params, stream_callback)
+2. AetherCanvas: The Visual Workflow Orchestrator
+2.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.2.1 "Current Capabilities & Codebase References."
+* Key Files Implied: src/components/AetherCanvas/AetherCanvas.js, NodePalette.js, CanvasFlow.js, NodeInspectorPanel.js, AetherCanvasFlowRunner.js, workflowStorage.js, GoalToFlowWizardPanel.js, AgentNode.js, ToolNode.js, main.py (for model execution via agentApiService.js or similar).
+graph TD
+   subgraph AetherCanvas (Frontend - src/components/AetherCanvas)
+       AC_UI[Main UI: AetherCanvas.js]
+       AC_UI -- Manages --> NP[NodePalette.js]
+       AC_UI -- Manages --> CF[CanvasFlow.js (React Flow)]
+       AC_UI -- Manages --> NIP[NodeInspectorPanel.js]
+       AC_UI -- Manages --> WS[WorkflowSidebar.js]
+       AC_UI -- Manages --> OS[OutputSidebar.js]
+       AC_UI -- Uses --> FC[FlowControlsPanel.js]
+
+       NP -- Drags Node --> CF
+       CF -- Selects Node --> NIP
+       NIP -- Configures Node Data --> CF
+       WS -- Load/Save Workflow (JSON) --> StoreUtil[utils/workflowStorage.js]
+       StoreUtil -- Interacts with --> LocalStorage[Browser Local Storage / File System via Backend]
+
+       FC -- Run Workflow --> Runner[utils/AetherCanvasFlowRunner.js]
+       Runner -- Gets Nodes/Edges --> CF
+       Runner -- Executes Node (e.g., AgentNode) --> AgentNodeExec[AgentNode.js Logic]
+       AgentNodeExec -- Calls Backend for AI --> API_AgentExec[apiService.js / Backend API: /api/agent/chat or similar]
+
+       AC_UI -- Invokes --> GTFW[GoalToFlowWizardPanel.js]
+       GTFW -- Generates Workflow --> CF
+   end
+
+   subgraph Backend (Python - main.py)
+       API_AgentExec --> MainPy_AgentExec[main.py: agent_chat_endpoint()]
+       MainPy_AgentExec -- Uses --> OllamaLib_AC[Ollama Library / Groq (Planned)]
+       LocalStorage --> MainPy_FileStore[main.py: file save/load endpoints (if saving to server)]
+   end
+
+   style AC_UI fill:#ccf,stroke:#333,stroke-width:2px
+   style Runner fill:#ccf,stroke:#333,stroke-width:2px
+   style GTFW fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_AgentExec fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * AetherCanvas.js: Main orchestrator for the canvas UI.
+      * CanvasFlow.js: React Flow instance, manages nodes and edges visually.
+      * NodePalette.js: Displays available nodes.
+      * NodeInspectorPanel.js: Allows configuration of selected node properties.
+      * WorkflowSidebar.js: Handles loading/saving workflows.
+      * workflowStorage.js: Utility for workflow JSON persistence (likely LocalStorage or file via backend).
+      * AetherCanvasFlowRunner.js: Executes the workflow logic based on graph topology.
+      * AgentNode.js, ToolNode.js, etc.: Implementations for specific node types, including logic for execution (e.g., calling backend for AgentNode).
+      * GoalToFlowWizardPanel.js: Converts natural language to a basic workflow.
+   * Backend (main.py):
+      * Endpoint for executing agent tasks (e.g., /api/agent/chat called by AgentNode).
+      * (Potentially) Endpoints for saving/loading workflow JSON files if not purely client-side.
+2.2. Planned Phase 1 Enhancements & Logic Flow
+* Blueprint Reference: Section 3.2.3 "Planned Enhancements & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 4, 6).
+* Focus: Full Groq integration, refactor to use new shared backend services, "Human Input Node."
+graph TD
+   subgraph AetherCanvas (Frontend - Phase 1)
+       AC_UI_P1[Main UI: AetherCanvas.js V2]
+       AC_UI_P1 -- Manages --> NP_P1[NodePalette.js V2 (adds HumanInputNode)]
+       AC_UI_P1 -- Manages --> CF_P1[CanvasFlow.js V2]
+       AC_UI_P1 -- Manages --> NIP_P1[NodeInspectorPanel.js V2 (Groq config)]
+       AC_UI_P1 -- Manages --> WS_P1[WorkflowSidebar.js V2]
+       WS_P1 -- Load/Save Workflow --> API_UnifiedHistory_Canvas[apiService.js / Backend API: Unified History Service (Canvas)]
+
+       FC_P1[FlowControlsPanel.js V2] -- Run Workflow --> Runner_P1[utils/AetherCanvasFlowRunner.js V2]
+       Runner_P1 -- Gets Nodes/Edges --> CF_P1
+       Runner_P1 -- Executes AgentNode --> AgentNodeExec_P1[AgentNode.js Logic V2]
+       AgentNodeExec_P1 -- Uses Common Model API --> API_CommonModelExec_Canvas[apiService.js / Backend API: Common Model Interaction]
+
+       Runner_P1 -- Executes HumanInputNode --> HumanInputNode_FE_P1[HumanInputNode.js]
+       HumanInputNode_FE_P1 -- Sends Request --> Chat_HumanInputHandler((Chat HumanInputHandler))
+       Chat_HumanInputHandler -- Response --> HumanInputNode_FE_P1
+
+       AC_UI_P1 -- Invokes --> GTFW_P1[GoalToFlowWizardPanel.js V2]
+       GTFW_P1 -- Receives Context From --> Chat_CanvasHandoff((ChatToCanvasHandoff))
+       GTFW_P1 -- Generates Workflow --> CF_P1
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedHistory_Canvas --> SB_HistoryService_P1[Unified History Service V1]
+       API_CommonModelExec_Canvas --> SB_CommonModelExec_P1[Common Model Interaction API V1]
+   end
+
+   style AC_UI_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style Runner_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style HumanInputNode_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_HistoryService_P1 fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_CommonModelExec_P1 fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (AetherCanvas):
+      * AetherCanvas.js V2, NodePalette.js V2, NodeInspectorPanel.js V2: Updates to support new node types, Groq configuration in Agent nodes.
+      * WorkflowSidebar.js V2: Modified to use the Unified History Service for saving/loading workflows.
+      * AetherCanvasFlowRunner.js V2:
+         * Modified to call the new Common Model Interaction API via apiService.js for Agent Nodes (Ollama & Groq).
+         * Logic to handle execution of the new HumanInputNode.js.
+      * AgentNode.js V2: Updated to allow selection and configuration of Groq models, and to prepare calls for the Common Model Interaction API.
+      * HumanInputNode.js (New):
+         * Configuration for the prompt/data to send to the Chat interface.
+         * Logic to send a request to the Chat component (likely via a backend event or a direct API call if Chat exposes one) and await a response.
+      * GoalToFlowWizardPanel.js V2: Enhanced to accept context from the Chat handoff.
+   * Backend (Shared Services - already listed under Chat, but used by Canvas):
+      * Unified History Service V1: Must now support CRUD for AetherCanvas workflow definitions (JSON).
+         * save_canvas_workflow(workflow_json)
+         * get_canvas_workflow(workflow_id)
+         * list_canvas_workflows_for_user(user_id)
+      * Common Model Interaction API V1: Used by AetherCanvasFlowRunner for all model calls.
+3. MetaLoopLab: The Scape Discovery Lab
+3.1. Current Functionalities & High-Level Logic Flow (Interpreted)
+* Blueprint Reference: Section 3.3.1 "Current State & Evolution from MetaLoopLab.js."
+* Key Files Implied: src/components/MetaLoopLab.js, src/processGraph.js, src/components/History/LoopHistory.js, main.py (for /api/models/*, /api/agent/chat, /api/loop_conversations).
+graph TD
+   subgraph MetaLoopLab (Frontend - src/components/MetaLoopLab)
+       MLL_UI[Main UI: MetaLoopLab.js]
+       MLL_UI -- Uses --> MLL_ModelSelector[MetaLoopLabModelSelector.js or similar]
+       MLL_ModelSelector -- Fetches Models --> API_GetModels_MLL[apiService.js / Backend API: /api/models/*]
+
+       MLL_UI -- Loads Static Graph --> ProcGraphJS[processGraph.js]
+       MLL_UI -- Seed Prompt --> LoopEngine[Loop Execution Engine (in MetaLoopLab.js)]
+       LoopEngine -- Constructs Prompt --> LoopEngine
+       LoopEngine -- Calls Backend for AI --> API_AgentChat_MLL[apiService.js / Backend API: /api/agent/chat]
+       LoopEngine -- Handles Streaming Response --> MLL_UI
+       LoopEngine -- Parses Output (extractTrailingJson) --> LoopEngine
+       LoopEngine -- Decides Next Node --> LoopEngine
+       LoopEngine -- Saves Loop --> API_SaveLoop[apiService.js / Backend API: /api/loop_conversations]
+
+       MLL_UI -- Uses --> LoopHist[components/History/LoopHistory.js]
+       LoopHist -- Fetches History --> API_GetLoops[apiService.js / Backend API: /api/loop_conversations]
+   end
+
+   subgraph Backend (Python - main.py)
+       API_GetModels_MLL --> MainPy_GetModels_MLL[main.py: get_ollama_models(), get_groq_models()]
+       API_AgentChat_MLL --> MainPy_AgentChat_MLL[main.py: agent_chat_endpoint()]
+       MainPy_AgentChat_MLL -- Uses --> OllamaLib_MLL[Ollama Library]
+       API_SaveLoop --> MainPy_SaveLoop[main.py: save_loop_conversation()]
+       API_GetLoops --> MainPy_GetLoops[main.py: list_loop_conversations()]
+   end
+
+   style MLL_UI fill:#ccf,stroke:#333,stroke-width:2px
+   style LoopEngine fill:#ccf,stroke:#333,stroke-width:2px
+   style MainPy_AgentChat_MLL fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key Current Functions/Modules:
+   * Frontend:
+      * MetaLoopLab.js: Main component, UI, and the core loop execution engine. Loads static processGraph.js.
+      * MetaLoopLabModelSelector.js (or similar): For selecting models.
+      * processGraph.js: Static definition of the Ideation/Critic loop.
+      * LoopHistory.js: Displays past loop conversations.
+      * extractTrailingJson: Utility for basic structured output.
+   * Backend (main.py):
+      * Endpoints for model listing.
+      * /api/agent/chat: Endpoint for Ollama agent execution.
+      * /api/loop_conversations: Endpoints for saving/listing loop histories (file-based).
+3.2. Planned Phase 1 Enhancements & Logic Flow (Scape Discovery Lab)
+* Blueprint Reference: Section 3.3.3 "Planned Core Features & Future Direction" (relevant to Phase 1) and Section 5.1.2 "Key Initiatives & Tasks" (items 1, 2, 3, 6).
+* Focus: UI for defining/editing scapes (structured text), dynamic scape execution engine (conditional edges, basic nested loops), full Groq integration, specialized UI for observation, use of shared backend services.
+graph TD
+   subgraph MetaLoopLab (Frontend - Phase 1 Scape Discovery Lab)
+       MLL_UI_P1[Main UI: MetaLoopLab.js V2]
+       MLL_UI_P1 -- Uses --> Shared_ModelSelector_MLL[Shared ModelSelector Component]
+       Shared_ModelSelector_MLL -- Fetches Models --> API_UnifiedModelService_MLL[apiService.js / Backend API: Unified Model Mgmt Service]
+
+       MLL_UI_P1 -- Scape Definition (JSON/YAML) --> ScapeEditor_FE_P1[StructuredTextEditor for Scapes]
+       ScapeEditor_FE_P1 -- Provides Scape JSON --> DynamicScapeEngine_FE_P1[DynamicScapeEngine.js (New or heavily refactored MLL.js)]
+
+       MLL_UI_P1 -- Seed Prompt / Controls --> DynamicScapeEngine_FE_P1
+       DynamicScapeEngine_FE_P1 -- Constructs Prompt --> DynamicScapeEngine_FE_P1
+       DynamicScapeEngine_FE_P1 -- Uses Common Model API --> API_CommonModelExec_MLL[apiService.js / Backend API: Common Model Interaction]
+       DynamicScapeEngine_FE_P1 -- Handles Streaming Response --> MLL_UI_P1
+       DynamicScapeEngine_FE_P1 -- Parses Output (StructuredOutputUtil) --> DynamicScapeEngine_FE_P1
+       DynamicScapeEngine_FE_P1 -- Handles Conditional Edges / Basic Nesting --> DynamicScapeEngine_FE_P1
+       DynamicScapeEngine_FE_P1 -- Saves Scape Run --> API_UnifiedHistory_MLL_Run[apiService.js / Backend API: Unified History Service (Scape Runs)]
+
+       MLL_UI_P1 -- Manages Scape Definitions --> ScapeDefManager_FE_P1[ScapeDefinitionManager.js]
+       ScapeDefManager_FE_P1 -- Save/Load Scape Definition --> API_UnifiedHistory_MLL_Def[apiService.js / Backend API: Unified History Service (Scape Definitions)]
+
+       MLL_UI_P1 -- Displays --> AdvancedObservabilityUI_P1[Advanced Observability UI (Loop Iterations, Context Flow)]
+   end
+
+   subgraph Shared Backend Services (Phase 1)
+       API_UnifiedModelService_MLL --> SB_ModelService_P1[Unified Model Management Service V1]
+       API_CommonModelExec_MLL --> SB_CommonModelExec_P1[Common Model Interaction API V1]
+       API_UnifiedHistory_MLL_Run --> SB_HistoryService_P1[Unified History Service V1]
+       API_UnifiedHistory_MLL_Def --> SB_HistoryService_P1
+   end
+
+   style MLL_UI_P1 fill:#ccf,stroke:#333,stroke-width:2px
+   style DynamicScapeEngine_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style ScapeEditor_FE_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style AdvancedObservabilityUI_P1 fill:#lightgreen,stroke:#333,stroke-width:2px
+   style SB_ModelService_P1 fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_CommonModelExec_P1 fill:#f9f,stroke:#333,stroke-width:2px
+   style SB_HistoryService_P1 fill:#f9f,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules Needed (Phase 1):
+   * Frontend (MetaLoopLab):
+      * MetaLoopLab.js V2: Overhauled to serve as the main UI container.
+      * StructuredTextEditor for Scapes (New): Component for users to define/edit scape graphs as JSON or YAML.
+      * DynamicScapeEngine.js (New/Major Refactor):
+         * Parses user-defined scape JSON (instead of static processGraph.js).
+         * Manages loop execution with support for conditional edges based on agent output (using StructuredOutputUtil).
+         * Basic support for one level of nested loops (calling another defined scape).
+         * Calls the Common Model Interaction API for all agent executions (Ollama & Groq).
+         * Integrates with AdvancedObservabilityUI.
+      * ScapeDefinitionManager.js (New): Handles CRUD operations for scape definitions via the Unified History Service.
+      * AdvancedObservabilityUI.js (New): Components to visualize loop iterations, context flow between agents, and agent decision points.
+      * StructuredOutputUtil.js (Shared/Enhanced): More robust version of extractTrailingJson, potentially using JSON schemas for validation, used by the DynamicScapeEngine.
+      * Adaptation to use Shared ModelSelector Component.
+   * Backend (Shared Services - already listed, but used by MetaLoopLab):
+      * Unified History Service V1: Must now support CRUD for:
+         * MetaLoopLab Scape Definitions (JSON/YAML).
+            * save_scape_definition(scape_json)
+            * get_scape_definition(scape_id)
+            * list_scape_definitions_for_user(user_id)
+         * MetaLoopLab Scape Execution Runs/Logs.
+            * save_scape_run_log(run_data)
+            * get_scape_run_log(run_id)
+      * Common Model Interaction API V1: Used by DynamicScapeEngine for all model calls.
+4. Inter-Component Integrations (Phase 1 Focus)
+* Blueprint Reference: Section 4.2 "Detailed Integration Points & Data Flows" and Section 5.1.2 (item 6) "Initial Cross-Component Integrations."
+graph TD
+   subgraph Chat_P1 [Chat (Phase 1)]
+       Chat_UI_P1_Int[Chat Interface V2]
+       Chat_To_Canvas_Handoff_P1[ChatToCanvasHandoff.js]
+       Chat_Human_Input_Handler_P1[HumanInputHandler.js]
+   end
+
+   subgraph AetherCanvas_P1 [AetherCanvas (Phase 1)]
+       AC_GoalWizard_P1[GoalToFlowWizardPanel.js V2]
+       AC_HumanInputNode_P1[HumanInputNode.js]
+       AC_WorkflowStorage_P1[WorkflowSidebar.js V2 / Unified History]
+   end
+
+   subgraph MetaLoopLab_P1 [MetaLoopLab (Phase 1)]
+       MLL_ScapeDefManager_P1[ScapeDefinitionManager.js / Unified History]
+       MLL_ExportUtil_P1[ScapeExportUtil.js (New)]
+   end
+
+   subgraph SharedBackend_P1 [Shared Backend Services (Phase 1)]
+       UnifiedHistorySvc_P1[Unified History Service V1]
+       CommonModelSvc_P1[Common Model Interaction API V1]
+       UnifiedModelMgmtSvc_P1[Unified Model Management Service V1]
+   end
+
+   Chat_UI_P1_Int -- User Action / AI Suggestion --> Chat_To_Canvas_Handoff_P1
+   Chat_To_Canvas_Handoff_P1 -- Task Context --> AC_GoalWizard_P1
+
+   AC_HumanInputNode_P1 -- Request for Input --> Chat_Human_Input_Handler_P1
+   Chat_Human_Input_Handler_P1 -- User Response --> AC_HumanInputNode_P1
+
+   MLL_ExportUtil_P1 -- Scape JSON (as Canvas Workflow) --> AC_WorkflowStorage_P1
+
+   Chat_P1 --> UnifiedModelMgmtSvc_P1
+   Chat_P1 --> UnifiedHistorySvc_P1
+   Chat_P1 --> CommonModelSvc_P1
+
+   AetherCanvas_P1 --> UnifiedHistorySvc_P1
+   AetherCanvas_P1 --> CommonModelSvc_P1
+   AetherCanvas_P1 --> UnifiedModelMgmtSvc_P1
+
+   MetaLoopLab_P1 --> UnifiedHistorySvc_P1
+   MetaLoopLab_P1 --> CommonModelSvc_P1
+   MetaLoopLab_P1 --> UnifiedModelMgmtSvc_P1
+
+
+   style Chat_To_Canvas_Handoff_P1 fill:#lightyellow,stroke:#333,stroke-width:2px
+   style AC_HumanInputNode_P1 fill:#lightyellow,stroke:#333,stroke-width:2px
+   style MLL_ExportUtil_P1 fill:#lightyellow,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules for Integration (Phase 1):
+   * Chat:
+      * ChatToCanvasHandoff.js (as detailed in Chat section): Packages context for AC_GoalWizard.
+      * HumanInputHandler.js (as detailed in Chat section): Handles requests from AC_HumanInputNode.
+   * AetherCanvas:
+      * GoalToFlowWizardPanel.js (Enhancement): Ability to receive and parse initial context from Chat.
+      * HumanInputNode.js (New, as detailed in Canvas section): Initiates requests to Chat.
+      * (Implicit) WorkflowSidebar.js / workflowStorage.js: Must be able to import/understand a JSON workflow definition that might have originated from an exported MetaLoopLab scape.
+   * MetaLoopLab:
+      * ScapeExportUtil.js (New): Utility to convert a MetaLoopLab scape definition (JSON/YAML) into a compatible AetherCanvas workflow JSON format. This might involve simplifying certain Lab-specific features or mapping them to equivalent Canvas nodes.
+   * API Contracts / Shared Schemas (Implicitly New or Formalized):
+      * Schema for "task context" passed from Chat to Canvas.
+      * Schema for "human input requests" from Canvas to Chat and "responses" back.
+      * A common or translatable graph definition schema portion that allows MetaLoopLab scapes to be represented (even if simplified) as AetherCanvas workflows.
+5. Consolidated List of Key New Functions/Modules for Phase 1 (for a "Complete Logical Map" of this phase)
+This list summarizes the primary new functional blocks required to achieve the Phase 1 vision.
+* Shared Backend Services (Python - main.py evolution or new microservices):
+   1. Unified Model Management Service V1:
+      * Centralized model listing (Ollama, Groq, others).
+      * Model capability details.
+      * Secure API key/config management.
+   2. Unified History Service V1:
+      * CRUD for Chat Transcripts (new schema).
+      * CRUD for AetherCanvas Workflow Definitions (JSON).
+      * CRUD for MetaLoopLab Scape Definitions (JSON/YAML).
+      * CRUD for MetaLoopLab Scape Execution Runs/Logs.
+      * Versioning (basic), tagging, user-based access.
+   3. Common Model Interaction API V1 (Internal Backend Abstraction):
+      * Standardized function/class for backend components to call any configured LLM (Ollama, Groq) with prompts, parameters, and streaming support.
+* Chat Interface (Frontend - JavaScript):
+   1. ChatInterface.js V2: Handle image input, integrate with new backend services.
+   2. SuggestionEngine.js (Basic): Suggest "Automate in AetherCanvas."
+   3. ChatToCanvasHandoff.js: Package and send context to AetherCanvas.
+   4. HumanInputHandler.js: Process human input requests from AetherCanvas.
+   5. Image rendering support in message display.
+   6. Adaptation to use Shared ModelSelector Component.
+* AetherCanvas (Frontend - JavaScript):
+   1. NodeInspectorPanel.js V2: Groq model configuration for Agent Nodes.
+   2. WorkflowSidebar.js V2: Use Unified History Service for workflow persistence.
+   3. AetherCanvasFlowRunner.js V2:
+      * Call Common Model Interaction API for Agent Nodes.
+      * Execute HumanInputNode.js.
+   4. AgentNode.js V2: Configure Groq models, use Common Model API.
+   5. HumanInputNode.js (New): Request input from Chat.
+   6. GoalToFlowWizardPanel.js V2: Accept context from Chat.
+* MetaLoopLab (Frontend - JavaScript - Scape Discovery Lab):
+   1. StructuredTextEditor for Scapes (New): Edit scapes as JSON/YAML.
+   2. DynamicScapeEngine.js (New/Major Refactor):
+      * Parse and execute dynamic scape JSON.
+      * Support conditional edges & basic nested loops.
+      * Use Common Model Interaction API.
+   3. ScapeDefinitionManager.js (New): CRUD for scape definitions via Unified History Service.
+   4. AdvancedObservabilityUI.js (New): Visualize scape execution.
+   5. StructuredOutputUtil.js (Shared/Enhanced): Robust JSON parsing/validation.
+   6. ScapeExportUtil.js (New): Convert MetaLoopLab scape to AetherCanvas workflow JSON.
+   7. Adaptation to use Shared ModelSelector Component.
+6. Phase 2: Advanced Interplay, Meta-Reasoning & Contextual Intelligence
+This phase builds upon the foundational services and integrations of Phase 1, focusing on deeper intelligence, more complex interactions, and true meta-reasoning capabilities.
+* Blueprint Reference: Section 5.2 "Phase 2: Advanced Interplay, Meta-Reasoning & Contextual Intelligence" of the Strategic Blueprint v2.0.
+6.1. The Chat Interface (Phase 2)
+* 6.1.1. Planned Phase 2 Enhancements & Logic Flow:
+   * Focus: AI-driven suggestions for Canvas/Lab actions using global context, proactive assistance, V1 multi-modal (advanced image/audio), integration with Global User Context Service and Real-time Notification Service.
+graph TD
+   subgraph Chat Interface (Frontend - Phase 2)
+       UI_Chat_P2[Chat UI / ChatInput.js V3] -- User Input (Text, Advanced Image, Audio) --> ChatInterface_P2[ChatInterface.js V3]
+       ChatInterface_P2 -- Uses --> ModelSelector_P1[Shared ModelSelector Component]
+       ChatInterface_P2 -- Handles State --> ChatContext_P2[ChatContext.js / useConversations.js V3]
+       ChatContext_P2 -- Stores/Retrieves --> API_UnifiedHistoryService_Chat_P2[apiService.js / UnifiedHistoryServiceV1]
+
+       ChatInterface_P2 -- Uses --> MultiModalInputHandler_FE_P2[MultiModalInputHandler.js (New)]
+       ChatInterface_P2 -- Displays Messages (incl. advanced media) --> ChatMessages_P2[ChatMessages.js V3]
+
+       ChatInterface_P2 -- Gets Global Context --> API_GlobalUserContext_Chat[apiService.js / GlobalUserContextServiceV1]
+       ChatInterface_P2 -- Suggests Actions (Canvas/Lab) --> AdvancedSuggestionEngine_FE_P2[AdvancedSuggestionEngine.js (New)]
+       AdvancedSuggestionEngine_FE_P2 -- Uses --> API_GlobalUserContext_Chat
+       AdvancedSuggestionEngine_FE_P2 -- Triggers Handoff --> CanvasHandoff_FE_P1
+       AdvancedSuggestionEngine_FE_P2 -- Triggers Handoff --> LabHandoff_FE_P2[ChatToLabHandoff.js (New)]
+       LabHandoff_FE_P2 -- Passes Context --> MetaLoopLab_ScapeInit
+
+       ChatInterface_P2 -- Subscribes for Notifications --> API_RealTimeNotification_Chat[apiService.js / RealTimeNotificationServiceV1]
+       API_RealTimeNotification_Chat -- Receives Event (e.g. MLL Insight) --> ChatInterface_P2
+       ChatInterface_P2 -- Handles MLL Insight/Feedback Request --> MLLFeedbackHandler_FE_P2[MLLFeedbackHandler.js (New)]
+       MLLFeedbackHandler_FE_P2 -- Displays Insight/Prompt --> UI_Chat_P2
+       UI_Chat_P2 -- User Feedback --> MLLFeedbackHandler_FE_P2
+       MLLFeedbackHandler_FE_P2 -- Sends Feedback to MLL --> API_MLLFeedbackResponse[apiService.js / MetaLoopLab via Event or API]
+   end
+
+   subgraph Shared Backend Services (Phase 1 & 2 Additions)
+       API_UnifiedHistoryService_Chat_P2 --> SB_HistoryService_P1
+       API_GlobalUserContext_Chat --> SB_GlobalUserContext_P2[Global User Context Service V1 (New)]
+       API_RealTimeNotification_Chat --> SB_RealTimeNotification_P2[Real-time Notification Service V1 (New)]
+   end
+
+   MetaLoopLab_ScapeInit((MetaLoopLab Scape Initialization))
+
+   style ChatInterface_P2 fill:#cce,stroke:#333,stroke-width:2px
+   style AdvancedSuggestionEngine_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style LabHandoff_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style MultiModalInputHandler_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style MLLFeedbackHandler_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style SB_GlobalUserContext_P2 fill:#f99,stroke:#333,stroke-width:2px
+   style SB_RealTimeNotification_P2 fill:#f99,stroke:#333,stroke-width:2px
+
+* 6.1.2. Key NEW Functions/Modules Needed (Phase 2 - Chat):
+   * Frontend (Chat):
+      * ChatInterface.js V3: Integrate advanced suggestions, multi-modal handling, global context usage, and real-time notifications.
+      * AdvancedSuggestionEngine.js (New): Leverages GlobalUserContextService to provide more relevant suggestions for Canvas or Lab handoff.
+      * ChatToLabHandoff.js (New): Packages chat context (seed prompt, goals) for initializing a MetaLoopLab scape.
+      * MultiModalInputHandler.js (New): Handles processing and preparing advanced image or audio inputs for models.
+      * MLLFeedbackHandler.js (New): Manages displaying insights/queries from MetaLoopLab and sending user feedback back.
+      * Client-side integration with GlobalUserContextService (to fetch context) and RealTimeNotificationService (to subscribe to events).
+   * Backend (New Shared Services): (Detailed in section 6.4)
+      * Global User Context Service V1
+      * Real-time Notification Service V1
+6.2. AetherCanvas (Phase 2)
+* 6.2.1. Planned Phase 2 Enhancements & Logic Flow:
+   * Focus: Advanced conditional logic nodes, framework for custom nodes, V1 workflow versioning, "Invoke Scape Node" to call MetaLoopLab.
+graph TD
+   subgraph AetherCanvas (Frontend - Phase 2)
+       AC_UI_P2[Main UI: AetherCanvas.js V3]
+       AC_UI_P2 -- Manages --> NP_P2[NodePalette.js V3 (adds AdvCondNode, InvokeScapeNode)]
+       AC_UI_P2 -- Manages --> CF_P2[CanvasFlow.js V3]
+       AC_UI_P2 -- Manages --> NIP_P2[NodeInspectorPanel.js V3 (config for new nodes)]
+       AC_UI_P2 -- Manages --> WS_P2[WorkflowSidebar.js V3 (handles versions)]
+       WS_P2 -- Load/Save/Version Workflow --> API_UnifiedHistory_Canvas_P2[apiService.js / UnifiedHistoryServiceV1 (with versioning)]
+
+       FC_P2[FlowControlsPanel.js V3] -- Run Workflow --> Runner_P2[utils/AetherCanvasFlowRunner.js V3]
+       Runner_P2 -- Gets Nodes/Edges --> CF_P2
+       Runner_P2 -- Executes --> AdvCondNode_FE_P2[AdvancedConditionalNode.js (New)]
+       Runner_P2 -- Executes --> CustomNode_FE_P2[UserCustomNode.js (via Framework)]
+       Runner_P2 -- Executes --> InvokeScapeNode_FE_P2[InvokeScapeNode.js (New)]
+       InvokeScapeNode_FE_P2 -- Sends Scape Invocation Request --> API_MLL_InvokeScape[apiService.js / MetaLoopLab Scape Execution API]
+       API_MLL_InvokeScape -- Returns Result --> InvokeScapeNode_FE_P2
+
+       AC_UI_P2 -- Uses --> CustomNodeFramework_FE_P2[CustomNodeFramework.js (New - Definition & Registration)]
+       AC_UI_P2 -- Uses --> WorkflowVersioningUtil_FE_P2[WorkflowVersioningUtil.js (New - interacts with WS_P2 & API)]
+   end
+
+   subgraph Shared Backend Services (Phase 1 & 2 Additions)
+       API_UnifiedHistory_Canvas_P2 --> SB_HistoryService_P1[Unified History Service V1 (enhanced for versioning)]
+       API_MLL_InvokeScape --> MetaLoopLab_ExecutionEngine((MetaLoopLab DynamicScapeEngine))
+   end
+
+   style AC_UI_P2 fill:#cce,stroke:#333,stroke-width:2px
+   style Runner_P2 fill:#cce,stroke:#333,stroke-width:2px
+   style AdvCondNode_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style CustomNode_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style InvokeScapeNode_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style CustomNodeFramework_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style WorkflowVersioningUtil_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+
+* 6.2.2. Key NEW Functions/Modules Needed (Phase 2 - AetherCanvas):
+   * Frontend (AetherCanvas):
+      * AetherCanvas.js V3, NodePalette.js V3, NodeInspectorPanel.js V3: Support new advanced nodes.
+      * WorkflowSidebar.js V3: Integrate with WorkflowVersioningUtil.js to show/manage workflow versions.
+      * AetherCanvasFlowRunner.js V3:
+         * Logic to execute AdvancedConditionalNode.js (e.g., switch logic).
+         * Logic to execute InvokeScapeNode.js, including passing parameters and handling results.
+         * Mechanism to load and run UserCustomNode.js based on the framework.
+      * AdvancedConditionalNode.js (New): Implements switch/case or other complex conditional branching logic.
+      * CustomNodeFramework.js (New): Defines how users can create, register, and use their own custom nodes (likely involves a schema for node definition, UI rendering, and execution logic).
+      * UserCustomNode.js (Example/Template): A template or example of a user-defined custom node.
+      * WorkflowVersioningUtil.js (New): Handles interaction with the UnifiedHistoryService for creating, listing, and loading different versions of a workflow.
+      * InvokeScapeNode.js (New):
+         * UI in NodeInspectorPanel to select a MetaLoopLab scape (by ID/name) and configure its input parameters.
+         * Logic to call a backend API (or use the event system) to trigger execution of the selected scape in MetaLoopLab and receive its structured output.
+   * Backend (Shared Services & MetaLoopLab):
+      * Unified History Service V1 (Enhancement): Add support for storing and retrieving multiple versions of AetherCanvas workflows.
+      * MetaLoopLab: Needs an API endpoint or event listener to accept scape execution requests from AetherCanvas, run the scape, and return results. (This is part of MetaLoopLab's Phase 2 evolution).
+6.3. MetaLoopLab (Phase 2)
+* 6.3.1. Planned Phase 2 Enhancements & Logic Flow:
+   * Focus: Meta-agents (graph critique/modification), sandboxed tool use for agents, advanced context/memory management, experiment management (versioning/comparison).
+graph TD
+   subgraph MetaLoopLab (Frontend - Phase 2 Scape Discovery Lab)
+       MLL_UI_P2[Main UI: MetaLoopLab.js V3]
+       MLL_UI_P2 -- Uses --> Shared_ModelSelector_MLL[Shared ModelSelector Component]
+       MLL_UI_P2 -- Scape Definition --> ScapeEditor_FE_P1
+       ScapeEditor_FE_P1 -- Provides Scape JSON --> DynamicScapeEngine_FE_P2[DynamicScapeEngine.js V2]
+
+       MLL_UI_P2 -- Controls / Experiment Params --> DynamicScapeEngine_FE_P2
+       DynamicScapeEngine_FE_P2 -- Uses Common Model API --> API_CommonModelExec_MLL
+       DynamicScapeEngine_FE_P2 -- Handles MetaAgent Execution --> MetaAgentLogic_FE_P2[MetaAgentNodeLogic.js (New)]
+       MetaAgentLogic_FE_P2 -- Modifies Graph (Internal) --> DynamicScapeEngine_FE_P2
+       DynamicScapeEngine_FE_P2 -- Handles Agent Tool Use --> ToolExecutionProxy_FE_P2[ToolExecutionProxy_FE.js (New)]
+       ToolExecutionProxy_FE_P2 -- Calls Backend Tool Service --> API_SandboxedToolExec[apiService.js / SandboxedToolExecutionService]
+
+       DynamicScapeEngine_FE_P2 -- Manages Advanced Context/Memory --> AdvancedContextManager_FE_P2[AdvancedContextManager.js (New)]
+       DynamicScapeEngine_FE_P2 -- Saves Run/Version --> API_UnifiedHistory_MLL_P2[apiService.js / UnifiedHistoryServiceV1 (enhanced)]
+
+       MLL_UI_P2 -- Manages Scape Versions/Comparisons --> ExperimentManager_FE_P2[ExperimentManager.js (New)]
+       ExperimentManager_FE_P2 -- Interacts for Versions --> API_UnifiedHistory_MLL_P2
+
+       MLL_UI_P2 -- Displays --> AdvancedObservabilityUI_P2[AdvancedObservabilityUI.js V2 (shows meta-actions, tool calls)]
+       MLL_UI_P2 -- Listens for Invocation --> API_MLL_InvokeScapeListener[ScapeInvocationListener (from Canvas)]
+   end
+
+   subgraph Shared Backend Services (Phase 1 & 2 Additions)
+       API_SandboxedToolExec --> SB_SandboxedToolExec_P2[Sandboxed Tool Execution Service (New)]
+       API_UnifiedHistory_MLL_P2 --> SB_HistoryService_P1[Unified History Service V1 (enhanced for MLL versioning/comparison)]
+   end
+
+   style MLL_UI_P2 fill:#cce,stroke:#333,stroke-width:2px
+   style DynamicScapeEngine_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style MetaAgentLogic_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style ToolExecutionProxy_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style AdvancedContextManager_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style ExperimentManager_FE_P2 fill:#9f9,stroke:#333,stroke-width:2px
+   style SB_SandboxedToolExec_P2 fill:#f99,stroke:#333,stroke-width:2px
+
+* 6.3.2. Key NEW Functions/Modules Needed (Phase 2 - MetaLoopLab):
+   * Frontend (MetaLoopLab):
+      * DynamicScapeEngine.js V2:
+         * Execute meta-agents (nodes that can inspect/modify the scape graph or its parameters).
+         * Interface with ToolExecutionProxy_FE.js to allow agents to request tool execution.
+         * Incorporate AdvancedContextManager.js for sophisticated memory operations by agents.
+         * Logic to handle dynamic graph mutations triggered by meta-agents.
+         * API to be invoked by AetherCanvas's InvokeScapeNode.js (potentially via backend).
+      * MetaAgentNodeLogic.js (New, or specialized agent types): Contains logic for agents that perform meta-reasoning (e.g., critique the current scape, suggest prompt changes, re-wire nodes).
+      * ToolExecutionProxy_FE.js (New): Frontend interface that agents use to request a tool execution; this module then calls the backend SandboxedToolExecutionService.
+      * AdvancedContextManager.js (New): Provides APIs for agents within a scape to manage different types of memory or context (e.g., scratchpad, long-term memory, shared blackboard).
+      * ExperimentManager.js (New): UI and logic for versioning scape definitions, comparing results of different experiment runs, and managing experiment parameters. (Integrates with UnifiedHistoryService).
+      * AdvancedObservabilityUI.js V2: Enhanced to visualize meta-agent actions, tool calls, and advanced context states.
+      * ScapeInvocationListener.js (New, or part of DynamicScapeEngine): Handles requests from AetherCanvas to run a specific scape.
+   * Backend (New Shared Service & Enhancements): (Detailed in section 6.4)
+      * Sandboxed Tool Execution Service V1
+      * Unified History Service V1 (Enhancement): Support for versioning MetaLoopLab scape definitions and storing metadata for experiment comparison.
+6.4. New/Enhanced Shared Backend Services (Phase 2)
+* Blueprint Reference: Section 5.2.2 (item 4) "Cross-Component Infrastructure."
+* Focus: Global User Context, Real-time Notifications, Sandboxed Tool Execution for MetaLoopLab.
+1. Global User Context Service V1 (New)
+   * Functionality: Stores and provides access to user-level context that can be shared across the suite (e.g., current project, high-level goals, frequently used models/tools, summarized recent activity).
+   * Key Functions:
+      * set_user_context_item(user_id, key, value)
+      * get_user_context_item(user_id, key)
+      * get_all_user_context(user_id)
+   * Frontend Interaction: Each component's main orchestrator (ChatInterface.js V3, AetherCanvas.js V3, MetaLoopLab.js V3) will fetch relevant global context to inform suggestions or personalize UI.
+2. Real-time Notification Service V1 (New)
+   * Functionality: Facilitates asynchronous, real-time communication between components (frontend-frontend via backend, or backend-frontend). E.g., MetaLoopLab sending an insight to Chat, AetherCanvas notifying user of long task completion.
+   * Key Functions (Conceptual):
+      * subscribe_to_topic(user_id, topic, client_callback_info)
+      * publish_to_topic(topic, message_payload)
+      * send_direct_notification(user_id, client_id, message_payload)
+   * Technology: WebSockets or Server-Sent Events (SSE).
+   * Frontend Interaction: Clients in each component subscribe to relevant topics or user-specific channels.
+3. Sandboxed Tool Execution Service V1 (New - primarily for MetaLoopLab Phase 2)
+   * Functionality: Securely executes external tools or code snippets requested by agents within MetaLoopLab. Manages permissions, resource limits, and isolates execution.
+   * Key Functions:
+      * request_tool_execution(agent_id, tool_name, params): Returns a job ID.
+      * get_tool_execution_status_result(job_id)
+   * Security: Critical. Involves containerization (e.g., Docker), strict input/output validation, network isolation, and capability-based permissions.
+4. Unified History Service V1 (Enhancements)
+   * Functionality Added:
+      * Support for versioning AetherCanvas workflow definitions.
+         * save_canvas_workflow_version(workflow_id, workflow_json, version_tag)
+         * list_canvas_workflow_versions(workflow_id)
+         * get_canvas_workflow_version(workflow_id, version_identifier)
+      * Support for versioning MetaLoopLab scape definitions and storing experiment comparison metadata.
+         * save_scape_definition_version(scape_id, scape_json, version_tag)
+         * log_scape_experiment_metadata(run_id, comparison_tags, metrics)
+5. API Gateway (Enhancements)
+   * Routing rules for new services (GlobalUserContextService, RealTimeNotificationService, SandboxedToolExecutionService).
+   * Potentially more granular authentication/authorization policies for these services.
+6.5. Inter-Component Integrations (Phase 2 Focus)
+* Blueprint Reference: Section 5.2.2 (item 5) "Deep Integration Scenarios."
+graph TD
+   subgraph Chat_P2_Int [Chat (Phase 2)]
+       Chat_UI_P2_Int[Chat Interface V3]
+       Chat_To_Lab_Handoff_P2[ChatToLabHandoff.js]
+       MLL_Feedback_Handler_P2[MLLFeedbackHandler.js]
+   end
+
+   subgraph AetherCanvas_P2_Int [AetherCanvas (Phase 2)]
+       AC_UI_P2_Int[AetherCanvas UI V3]
+       AC_InvokeScapeNode_P2[InvokeScapeNode.js]
+       AC_WorkflowStorage_P2_Int[WorkflowSidebar.js V3 / Unified History (Versioning)]
+   end
+
+   subgraph MetaLoopLab_P2_Int [MetaLoopLab (Phase 2)]
+       MLL_UI_P2_Int[MetaLoopLab UI V3]
+       MLL_ScapeExecEngine_P2[DynamicScapeEngine.js V2]
+       MLL_ScapeExporter_P2[ScapeExportUtil.js V2 (Refined)]
+   end
+
+   subgraph SharedBackend_P2_Int [Shared Backend Services (Phase 2)]
+       UnifiedHistorySvc_P2[Unified History Service V1 (Enhanced)]
+       CommonModelSvc_P1[Common Model Interaction API V1]
+       UnifiedModelMgmtSvc_P1[Unified Model Management Service V1]
+       GlobalUserContextSvc_P2[Global User Context Service V1]
+       RealTimeNotificationSvc_P2[Real-time Notification Service V1]
+       SandboxedToolExecSvc_P2[Sandboxed Tool Execution Service V1]
+   end
+
+   Chat_UI_P2_Int -- User Action / AI Suggestion --> Chat_To_Lab_Handoff_P2
+   Chat_To_Lab_Handoff_P2 -- Scape Init Context --> MLL_ScapeExecEngine_P2
+
+   MLL_ScapeExecEngine_P2 -- Insight/Feedback Request via RealTimeNotificationSvc_P2 --> MLL_Feedback_Handler_P2
+   MLL_Feedback_Handler_P2 -- User Feedback via RealTimeNotificationSvc_P2 or API --> MLL_ScapeExecEngine_P2
+
+   AC_InvokeScapeNode_P2 -- Invoke Scape Request (Params) --> MLL_ScapeExecEngine_P2
+   MLL_ScapeExecEngine_P2 -- Scape Result --> AC_InvokeScapeNode_P2
+
+   MLL_ScapeExporter_P2 -- Refined Scape Pattern (as Canvas Workflow) --> AC_WorkflowStorage_P2_Int
+
+   %% All components use GlobalUserContextSvc_P2 and RealTimeNotificationSvc_P2 as needed
+   Chat_P2_Int --> GlobalUserContextSvc_P2
+   Chat_P2_Int --> RealTimeNotificationSvc_P2
+   AetherCanvas_P2_Int --> GlobalUserContextSvc_P2
+   AetherCanvas_P2_Int --> RealTimeNotificationSvc_P2
+   MetaLoopLab_P2_Int --> GlobalUserContextSvc_P2
+   MetaLoopLab_P2_Int --> RealTimeNotificationSvc_P2
+   MetaLoopLab_P2_Int -- Tool Call --> SandboxedToolExecSvc_P2
+
+
+   style Chat_To_Lab_Handoff_P2 fill:#lightyellow,stroke:#333,stroke-width:2px
+   style MLL_Feedback_Handler_P2 fill:#lightyellow,stroke:#333,stroke-width:2px
+   style AC_InvokeScapeNode_P2 fill:#lightyellow,stroke:#333,stroke-width:2px
+   style MLL_ScapeExporter_P2 fill:#lightyellow,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules for Integration (Phase 2):
+   * Chat:
+      * ChatToLabHandoff.js (New): Packages context for MetaLoopLab scape initialization.
+      * MLLFeedbackHandler.js (New): Receives insights/queries from MetaLoopLab (via RealTimeNotificationService) and sends user feedback back.
+   * AetherCanvas:
+      * InvokeScapeNode.js (New): Sends execution requests to MetaLoopLab (potentially via an API exposed by MetaLoopLab's backend part or the Real-time Notification Service) and processes results.
+   * MetaLoopLab:
+      * DynamicScapeEngine.js V2 (Enhancement):
+         * API/event listener to receive scape invocation requests from AetherCanvas.
+         * Mechanism to send insights/queries to Chat via RealTimeNotificationService.
+      * ScapeExportUtil.js V2 (Refined): More robust conversion of complex MetaLoopLab patterns to AetherCanvas templates/workflows.
+   * Shared Backend Services:
+      * GlobalUserContextService V1 (New): Used by Chat's AdvancedSuggestionEngine and potentially by Canvas/Lab for personalization.
+      * RealTimeNotificationService V1 (New): Underpins MetaLoopLab -> Chat communication and potentially other async updates.
+   * API Contracts / Shared Schemas (New or Formalized for Phase 2):
+      * Schema for "scape initialization context" from Chat to MetaLoopLab.
+      * Schema for "lab insights/queries" from MetaLoopLab to Chat and "feedback" back.
+      * Schema for "scape invocation requests" from AetherCanvas to MetaLoopLab (including parameters) and "scape results" back.
+      * Schema for structured data used by the GlobalUserContextService.
+6.6. Consolidated List of Key New Functions/Modules for Phase 2
+This list summarizes the primary new functional blocks required to achieve the Phase 2 vision, building on Phase 1.
+* New Shared Backend Services (Python - main.py evolution or new microservices):
+   1. Global User Context Service V1:
+      * Store and serve sharable user context (goals, preferences, recent activity).
+   2. Real-time Notification Service V1:
+      * WebSocket/SSE based for asynchronous inter-component communication.
+   3. Sandboxed Tool Execution Service V1 (Primarily for MetaLoopLab):
+      * Securely execute external tools/code for agents.
+      * Manage permissions, resources, and isolation.
+* Enhanced Shared Backend Services (from Phase 1):
+   1. Unified History Service V1 (Enhancements):
+      * Support for AetherCanvas workflow versioning.
+      * Support for MetaLoopLab scape definition versioning and experiment comparison metadata.
+   2. API Gateway (Enhancements):
+      * Routing and policies for new Phase 2 services.
+* Chat Interface (Frontend - JavaScript):
+   1. ChatInterface.js V3: Integrate advanced suggestions, multi-modal (audio/adv. image), global context, real-time notifications.
+   2. AdvancedSuggestionEngine.js (New): Use global context for Canvas/Lab handoff suggestions.
+   3. ChatToLabHandoff.js (New): Package context for MetaLoopLab.
+   4. MultiModalInputHandler.js (New): Handle audio, advanced image inputs.
+   5. MLLFeedbackHandler.js (New): Manage insights/queries from MetaLoopLab.
+   6. Client-side integration with GlobalUserContextService and RealTimeNotificationService.
+* AetherCanvas (Frontend - JavaScript):
+   1. AetherCanvasFlowRunner.js V3: Execute new advanced conditional and custom nodes; manage InvokeScapeNode.
+   2. AdvancedConditionalNode.js (New): Implement switch/case, etc.
+   3. CustomNodeFramework.js (New): Define user custom node creation/registration.
+   4. WorkflowVersioningUtil.js (New): Manage workflow versions via Unified History.
+   5. InvokeScapeNode.js (New): Call MetaLoopLab scapes and handle results.
+   6. NodePalette.js V3, NodeInspectorPanel.js V3: UI for new nodes.
+   7. WorkflowSidebar.js V3: UI for workflow versioning.
+* MetaLoopLab (Frontend - JavaScript - Scape Discovery Lab):
+   1. DynamicScapeEngine.js V2:
+      * Execute meta-agents (graph critique/modification).
+      * Interface with backend for sandboxed tool execution.
+      * Advanced context/memory management for agents.
+      * Handle dynamic graph mutations.
+      * API/listener for scape invocation from AetherCanvas.
+      * Send insights/queries to Chat via Real-time Notification Service.
+   2. MetaAgentNodeLogic.js (New): Logic for agents performing meta-reasoning.
+   3. ToolExecutionProxy_FE.js (New): Frontend interface for agent tool calls.
+   4. AdvancedContextManager.js (New): APIs for agent memory operations.
+   5. ExperimentManager.js (New): UI/logic for scape versioning, comparison.
+   6. AdvancedObservabilityUI.js V2: Visualize meta-actions, tool calls.
+   7. ScapeExportUtil.js V2 (Refined): Improved export to AetherCanvas.
+7. Phase 3: Intelligent Augmentation, Ecosystem & Polish
+This final detailed phase focuses on elevating the suite with AI-driven assistance across components, building a thriving user ecosystem, and achieving a high degree of polish and usability.
+* Blueprint Reference: Section 5.3 "Phase 3: Intelligent Augmentation, Ecosystem & Polish" of the Strategic Blueprint v2.0.
+7.1. The Chat Interface (Phase 3)
+* 7.1.1. Planned Phase 3 Enhancements & Logic Flow:
+   * Focus: Full multi-modal support, AI Meta-Advisor integration for chat-specific suggestions, deep personalization, integration with community sharing platform for prompt templates.
+graph TD
+   subgraph Chat Interface (Frontend - Phase 3)
+       UI_Chat_P3[Chat UI / ChatInput.js V4] -- User Input (Full Multi-Modal: Video, Docs) --> ChatInterface_P3[ChatInterface.js V4]
+       ChatInterface_P3 -- Uses --> MultiModalInputHandler_FE_P3[MultiModalInputHandler.js V2 (Full Support)]
+       ChatInterface_P3 -- Uses --> ModelSelector_P1
+
+       ChatInterface_P3 -- Handles State (Deep Personalization) --> ChatContext_P3[ChatContext.js / useConversations.js V4]
+       ChatContext_P3 -- Uses --> API_GlobalUserContext_Chat_P3[apiService.js / GlobalUserContextServiceV2 (Enhanced)]
+       ChatContext_P3 -- Stores/Retrieves --> API_UnifiedHistoryService_Chat_P3[apiService.js / UnifiedHistoryServiceV2 (Enhanced)]
+
+       ChatInterface_P3 -- Interacts with Meta-Advisor --> API_MetaAdvisor_Chat[apiService.js / AI_MetaAdvisorService (Chat Context)]
+       API_MetaAdvisor_Chat -- Provides Suggestions --> ChatInterface_P3
+
+       ChatInterface_P3 -- Accesses Community Prompts --> PromptTemplateManager_FE_P3[PromptTemplateManager.js (New)]
+       PromptTemplateManager_FE_P3 -- Fetches/Shares Templates --> API_CommunityPlatform_Prompts[apiService.js / CommunitySharingPlatform (Prompts)]
+
+       ChatInterface_P3 -- Displays Messages (Full Multi-Modal) --> ChatMessages_P3[ChatMessages.js V4]
+   end
+
+   subgraph Shared Backend Services (Phase 2 & 3 Additions)
+       API_GlobalUserContext_Chat_P3 --> SB_GlobalUserContext_P3[Global User Context Service V2 (Enhanced)]
+       API_UnifiedHistoryService_Chat_P3 --> SB_HistoryService_P2[Unified History Service V2 (Enhanced)]
+       API_MetaAdvisor_Chat --> SB_AIMetaAdvisor_P3[AI Meta-Advisor Service (New)]
+       API_CommunityPlatform_Prompts --> SB_CommunityPlatform_P3[Community Sharing Platform (New)]
+   end
+
+   style ChatInterface_P3 fill:#ccddff,stroke:#333,stroke-width:2px
+   style MultiModalInputHandler_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style PromptTemplateManager_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style SB_AIMetaAdvisor_P3 fill:#ff9999,stroke:#333,stroke-width:2px
+   style SB_CommunityPlatform_P3 fill:#ff9999,stroke:#333,stroke-width:2px
+   style SB_GlobalUserContext_P3 fill:#f99,stroke:#333,stroke-width:2px
+   style SB_HistoryService_P2 fill:#f9f,stroke:#333,stroke-width:2px
+
+* 7.1.2. Key NEW Functions/Modules Needed (Phase 3 - Chat):
+   * Frontend (Chat):
+      * ChatInterface.js V4: Integrate AI Meta-Advisor suggestions, full multi-modal input/output, prompt template management.
+      * MultiModalInputHandler.js V2: Full support for video, document uploads, and other complex data types, including preprocessing for models.
+      * PromptTemplateManager.js (New): UI for browsing, selecting, using, and potentially sharing chat prompt templates via the CommunitySharingPlatform.
+      * Client-side logic to send relevant chat context to the AI_MetaAdvisorService and display its suggestions.
+      * Enhanced personalization logic within ChatContext.js V4 leveraging GlobalUserContextService V2.
+   * Backend (New Shared Services & Enhancements): (Detailed in section 7.4)
+      * AI Meta-Advisor Service V1
+      * Community Sharing Platform V1
+      * Global User Context Service V2 (Enhanced for deeper personalization signals)
+      * Unified History Service V2 (Enhanced for richer logging if needed by Meta-Advisor)
+7.2. AetherCanvas (Phase 3)
+* 7.2.1. Planned Phase 3 Enhancements & Logic Flow:
+   * Focus: AI Meta-Advisor integration for workflow optimization, community sharing of templates/nodes, advanced analytics dashboard, SDK for custom nodes, full UI/UX polish.
+graph TD
+   subgraph AetherCanvas (Frontend - Phase 3)
+       AC_UI_P3[Main UI: AetherCanvas.js V4 (Highly Polished)]
+       AC_UI_P3 -- Manages --> NP_P3[NodePalette.js V4 (Community Nodes)]
+       AC_UI_P3 -- Manages --> CF_P3[CanvasFlow.js V4]
+       AC_UI_P3 -- Manages --> NIP_P3[NodeInspectorPanel.js V4]
+       AC_UI_P3 -- Manages --> WS_P3[WorkflowSidebar.js V4 (Community Templates)]
+       WS_P3 -- Accesses Community Templates/Nodes --> API_CommunityPlatform_Canvas[apiService.js / CommunitySharingPlatform (Canvas Artifacts)]
+
+       FC_P3[FlowControlsPanel.js V4] -- Run Workflow --> Runner_P3[utils/AetherCanvasFlowRunner.js V4]
+       Runner_P3 -- Logs Execution Data --> API_AnalyticsService_Canvas[apiService.js / AdvancedAnalyticsService]
+
+       AC_UI_P3 -- Interacts with Meta-Advisor --> API_MetaAdvisor_Canvas[apiService.js / AI_MetaAdvisorService (Workflow Context)]
+       API_MetaAdvisor_Canvas -- Provides Optimization Suggestions --> AC_UI_P3
+
+       AC_UI_P3 -- Uses --> CustomNodeSDKIntegration_FE_P3[CustomNodeSDKIntegration.js (New - for SDK-built nodes)]
+       AC_UI_P3 -- Displays --> AnalyticsDashboard_FE_P3[AnalyticsDashboardView.js (New)]
+       AnalyticsDashboard_FE_P3 -- Fetches Data --> API_AnalyticsService_Canvas
+   end
+
+   subgraph Shared Backend Services (Phase 2 & 3 Additions)
+       API_CommunityPlatform_Canvas --> SB_CommunityPlatform_P3
+       API_AnalyticsService_Canvas --> SB_AdvancedAnalytics_P3[Advanced Analytics Service (New)]
+       API_MetaAdvisor_Canvas --> SB_AIMetaAdvisor_P3
+   end
+
+   style AC_UI_P3 fill:#ccddff,stroke:#333,stroke-width:2px
+   style Runner_P3 fill:#ccddff,stroke:#333,stroke-width:2px
+   style CustomNodeSDKIntegration_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style AnalyticsDashboard_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style SB_AdvancedAnalytics_P3 fill:#ff9999,stroke:#333,stroke-width:2px
+
+* 7.2.2. Key NEW Functions/Modules Needed (Phase 3 - AetherCanvas):
+   * Frontend (AetherCanvas):
+      * AetherCanvas.js V4, NodePalette.js V4, WorkflowSidebar.js V4: UI enhancements for extreme polish, accessibility, and integration of community-shared nodes/templates.
+      * AetherCanvasFlowRunner.js V4: Enhanced logging capabilities to feed the AdvancedAnalyticsService.
+      * CustomNodeSDKIntegration.js (New): Frontend logic to correctly load, render, and manage nodes built using the new SDK.
+      * AnalyticsDashboardView.js (New): UI for displaying workflow performance, token usage, and other insights fetched from the AdvancedAnalyticsService.
+      * Client-side logic to send workflow context/definitions to the AI_MetaAdvisorService and display its optimization suggestions.
+      * Integration points for fetching and submitting templates/nodes to the CommunitySharingPlatform.
+   * Backend (New Shared Services & SDK Support): (Detailed in section 7.4)
+      * Advanced Analytics Service V1
+      * Community Sharing Platform V1 (must support Canvas artifacts like workflow templates and custom node definitions).
+      * AI Meta-Advisor Service V1
+      * Backend support for validating and managing SDK-defined custom nodes if they have server-side components.
+7.3. MetaLoopLab (Phase 3)
+* 7.3.1. Planned Phase 3 Enhancements & Logic Flow:
+   * Focus: AI Meta-Advisor for scape design suggestions, community sharing of scape patterns/agents, advanced analytics, SDK for agent archetypes/tools, full UI/UX polish for expert users.
+graph TD
+   subgraph MetaLoopLab (Frontend - Phase 3 Scape Discovery Lab)
+       MLL_UI_P3[Main UI: MetaLoopLab.js V4 (Highly Polished for Experts)]
+       MLL_UI_P3 -- Uses --> Shared_ModelSelector_MLL
+       MLL_UI_P3 -- Scape Definition --> ScapeEditor_FE_P2[StructuredTextEditor for Scapes V2 (or Advanced Visual Editor)]
+       ScapeEditor_FE_P2 -- Provides Scape JSON --> DynamicScapeEngine_FE_P3[DynamicScapeEngine.js V3]
+
+       DynamicScapeEngine_FE_P3 -- Logs Execution Data --> API_AnalyticsService_MLL[apiService.js / AdvancedAnalyticsService]
+       DynamicScapeEngine_FE_P3 -- Uses --> CustomAgentSDKIntegration_FE_P3[CustomAgentSDKIntegration.js (New)]
+
+       MLL_UI_P3 -- Interacts with Meta-Advisor --> API_MetaAdvisor_MLL[apiService.js / AI_MetaAdvisorService (Scape Context)]
+       API_MetaAdvisor_MLL -- Provides Design Suggestions --> MLL_UI_P3
+
+       MLL_UI_P3 -- Accesses Community Scapes/Agents --> ScapeTemplateManager_FE_P3[ScapeTemplateManager.js (New)]
+       ScapeTemplateManager_FE_P3 -- Fetches/Shares Artifacts --> API_CommunityPlatform_MLL[apiService.js / CommunitySharingPlatform (MLL Artifacts)]
+
+       MLL_UI_P3 -- Displays --> AdvancedObservabilityUI_P3[AdvancedObservabilityUI.js V3 (Polished)]
+       MLL_UI_P3 -- Displays --> AnalyticsDashboard_MLL_FE_P3[AnalyticsDashboardView_MLL.js (New)]
+       AnalyticsDashboard_MLL_FE_P3 -- Fetches Data --> API_AnalyticsService_MLL
+   end
+
+   subgraph Shared Backend Services (Phase 2 & 3 Additions)
+       API_CommunityPlatform_MLL --> SB_CommunityPlatform_P3
+       API_AnalyticsService_MLL --> SB_AdvancedAnalytics_P3
+       API_MetaAdvisor_MLL --> SB_AIMetaAdvisor_P3
+   end
+
+   style MLL_UI_P3 fill:#ccddff,stroke:#333,stroke-width:2px
+   style DynamicScapeEngine_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style CustomAgentSDKIntegration_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style ScapeTemplateManager_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+   style AnalyticsDashboard_MLL_FE_P3 fill:#8f8,stroke:#333,stroke-width:2px
+
+* 7.3.2. Key NEW Functions/Modules Needed (Phase 3 - MetaLoopLab):
+   * Frontend (MetaLoopLab):
+      * MetaLoopLab.js V4: UI polished for expert users, integration with Meta-Advisor and Community Platform.
+      * DynamicScapeEngine.js V3: Enhanced logging for AdvancedAnalyticsService, integration with SDK-defined agent archetypes/tools.
+      * CustomAgentSDKIntegration.js (New): Frontend logic to load and manage agent archetypes or tools developed via the SDK.
+      * ScapeTemplateManager.js (New): UI for browsing, importing, and sharing MetaLoopLab scape patterns and agent archetypes via the CommunitySharingPlatform.
+      * AnalyticsDashboardView_MLL.js (New): Specialized view for MetaLoopLab analytics (e.g., scape performance, agent effectiveness, emergent behavior metrics).
+      * Client-side logic to send scape context to AI_MetaAdvisorService and display its design/optimization suggestions.
+   * Backend (New Shared Services & SDK Support): (Detailed in section 7.4)
+      * Advanced Analytics Service V1 (must support MLL-specific metrics).
+      * Community Sharing Platform V1 (must support MLL artifacts like scape patterns, agent archetypes).
+      * AI Meta-Advisor Service V1
+      * Backend support for SDK-defined agent archetypes/tools if they have server-side logic.
+7.4. New/Enhanced Shared Backend Services (Phase 3)
+* Blueprint Reference: Section 5.3.2 (items 1, 2, 3, 4) "Key Initiatives & Tasks."
+1. AI Meta-Advisor Service V1 (New)
+   * Functionality: An AI system that analyzes user activity, chat context, workflow definitions (AetherCanvas), and scape designs (MetaLoopLab) to provide proactive suggestions for:
+      * Optimizing prompts.
+      * Improving workflow/scape structure.
+      * Suggesting relevant tools, nodes, or agent patterns.
+      * Highlighting potential issues or inefficiencies.
+      * Suggesting transitions between Chat, Canvas, and Lab.
+   * Key Functions (Conceptual):
+      * get_chat_suggestions(chat_context, user_history)
+      * get_canvas_workflow_suggestions(workflow_json, execution_history, user_goals)
+      * get_lab_scape_suggestions(scape_json, experiment_logs, research_objectives)
+   * Technology: Likely involves multiple specialized LLMs, rule-based systems, and machine learning models trained on platform usage data (anonymized and aggregated).
+2. Community Sharing Platform V1 (New)
+   * Functionality: A backend service and associated frontend UIs (integrated into each component) for users to:
+      * Publish, browse, search, and rate shared artifacts (Chat prompt templates, AetherCanvas workflow templates & custom nodes, MetaLoopLab scape patterns & agent archetypes).
+      * Manage their own shared contributions.
+      * Potentially support commenting and discussion around shared artifacts.
+   * Key Functions:
+      * publish_artifact(user_id, artifact_type, artifact_data, metadata)
+      * search_artifacts(query, filters)
+      * get_artifact_details(artifact_id)
+      * rate_artifact(user_id, artifact_id, rating)
+      * list_user_artifacts(user_id)
+   * Technology: Database for artifacts and metadata, search engine (e.g., Elasticsearch), APIs for frontend interaction.
+3. Advanced Analytics Service V1 (New)
+   * Functionality: Collects, aggregates, and processes usage data from all three components to provide:
+      * User-facing dashboards (token usage, workflow/scape performance, most used features).
+      * Platform-level analytics for administrators (feature adoption, error rates, system load).
+   * Key Functions:
+      * log_event(component, event_type, user_id, event_data)
+      * query_analytics_data(user_id_or_platform_level, query_params)
+   * Technology: Data warehousing solution, analytics database (e.g., ClickHouse, Druid), data visualization libraries for dashboards.
+4. SDK Support Infrastructure (Backend & Core Platform)
+   * Functionality: Backend systems to support custom extensions built with SDKs:
+      * Validation and registration of SDK-defined AetherCanvas nodes or MetaLoopLab agent archetypes/tools.
+      * If custom components have server-side logic, a secure execution environment or hosting mechanism for that logic.
+      * Management of dependencies for custom components.
+5. Global User Context Service V2 (Enhanced from Phase 2)
+   * Functionality Added: Deeper personalization signals, more complex goal tracking, and richer history summaries to better inform the AI Meta-Advisor Service.
+6. Unified History Service V2 (Enhanced from Phase 1 & 2)
+   * Functionality Added: Potentially richer logging details if required by the AI Meta-Advisor or AdvancedAnalyticsService. More sophisticated search and filtering capabilities.
+7. Scalable & Distributed Execution Backend V2 (Major Enhancement of existing execution paths)
+   * Functionality: Mature infrastructure for running highly parallelized, resource-intensive, or geographically distributed AetherCanvas workflows and MetaLoopLab scapes. This is less about new services and more about evolving the CommonModelInteractionAPI and the execution engines (AetherCanvasFlowRunner, DynamicScapeEngine) to leverage technologies like Kubernetes, serverless functions, or distributed task queues (e.g., Celery, RabbitMQ).
+7.5. Inter-Component Integrations (Phase 3 Focus)
+* Blueprint Reference: Section 5.3.2 "Key Initiatives & Tasks."
+* Focus: Primarily driven by the AI Meta-Advisor providing cross-component suggestions, and the CommunitySharingPlatform allowing artifacts from one area to inspire or be used in another. Full multi-modal data flow.
+graph TD
+   subgraph Chat_P3_Int [Chat (Phase 3)]
+       ChatUI_P3[Chat Interface V4]
+   end
+   subgraph AC_P3_Int [AetherCanvas (Phase 3)]
+       ACUI_P3[AetherCanvas UI V4]
+   end
+   subgraph MLL_P3_Int [MetaLoopLab (Phase 3)]
+       MLLUI_P3[MetaLoopLab UI V4]
+   end
+
+   subgraph SharedBackend_P3_Int [Shared Backend Services (Phase 3)]
+       AIMetaAdvisor_P3[AI Meta-Advisor Service V1]
+       CommunityPlatform_P3[Community Sharing Platform V1]
+       AdvancedAnalyticsSvc_P3[Advanced Analytics Service V1]
+       GlobalUserContextSvc_P3[Global User Context Service V2]
+       UnifiedHistorySvc_P3[Unified History Service V2]
+       SDKSupportInfra_P3[SDK Support Infrastructure]
+       ScalableExecBackend_P3[Scalable Execution Backend V2]
+   end
+
+   ChatUI_P3 -- Consumes/Provides Data --> AIMetaAdvisor_P3
+   ACUI_P3 -- Consumes/Provides Data --> AIMetaAdvisor_P3
+   MLLUI_P3 -- Consumes/Provides Data --> AIMetaAdvisor_P3
+
+   ChatUI_P3 -- Uses/Contributes --> CommunityPlatform_P3
+   ACUI_P3 -- Uses/Contributes --> CommunityPlatform_P3
+   MLLUI_P3 -- Uses/Contributes --> CommunityPlatform_P3
+
+   ChatUI_P3 -- Logs to/Reads from --> AdvancedAnalyticsSvc_P3
+   ACUI_P3 -- Logs to/Reads from --> AdvancedAnalyticsSvc_P3
+   MLLUI_P3 -- Logs to/Reads from --> AdvancedAnalyticsSvc_P3
+
+   %% All components interact with enhanced versions of previous services
+   Chat_P3_Int --> GlobalUserContextSvc_P3
+   Chat_P3_Int --> UnifiedHistorySvc_P3
+   AC_P3_Int --> GlobalUserContextSvc_P3
+   AC_P3_Int --> UnifiedHistorySvc_P3
+   MLL_P3_Int --> GlobalUserContextSvc_P3
+   MLL_P3_Int --> UnifiedHistorySvc_P3
+
+   %% SDKs allow new types of nodes/agents to be integrated
+   ACUI_P3 -- Integrates SDK Nodes --> SDKSupportInfra_P3
+   MLLUI_P3 -- Integrates SDK Agents/Tools --> SDKSupportInfra_P3
+
+   %% Core execution leverages scalable backend
+   AC_P3_Int -- Execution via --> ScalableExecBackend_P3
+   MLL_P3_Int -- Execution via --> ScalableExecBackend_P3
+
+
+   style AIMetaAdvisor_P3 fill:#lightcoral,stroke:#333,stroke-width:2px
+   style CommunityPlatform_P3 fill:#lightcoral,stroke:#333,stroke-width:2px
+   style AdvancedAnalyticsSvc_P3 fill:#lightcoral,stroke:#333,stroke-width:2px
+   style SDKSupportInfra_P3 fill:#lightcoral,stroke:#333,stroke-width:2px
+   style ScalableExecBackend_P3 fill:#lightcoral,stroke:#333,stroke-width:2px
+
+* Key NEW Functions/Modules for Integration (Phase 3):
+   * All Components (Chat, AetherCanvas, MetaLoopLab):
+      * Deep integration with the AI Meta-Advisor Service: Sending relevant context (current conversation, workflow design, scape structure) and receiving/displaying actionable suggestions.
+      * Integration with the Community Sharing Platform: UI elements for browsing, searching, importing, and publishing relevant artifacts (prompts, templates, nodes, scapes, agent archetypes).
+      * Integration with the Advanced Analytics Service: Sending detailed usage and performance data; UIs for displaying personalized or role-based analytics dashboards.
+      * Support for full multi-modal data types being passed between components where logical (e.g., an image generated in a Canvas workflow being discussed in Chat).
+      * Client-side support for extensions/plugins developed using the new SDKs.
+   * SDK Support Infrastructure (Backend/Platform):
+      * Mechanisms for the core suite to discover, validate, load, and manage components (nodes, agents, tools) developed via the SDKs.
+      * If SDK components require backend logic, a secure way to host or interface with that logic.
+7.6. Consolidated List of Key New Functions/Modules for Phase 3
+This list summarizes the primary new functional blocks required to achieve the Phase 3 vision, building on Phases 1 & 2.
+* New Shared Backend Services (Python - main.py evolution or new microservices):
+   1. AI Meta-Advisor Service V1:
+      * Provides intelligent suggestions across all components.
+      * Analyzes user activity, artifacts, and platform-wide patterns.
+   2. Community Sharing Platform V1:
+      * Backend for publishing, discovering, and managing shared user-generated artifacts (prompts, workflows, scapes, nodes, agents).
+   3. Advanced Analytics Service V1:
+      * Collects, aggregates, and serves usage and performance data for dashboards.
+   4. SDK Support Infrastructure:
+      * Backend systems for managing and integrating SDK-built extensions.
+* Enhanced Shared Backend Services (from Phase 2):
+   1. Global User Context Service V2: Deeper personalization signals.
+   2. Unified History Service V2: Richer logging for meta-advisor and analytics.
+   3. Scalable & Distributed Execution Backend V2: Evolution of core execution paths to handle increased load and complexity (not a single new service, but an architectural enhancement).
+* Chat Interface (Frontend - JavaScript):
+   1. ChatInterface.js V4: Integrate Meta-Advisor, Community Prompts, full multi-modal.
+   2. MultiModalInputHandler.js V2: Full support for video, documents, etc.
+   3. PromptTemplateManager.js (New): UI for Community Platform (prompts).
+   4. Deep integration with AI Meta-Advisor for chat-specific suggestions.
+* AetherCanvas (Frontend - JavaScript):
+   1. AetherCanvas.js V4, NodePalette.js V4, WorkflowSidebar.js V4: UI polish, Community Platform integration (templates, nodes).
+   2. AetherCanvasFlowRunner.js V4: Enhanced logging for Analytics.
+   3. CustomNodeSDKIntegration.js (New): Load and manage SDK-built nodes.
+   4. AnalyticsDashboardView.js (New): Display Canvas analytics.
+   5. Deep integration with AI Meta-Advisor for workflow suggestions.
+* MetaLoopLab (Frontend - JavaScript - Scape Discovery Lab):
+   1. MetaLoopLab.js V4: UI polish for experts, Meta-Advisor, Community Platform.
+   2. DynamicScapeEngine.js V3: Enhanced logging, SDK agent/tool integration.
+   3. CustomAgentSDKIntegration.js (New): Load/manage SDK-built agents/tools.
+   4. ScapeTemplateManager.js (New): UI for Community Platform (scapes, agents).
+   5. AnalyticsDashboardView_MLL.js (New): Display Lab-specific analytics.
+   6. Deep integration with AI Meta-Advisor for scape design suggestions.
+This comprehensive Phase 3 plan aims to create a highly intelligent, collaborative, and polished AI suite, fulfilling the vision of an "AI Operating System."

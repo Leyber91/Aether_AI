@@ -4,7 +4,7 @@
   "modelId": "phi4-mini:latest",
   "provider": "ollama",
   "createdAt": "2025-04-25T04:26:20.791Z",
-  "updatedAt": "2025-05-07T01:55:43.285Z",
+  "updatedAt": "2025-05-11T18:06:12.370Z",
   "messages": [
     {
       "id": "12cccc4b-13e5-4ae0-a982-e9d601a74c49",

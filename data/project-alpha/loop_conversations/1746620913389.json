@@ -1,0 +1,291 @@
+{
+  "processGraph": {
+    "nodes": [
+      {
+        "id": "ideation",
+        "type": "agent",
+        "data": {
+          "label": "Ideation",
+          "backend": "ollama",
+          "instructions": "Generate creative ideas for the user's prompt."
+        }
+      },
+      {
+        "id": "critic",
+        "type": "agent",
+        "data": {
+          "label": "Critic",
+          "backend": "ollama",
+          "instructions": "Critique the previous idea and suggest improvements."
+        }
+      }
+    ],
+    "edges": [
+      {
+        "source": "ideation",
+        "target": "critic"
+      },
+      {
+        "source": "critic",
+        "target": "ideation"
+      }
+    ],
+    "entry": "ideation"
+  },
+  "seedPrompt": "Immerse yourself fully and engage in profound contemplation about the implications of a post-singularity.",
+  "messages": [
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Ideation",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    },
+    {
+      "agent": "Critic",
+      "model": "deepseek-r1-distill-llama-70b",
+      "text": "",
+      "structured": null
+    }
+  ],
+  "timestamp": "2025-05-07T12:28:33.389Z"
+}

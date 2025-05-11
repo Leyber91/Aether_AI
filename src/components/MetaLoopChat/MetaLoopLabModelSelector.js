@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { API_BASE_URL } from "../api/apiService";
+import { API_BASE_URL } from "../../api/apiService";
 import styles from './ModelSelector/ModelSelector.module.css';
-import { GroqIcon, OllamaIcon } from './ModelSelector/FusedIcons';
+import { GroqIcon, OllamaIcon } from '../ModelSelector/FusedIcons';
 
 const Spinner = () => (
   <div className={styles.spinner} aria-label="Loading">

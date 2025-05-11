@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaLoopLab Communication Loop Visualization</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8faff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h2 { margin-top: 24px; }
+    #svgContainer {
+      margin-top: 30px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 32px 24px 16px 24px;
+    }
+    .node-label {
+      font-weight: bold;
+      font-size: 1.1em;
+      fill: #222;
+    }
+    .agent-node {
+      stroke: #6ca0dc;
+      fill: #eaf1fb;
+      stroke-width: 3;
+    }
+    .message-bubble {
+      fill: #ffe066;
+      stroke: #e2b007;
+      stroke-width: 2;
+      filter: drop-shadow(0px 2px 4px #ccc);
+    }
+    .arrow {
+      stroke: #888;
+      stroke-width: 2.5;
+      marker-end: url(#arrowhead);
+      opacity: 0.7;
+    }
+    #timeline {
+      margin-top: 32px;
+      width: 420px;
+      background: #f6f6f6;
+      border-radius: 10px;
+      padding: 12px 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+      font-size: 1em;
+    }
+    .timeline-step {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .timeline-step:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .agent-ideation { color: #2b7fd7; font-weight: bold; }
+    .agent-critic { color: #e67e22; font-weight: bold; }
+    .func-label {
+      font-size: 0.98em;
+      color: #555;
+      margin-left: 6px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+<h2>MetaLoopLab: Agent Communication Loop</h2>
+<div id="svgContainer">
+  <svg id="loopSVG" width="420" height="220">
+    <!-- Agent nodes -->
+    <ellipse class="agent-node" id="nodeIdeation" cx="110" cy="110" rx="65" ry="38"></ellipse>
+    <ellipse class="agent-node" id="nodeCritic" cx="310" cy="110" rx="65" ry="38"></ellipse>
+    <text class="node-label" x="110" y="115" text-anchor="middle">Ideation</text>
+    <text class="node-label" x="310" y="115" text-anchor="middle">Critic</text>
+    <!-- Arrows (static, for visual reference) -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#888" />
+      </marker>
+    </defs>
+    <line class="arrow" x1="175" y1="110" x2="245" y2="110" />
+    <line class="arrow" x1="245" y1="110" x2="175" y2="110" marker-end="url(#arrowhead)" marker-start="url(#arrowhead)" style="opacity:0.4;" />
+    <!-- Message bubble (animated) -->
+    <ellipse id="bubble" class="message-bubble" cx="110" cy="110" rx="30" ry="18" style="opacity:0;"></ellipse>
+    <text id="bubbleLabel" x="110" y="115" text-anchor="middle" font-size="0.97em" fill="#444" style="opacity:0;"></text>
+  </svg>
+</div>
+<div id="timeline">
+  <!-- Timeline steps will be injected here -->
+</div>
+<script>
+// Sample conversation steps (extracted from your JSON)
+const steps = [
+  {
+    agent: 'Ideation',
+    func: 'generateMessage',
+    text: 'Ideas on revolution singularity thinking',
+    next: 'Critic'
+  },
+  {
+    agent: 'Critic',
+    func: 'critiqueMessage',
+    text: 'Analyzes and refines the ideas',
+    next: 'Ideation'
+  },
+  {
+    agent: 'Ideation',
+    func: 'generateMessage',
+    text: 'Builds on critique, adds new ideas',
+    next: 'Critic'
+  },
+  {
+    agent: 'Critic',
+    func: 'critiqueMessage',
+    text: 'Further critique and summary',
+    next: 'Ideation'
+  }
+];
+
+const nodePositions = {
+  Ideation: { x: 110, y: 110 },
+  Critic: { x: 310, y: 110 }
+};
+
+const bubble = document.getElementById('bubble');
+const bubbleLabel = document.getElementById('bubbleLabel');
+const timeline = document.getElementById('timeline');
+
+function showTimeline(stepIdx) {
+  let html = '';
+  for (let i = 0; i <= stepIdx; i++) {
+    const s = steps[i];
+    html += `<div class='timeline-step'><span class='agent-${s.agent.toLowerCase()}'>${s.agent}</span> <span class='func-label'>(${s.func})</span>: ${s.text}</div>`;
+  }
+  timeline.innerHTML = html;
+}
+
+function animateStep(stepIdx) {
+  if (stepIdx >= steps.length) return;
+  const step = steps[stepIdx];
+  const from = nodePositions[step.agent];
+  const to = nodePositions[step.next];
+  // Place bubble at from
+  bubble.setAttribute('cx', from.x);
+  bubble.setAttribute('cy', from.y);
+  bubble.style.opacity = 1;
+  bubbleLabel.setAttribute('x', from.x);
+  bubbleLabel.setAttribute('y', from.y + 5);
+  bubbleLabel.textContent = step.agent;
+  bubbleLabel.style.opacity = 1;
+  showTimeline(stepIdx);
+  // Animate bubble to 'to' node
+  let t = 0;
+  const duration = 900;
+  const frameTime = 18;
+  function animate() {
+    t += frameTime;
+    const progress = Math.min(t / duration, 1);
+    const cx = from.x + (to.x - from.x) * progress;
+    bubble.setAttribute('cx', cx);
+    bubbleLabel.setAttribute('x', cx);
+    if (progress < 1) {
+      setTimeout(animate, frameTime);
+    } else {
+      setTimeout(() => {
+        bubble.style.opacity = 0;
+        bubbleLabel.style.opacity = 0;
+        setTimeout(() => animateStep(stepIdx + 1), 500);
+      }, 300);
+    }
+  }
+  animate();
+}
+
+// Start animation
+showTimeline(-1);
+setTimeout(() => animateStep(0), 600);
+</script>
+</body>
+</html>

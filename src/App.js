@@ -8,7 +8,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoginPage from './components/LoginPage';
 import AppHeader from './components/common/AppHeader';
 import SystemCheckWizard from './components/SystemCheckWizard';
-import MetaLoopLab from './components/MetaLoopLab';
+import MetaLoopLab from './components/MetaLoopChat/MetaLoopLab';
 
 /**
  * Main application component
