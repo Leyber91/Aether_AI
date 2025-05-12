@@ -14,6 +14,7 @@ import { fetchOllamaStream, simulateProviderResponse, saveLoopConversation } fro
 export function useMetaLoopOrchestration({
   processGraph,
   initialSeedPrompt = "",
+  activeMode = "Standard Loop"
 }) {
   // State management
   const [modelA, setModelA] = useState("");
@@ -29,10 +30,49 @@ export function useMetaLoopOrchestration({
   const [endless, setEndless] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [streamingActive, setStreamingActive] = useState(false);
-  
+
+  // --- Reflector Memory State (Self-Evolving Reflector Mode) ---
+  const reflectorMemoryTemplate = () => ({
+    sessionId: `session_${Date.now()}`,
+    startTime: new Date().toISOString(),
+    seedPrompt: initialSeedPrompt,
+    overallGoal: '',
+    loopCycles: [],
+    learnedHeuristics: [],
+  });
+  const [reflectorMemory, setReflectorMemory] = useState(reflectorMemoryTemplate());
+
+  // Append a new loop cycle
+  const appendReflectorCycle = (cycle) => {
+    setReflectorMemory(mem => ({
+      ...mem,
+      loopCycles: [...mem.loopCycles, cycle]
+    }));
+  };
+
+  // Update/add a heuristic
+  const upsertReflectorHeuristic = (heuristic) => {
+    setReflectorMemory(mem => {
+      const idx = mem.learnedHeuristics.findIndex(h => h.heuristic_id === heuristic.heuristic_id);
+      let newHeuristics = [...mem.learnedHeuristics];
+      if (idx !== -1) newHeuristics[idx] = heuristic;
+      else newHeuristics.push(heuristic);
+      return { ...mem, learnedHeuristics: newHeuristics };
+    });
+  };
+
+  // Reset memory
+  const resetReflectorMemory = () => setReflectorMemory(reflectorMemoryTemplate());
+
+  // Export memory (returns a deep copy)
+  const exportReflectorMemory = () => JSON.parse(JSON.stringify(reflectorMemory));
+
   // Refs
   const runningRef = useRef(false);
   const abortControllerRef = useRef(null);
+
+  // --- For Self-Evolving Reflector Mode: memory updaters ---
+  // These are only used if activeMode === 'Self-Evolving Reflector'
 
   /**
    * Stops the currently running loop
@@ -83,12 +123,20 @@ export function useMetaLoopOrchestration({
       // Set up agent based on step (alternating A and B)
       const isAgentA = step % 2 === 0;
       const agentLabel = isAgentA ? 'Agent A' : 'Agent B';
-      const agent = createAgentConfig(
+      let agent = createAgentConfig(
         agentLabel,
         isAgentA ? providerA : providerB,
         isAgentA ? modelA : modelB,
         node.data.label
       );
+
+      // --- Inject special system prompt for Agent R in Self-Evolving Reflector mode ---
+      if (activeMode === "Self-Evolving Reflector" && agentLabel === "Agent B") {
+        agent = {
+          ...agent,
+          systemPrompt: `You are Agent R, a reflective AI whose job is to help the system learn and evolve over time.\n\nAfter your main response, output a JSON object containing:\n{\n  \"enhanced_text\": \"...\",\n  \"memory_update\": {\n    \"loopCycle\": { ... },\n    \"heuristics\": [ ... ]\n  }\n}\n\nThe memory_update.loopCycle should summarize the key events and strategies of this turn. The heuristics array should include any new or updated reflection strategies or rules you have learned.\n\nAlways output your enhanced text for Agent A first, then the JSON object on a new line.`
+        };
+      }
 
       let responseText = "";
       let structuredOutput = null;
@@ -157,6 +205,25 @@ export function useMetaLoopOrchestration({
           responseText, 
           structuredOutput
         );
+
+        // --- Self-Evolving Reflector Mode: append cycle and heuristics ---
+        if (activeMode === "Self-Evolving Reflector") {
+          // Append a new loop cycle if structuredOutput has required fields
+          if (structuredOutput && (structuredOutput.memory_update || structuredOutput.cycleNumber)) {
+            // Prefer explicit memory_update, else fallback to all structuredOutput
+            const cycleData = structuredOutput.memory_update?.loopCycle || structuredOutput.memory_update || structuredOutput;
+            if (cycleData && typeof appendReflectorCycle === 'function') {
+              appendReflectorCycle(cycleData);
+            }
+            // Add heuristics if present
+            const heuristics = structuredOutput.memory_update?.heuristics || structuredOutput.heuristics;
+            if (heuristics && Array.isArray(heuristics) && typeof upsertReflectorHeuristic === 'function') {
+              heuristics.forEach(upsertReflectorHeuristic);
+            } else if (heuristics && typeof heuristics === 'object' && typeof upsertReflectorHeuristic === 'function') {
+              upsertReflectorHeuristic(heuristics);
+            }
+          }
+        }
         
         // Update conversation history
         displayHistory = [...displayHistory, newDisplayMessage];
@@ -255,6 +322,13 @@ export function useMetaLoopOrchestration({
     
     // Actions
     startLoop,
-    handleStop
+    handleStop,
+
+    // Reflector Memory API (Self-Evolving Reflector Mode)
+    reflectorMemory,
+    appendReflectorCycle,
+    upsertReflectorHeuristic,
+    resetReflectorMemory,
+    exportReflectorMemory
   };
 }
