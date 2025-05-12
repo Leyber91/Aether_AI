@@ -115,7 +115,7 @@ const MetaLoopChat = ({ messages, currentStreamMsg, running, error }) => {
 
       {/* Empty state */}
       {messages.length === 0 && !currentStreamMsg && !running && !error && (
-        <div style={{ textAlign: 'center', color: '#aaa', fontStyle: 'italic', padding: '20px' }}>
+        <div style={{ textAlign: 'center', color: '#aaa', fontStyle: 'italic', padding: '2em 1em ' }}>
           Loop output will appear here...
         </div>
       )}

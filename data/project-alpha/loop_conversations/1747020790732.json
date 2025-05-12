@@ -1,0 +1,214 @@
+{
+  "seedPrompt": "TRY TOT ALK AND DEVELOP A MROE EFFICENT ALNGUAGE AND COMUNICATE TO IT PERFECTING IT",
+  "modelA": "phi4-mini-reasoning:latest",
+  "providerA": "ollama",
+  "modelB": "phi4-mini-reasoning:latest",
+  "providerB": "ollama",
+  "messages": [
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "<th@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent A",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    },
+    {
+      "agent": "Agent B",
+      "model": "phi4-mini-reasoning:latest",
+      "text": "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+      "structured": null
+    }
+  ],
+  "timestamp": "2025-05-12T03:33:10.732Z"
+}

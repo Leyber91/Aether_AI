@@ -82,7 +82,7 @@ export default function MetaLoopLab({ fullPage }) {
       {/* Main Content Area */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'minmax(340px, 1fr) 2.5fr',
+        gridTemplateColumns: '20vw 80vw',
         gap: 0,
         height: '100%',
         width: '100%',
@@ -97,33 +97,45 @@ export default function MetaLoopLab({ fullPage }) {
         <div style={{
           padding: '0 32px',
           borderRight: '2px solid #2b3c53',
-          background: 'linear-gradient(120deg, #1a2233 80%, #22304a 100%)',
+          background: 'linear-gradient(120deg, rgba(26,34,51,0.95) 80%, rgba(34,48,74,0.98) 100%)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-start',
-          minWidth: 320,
-          maxWidth: 440,
           height: '100%',
           zIndex: 2,
-          boxShadow: '2px 0 16px 0 rgba(74,211,250,0.08)',
+          boxShadow: '2px 0 32px 0 rgba(74,211,250,0.10)',
           borderTopLeftRadius: 24,
           borderBottomLeftRadius: 24,
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
         }}>
           {/* Controls */}
-          <div style={{ padding: '0 0 0 0', width: '100%', flexShrink: 0, marginBottom: 18 }}>
+          <div style={{
+            background: 'rgba(28, 44, 74, 0.85)',
+            borderRadius: 18,
+            boxShadow: '0 4px 32px 0 rgba(74,211,250,0.10)',
+            padding: '28px 18px 22px 18px',
+            margin: '32px 0 0 0',
+            border: '1.5px solid rgba(116,208,252,0.10)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 22,
+            width: '100%',
+            flexShrink: 0,
+          }}>
             {/* Model Selectors */}
             <div style={{ display: 'flex', gap: 18, marginBottom: 18, flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, minWidth: 200 }}>
-                <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 4, display: 'block', fontSize: 15 }}>Provider A</label>
-                <select value={providerA} onChange={e => { setProviderA(e.target.value); setModelA(""); }} style={{ width: '100%', fontSize: 15, padding: 8, borderRadius: 7, border: '1px solid #4ad3fa55', background: '#192436', color: '#a6f1ff', marginBottom: 6 }}> <option value="ollama">Ollama</option> </select>
-                <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 4, display: 'block', fontSize: 15 }}>Model A</label>
-                <select value={modelA} onChange={e => setModelA(e.target.value)} style={{ width: '100%', fontSize: 15, padding: 8, borderRadius: 7, border: '1px solid #4ad3fa55', background: '#192436', color: '#a6f1ff' }}> <option value="">Select Model A</option> {getModelOptionsList(providerA).map(m => <option key={m.id} value={m.id}>{m.name}</option>)} </select>
+              <div style={{ flex: 1, minWidth: 200, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 6, display: 'block', fontSize: 18, letterSpacing: 0.2 }}>Provider A</label>
+                <select value={providerA} onChange={e => { setProviderA(e.target.value); setModelA(""); }} style={{ width: '100%', fontSize: 18, padding: 12, borderRadius: 10, border: '1.5px solid #4ad3fa88', background: '#192436', color: '#a6f1ff', marginBottom: 10 }}> <option value="ollama">Ollama</option> </select>
+                <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 6, display: 'block', fontSize: 18, letterSpacing: 0.2 }}>Model A</label>
+                <select value={modelA} onChange={e => setModelA(e.target.value)} style={{ width: '100%', fontSize: 18, padding: 12, borderRadius: 10, border: '1.5px solid #4ad3fa88', background: '#192436', color: '#a6f1ff' }}> <option value="">Select Model A</option> {getModelOptionsList(providerA).map(m => <option key={m.id} value={m.id}>{m.name}</option>)} </select>
               </div>
-              <div style={{ flex: 1, minWidth: 200 }}>
-                <label style={{ fontWeight: 600, color: '#f7b267', marginBottom: 4, display: 'block', fontSize: 15 }}>Provider B</label>
-                <select value={providerB} onChange={e => { setProviderB(e.target.value); setModelB(""); }} style={{ width: '100%', fontSize: 15, padding: 8, borderRadius: 7, border: '1px solid #f7b26755', background: '#192436', color: '#a6f1ff', marginBottom: 6 }}> <option value="ollama">Ollama</option> </select>
-                <label style={{ fontWeight: 600, color: '#f7b267', marginBottom: 4, display: 'block', fontSize: 15 }}>Model B</label>
-                <select value={modelB} onChange={e => setModelB(e.target.value)} style={{ width: '100%', fontSize: 15, padding: 8, borderRadius: 7, border: '1px solid #f7b26755', background: '#192436', color: '#a6f1ff' }}> <option value="">Select Model B</option> {getModelOptionsList(providerB).map(m => <option key={m.id} value={m.id}>{m.name}</option>)} </select>
+              <div style={{ flex: 1, minWidth: 200, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <label style={{ fontWeight: 600, color: '#f7b267', marginBottom: 6, display: 'block', fontSize: 18, letterSpacing: 0.2 }}>Provider B</label>
+                <select value={providerB} onChange={e => { setProviderB(e.target.value); setModelB(""); }} style={{ width: '100%', fontSize: 18, padding: 12, borderRadius: 10, border: '1.5px solid #f7b26788', background: '#192436', color: '#a6f1ff', marginBottom: 10 }}> <option value="ollama">Ollama</option> </select>
+                <label style={{ fontWeight: 600, color: '#f7b267', marginBottom: 6, display: 'block', fontSize: 18, letterSpacing: 0.2 }}>Model B</label>
+                <select value={modelB} onChange={e => setModelB(e.target.value)} style={{ width: '100%', fontSize: 18, padding: 12, borderRadius: 10, border: '1.5px solid #f7b26788', background: '#192436', color: '#a6f1ff' }}> <option value="">Select Model B</option> {getModelOptionsList(providerB).map(m => <option key={m.id} value={m.id}>{m.name}</option>)} </select>
               </div>
             </div>
             {/* Seed Prompt */}
@@ -194,24 +206,52 @@ export default function MetaLoopLab({ fullPage }) {
           </div>
           {/* Conversation Panel */}
           <div style={{
-            flex: 1,
+            flex: '1 1 0%',
             display: 'flex',
             flexDirection: 'column',
-            padding: '0 42px 36px 42px',
+            padding: '0px 42px 36px',
             width: '100%',
             minHeight: 0,
-            height: 'calc(68vh - 36px)',
-            overflow: 'auto',
+            height: 'calc(100vh - 110px - 32vh)',
+            maxHeight: 'calc(100vh - 110px - 32vh)',
+            overflow: 'hidden',
             borderBottomRightRadius: 24,
-            background: 'rgba(25,36,54,0.98)',
+            background: 'rgba(25, 36, 54, 0.98)',
+            boxSizing: 'border-box',
+            position: 'relative', // for absolute border
           }}>
-            <label style={{ color: 'var(--space-text-secondary)', fontWeight: 600, fontSize: 18, marginBottom: 8, display: 'block', flexShrink: 0 }}>Conversation</label>
-            <MetaLoopChat
-              messages={messages}
-              currentStreamMsg={currentStreamMsg}
-              running={running}
-              error={error}
-            />
+            <label style={{
+              color: 'var(--space-text-secondary)',
+              fontWeight: 600,
+              fontSize: 18,
+              marginBottom: 8,
+              display: 'block',
+              flexShrink: 0,
+              borderBottom: '1.5px solid #22304a',
+              paddingBottom: 6,
+              marginTop: 6,
+            }}>Conversation</label>
+            <div style={{
+              flex: '1 1 0%',
+              minHeight: 0,
+              overflowY: 'auto',
+              background: 'var(--glass-bg)',
+              borderRadius: 'var(--border-radius-lg)',
+              border: '1px solid var(--glass-border-accent)',
+              boxShadow: 'rgba(99, 102, 241, 0.06) 0px 4px 24px',
+              padding: '16px',
+              marginBottom: 8,
+              width: '100%',
+              boxSizing: 'border-box',
+              paddingBottom: 32,
+            }}>
+              <MetaLoopChat
+                messages={messages}
+                currentStreamMsg={currentStreamMsg}
+                running={running}
+                error={error}
+              />
+            </div>
           </div>
         </div>
       </div>
