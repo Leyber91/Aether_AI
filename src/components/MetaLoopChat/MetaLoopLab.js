@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../api/apiService";
 import LoopHistory from "../History/LoopHistory";
-import processGraph from "../../processGraph";
+import { standardProcessGraph, reflectorProcessGraph } from "../../processGraph";
 
 import MetaLoopChat from "./MetaLoopChat";
 import MetaLoopAnimation from "./components/MetaLoopAnimation";
@@ -73,7 +73,11 @@ export default function MetaLoopLab({ fullPage }) {
         // Actions
         startLoop,
         handleStop
-     } = useMetaLoopOrchestration({ processGraph, initialSeedPrompt: "", activeMode });
+     } = useMetaLoopOrchestration({
+        processGraph: activeMode === "Self-Evolving Reflector" ? reflectorProcessGraph : standardProcessGraph,
+        initialSeedPrompt: "",
+        activeMode
+     });
     
     // Main render
 

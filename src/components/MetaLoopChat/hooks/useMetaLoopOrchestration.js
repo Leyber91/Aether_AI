@@ -1,8 +1,43 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { API_BASE_URL } from "../../../api/apiService";
 import { createAgentConfig } from "../domain/agentConfig";
 import { formatPriorContext, formatUserPromptContent, extractTrailingJson, createMessage } from "../domain/messageUtils";
 import { fetchOllamaStream, simulateProviderResponse, saveLoopConversation } from "../services/llmService";
+
+// Reflector memory API endpoints
+const REFLECTOR_MEMORY_API = 'http://localhost:4001/api/reflector_memory';
+
+// JSON file persistence utility functions
+const readReflectorMemory = async () => {
+  try {
+    const response = await fetch(REFLECTOR_MEMORY_API);
+    if (!response.ok) {
+      console.warn(`Failed to fetch reflector memory: ${response.status}`);
+      return null;
+    }
+    return await response.json();
+  } catch (err) {
+    console.warn('Failed to read reflector memory from file:', err);
+    return null;
+  }
+};
+
+const writeReflectorMemory = async (data) => {
+  try {
+    const response = await fetch(REFLECTOR_MEMORY_API, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return response.ok;
+  } catch (err) {
+    console.error('Failed to write reflector memory to file:', err);
+    return false;
+  }
+};
+
 
 /**
  * Hook for orchestrating the MetaLoop state and execution
@@ -42,27 +77,60 @@ export function useMetaLoopOrchestration({
   });
   const [reflectorMemory, setReflectorMemory] = useState(reflectorMemoryTemplate());
 
+// Load reflector memory from file when initializing or changing to Self-Evolving mode
+useEffect(() => {
+  if (activeMode === "Self-Evolving Reflector") {
+    const loadMemory = async () => {
+      const loaded = await readReflectorMemory();
+      if (loaded && typeof loaded === "object") {
+        setReflectorMemory(loaded);
+      } else {
+        // If missing/corrupt, reinitialize
+        const template = reflectorMemoryTemplate();
+        await writeReflectorMemory(template);
+        setReflectorMemory(template);
+      }
+    };
+    loadMemory();
+  }
+}, [activeMode]);  // Only run when activeMode changes
+
   // Append a new loop cycle
   const appendReflectorCycle = (cycle) => {
-    setReflectorMemory(mem => ({
-      ...mem,
-      loopCycles: [...mem.loopCycles, cycle]
-    }));
-  };
+  setReflectorMemory(mem => {
+    const updated = { ...mem, loopCycles: [...mem.loopCycles, cycle] };
+    // Async write to file in the background
+    writeReflectorMemory(updated).catch(err => 
+      console.error('Failed to persist cycle:', err)
+    );
+    return updated;
+  });
+};
 
   // Update/add a heuristic
   const upsertReflectorHeuristic = (heuristic) => {
-    setReflectorMemory(mem => {
-      const idx = mem.learnedHeuristics.findIndex(h => h.heuristic_id === heuristic.heuristic_id);
-      let newHeuristics = [...mem.learnedHeuristics];
-      if (idx !== -1) newHeuristics[idx] = heuristic;
-      else newHeuristics.push(heuristic);
-      return { ...mem, learnedHeuristics: newHeuristics };
-    });
-  };
+  setReflectorMemory(mem => {
+    const idx = mem.learnedHeuristics.findIndex(h => h.heuristic_id === heuristic.heuristic_id);
+    let newHeuristics = [...mem.learnedHeuristics];
+    if (idx !== -1) newHeuristics[idx] = heuristic;
+    else newHeuristics.push(heuristic);
+    const updated = { ...mem, learnedHeuristics: newHeuristics };
+    // Async write to file in the background
+    writeReflectorMemory(updated).catch(err => 
+      console.error('Failed to persist heuristic:', err)
+    );
+    return updated;
+  });
+};
 
   // Reset memory
-  const resetReflectorMemory = () => setReflectorMemory(reflectorMemoryTemplate());
+  const resetReflectorMemory = async () => {
+    const template = reflectorMemoryTemplate();
+    await writeReflectorMemory(template).catch(err => 
+      console.error('Failed to reset memory file:', err)
+    );
+    setReflectorMemory(template);
+  };
 
   // Export memory (returns a deep copy)
   const exportReflectorMemory = () => JSON.parse(JSON.stringify(reflectorMemory));
