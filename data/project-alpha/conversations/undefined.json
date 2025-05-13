@@ -7,13 +7,13 @@
     "provider": "ollama",
     "id": "qwen3:8b"
   },
-  "seedPrompt": "lets play a twisted game, dark one",
-  "timestamp": "2025-05-06T18:10:24.608Z",
+  "seedPrompt": "ihiiidasdas",
+  "timestamp": "2025-05-06T18:12:52.130Z",
   "provider": null,
   "modelId": null,
   "title": null,
-  "createdAt": "2025-05-13T07:38:39.887Z",
-  "updatedAt": "2025-05-13T07:42:56.171Z",
+  "createdAt": "2025-05-13T10:54:48.318Z",
+  "updatedAt": "2025-05-13T15:01:00.338Z",
   "messages": [
     {
       "usage": null,

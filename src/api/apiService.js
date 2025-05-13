@@ -5,6 +5,44 @@
 
 export const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
+// Node.js backend for reflector memory
+export const REFLECTOR_MEMORY_API = 'http://127.0.0.1:8000/api/reflector_memory';
+
+/**
+ * Load reflector memory from the Node.js backend
+ * @returns {Promise<Object|null>} Reflector memory object or null on error
+ */
+export async function loadReflectorMemory() {
+  try {
+    const response = await fetch(REFLECTOR_MEMORY_API);
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error('Error loading reflector memory:', error);
+    return null;
+  }
+}
+
+/**
+ * Save reflector memory to the Node.js backend
+ * @param {Object} memory Reflector memory object
+ * @returns {Promise<boolean>} Success status
+ */
+export async function saveReflectorMemory(memory) {
+  try {
+    const response = await fetch(REFLECTOR_MEMORY_API, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(memory),
+    });
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    return true;
+  } catch (error) {
+    console.error('Error saving reflector memory:', error);
+    return false;
+  }
+}
+
 /**
  * Fetch all conversations from the API
  * @returns {Promise<Array>} List of conversations

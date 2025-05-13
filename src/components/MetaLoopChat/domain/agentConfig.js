@@ -91,3 +91,36 @@ export function validateAgentSettings(provider, model) {
   if (!provider || !model) return false;
   return true;
 }
+
+// --- Reflector Agent Configuration ---
+
+// Helper to format memory context for prompt injection
+export function formatMemoryForPrompt(memory) {
+  if (!memory) return 'No memory context available yet.';
+  const context = {
+    lastCycleSummary: memory.loopCycles?.[memory.loopCycles.length - 1]?.summary || 'N/A',
+    learnedHeuristics: memory.learnedHeuristics || [],
+    currentCycleCount: memory.loopCycles?.length || 0,
+    overallGoal: memory.overallGoal || 'N/A',
+  };
+  return JSON.stringify(context, null, 2);
+}
+
+export const AGENT_CONFIG = {
+  // ...other agent configs can be added here
+  REFLECTOR: {
+    id: 'reflector-agent',
+    name: 'Self-Evolving Reflector',
+    modelId: 'phi4-mini-reasoning:latest',
+    provider: 'ollama',
+    description: 'Analyzes past cycles and heuristics to evolve strategies. Uses phi4-mini-reasoning.',
+    systemPrompt: ({ memoryContext }) => `\nYou are Agent R, a specialized AI assistant acting as the Reflector in a multi-agent system. Your primary function is to analyze the system's performance, goals, and past interactions to generate insights and evolve operational heuristics.\n\nCurrent System Memory Context:\n\u0060\u0060\u0060json\n${memoryContext}\n\u0060\u0060\u0060\n\nYour Task:\n\n- Analyze the provided memory context (especially the latest cycle summary and learned heuristics).\n- Reflect on the effectiveness of current strategies in relation to the overall goal.\n- Generate a concise natural language summary of your reflection and any proposed adjustments or insights for the primary agents (Agent A/B).\n- Output a separate JSON object on a new line after your natural language response. This JSON object must contain:\n  - "enhanced_text": A refined version of your natural language reflection, suitable for display or further processing.\n  - "memory_update": An object containing:\n    - "loopCycle": An object summarizing this reflection cycle's key findings (e.g., { timestamp: ISO_DATE, summary: "...", identified_patterns: [...] }).\n    - "heuristics": An array containing all current and newly proposed/refined heuristics or operational rules (e.g., [{ id: "h001", rule: "...", evaluation: "...", source_cycle: X }]). Ensure existing heuristics are preserved unless explicitly modified/removed.\n\nOutput Format:\n[Your concise natural language reflection text for Agent A/B]\n\n{"enhanced_text": "...", "memory_update": {"loopCycle": {...}, "heuristics": [...]}}\n`,
+  },
+};
+
+// Utility to get agent config by id (case-insensitive)
+export function getAgentConfig(agentId) {
+  if (!agentId) return null;
+  const key = Object.keys(AGENT_CONFIG).find(k => AGENT_CONFIG[k].id === agentId || k.toLowerCase() === agentId.toLowerCase());
+  return key ? AGENT_CONFIG[key] : null;
+}

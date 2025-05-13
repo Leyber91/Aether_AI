@@ -14,20 +14,58 @@
  * @returns {Promise<string>} - The full response text
  */
 export async function fetchOllamaStream(agent, model, input, history, onToken, signal) {
-  const messages = [
-    { role: "system", content: agent.systemPrompt },
-    ...history,
-    { role: "user", content: input }
-  ];
-  
+  // Always use /api/chat endpoint; adjust messages for completion-style models
+  const isChatModel = /chat|llama|phi|qwen|mistral/i.test(model);
   try {
+    let chatMessages;
+    if (isChatModel) {
+      chatMessages = [
+        { role: "system", content: agent.systemPrompt },
+        ...history,
+        { role: "user", content: input }
+      ];
+    } else {
+      // For completion/instruct models, flatten all prompt content into a single user message
+      const prompt = [agent.systemPrompt, ...history.map(h => h.content), input].join('\n');
+      chatMessages = [
+        { role: "user", content: prompt }
+      ];
+    }
+    const payload = { model, messages: chatMessages, stream: true };
+
+    // --- Payload validation ---
+    let validationErrors = [];
+    if (!payload.model || typeof payload.model !== 'string' || !payload.model.trim()) {
+      validationErrors.push('Model name is missing or not a string.');
+    }
+    if (!Array.isArray(payload.messages) || payload.messages.length === 0) {
+      validationErrors.push('Messages array is missing or empty.');
+    } else {
+      payload.messages.forEach((msg, i) => {
+        if (typeof msg.role !== 'string' || typeof msg.content !== 'string') {
+          validationErrors.push(`Message at index ${i} missing string role/content.`);
+        }
+        if (!msg.role.trim() || !msg.content.trim()) {
+          validationErrors.push(`Message at index ${i} has empty role/content.`);
+        }
+      });
+    }
+    const payloadStr = JSON.stringify(payload);
+    if (payloadStr.length > 16000) {
+      console.warn('[WARN] Payload size exceeds 16k chars. This may cause Ollama to reject the request.');
+    }
+    if (validationErrors.length > 0) {
+      console.error('[ERROR] Invalid Ollama payload:', validationErrors);
+      throw new Error('Invalid Ollama payload: ' + validationErrors.join(' | '));
+    }
+    console.log('Ollama payload (unified chat):', JSON.stringify(payload, null, 2));
     const response = await fetch("http://localhost:11434/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model, messages, stream: true }),
+      body: payloadStr,
       signal
     });
-    
+
     if (!response.ok) throw new Error(`Ollama API Error (${response.status})`);
     if (!response.body) throw new Error("Response body is null");
     

@@ -98,8 +98,36 @@ async def get_file_content(file_path: str):
 CONVERSATIONS_DIR = os.path.join(os.path.dirname(__file__), "data", "project-alpha", "conversations")
 LOOP_CONVERSATIONS_DIR = os.path.join(os.path.dirname(__file__), "data", "project-alpha", "loop_conversations")
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+REFLECTOR_MEMORY_FILE = os.path.join(DATA_DIR, "reflectorMemory.json")
 os.makedirs(CONVERSATIONS_DIR, exist_ok=True)
 os.makedirs(LOOP_CONVERSATIONS_DIR, exist_ok=True)
+
+# --- Reflector Memory Endpoints ---
+from fastapi import status
+
+@app.get("/api/reflector_memory")
+def get_reflector_memory():
+    try:
+        if not os.path.exists(REFLECTOR_MEMORY_FILE):
+            # Return empty structure if not found
+            return JSONResponse(content={}, status_code=status.HTTP_200_OK)
+        with open(REFLECTOR_MEMORY_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return JSONResponse(content=data, status_code=status.HTTP_200_OK)
+    except Exception as e:
+        logger.error(f"Failed to load reflector memory: {e}")
+        return JSONResponse(content={"error": str(e)}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@app.put("/api/reflector_memory")
+async def put_reflector_memory(request: Request):
+    try:
+        data = await request.json()
+        with open(REFLECTOR_MEMORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        return JSONResponse(content={"success": True}, status_code=status.HTTP_200_OK)
+    except Exception as e:
+        logger.error(f"Failed to save reflector memory: {e}")
+        return JSONResponse(content={"error": str(e)}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 async def list_conversations():
     """List all conversation files."""
