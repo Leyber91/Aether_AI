@@ -7,47 +7,15 @@
     "provider": "ollama",
     "id": "qwen3:8b"
   },
-  "seedPrompt": "ihiiidasdas",
-  "timestamp": "2025-05-06T18:12:52.130Z",
-  "updatedAt": "2025-05-12T21:13:00.482Z",
+  "seedPrompt": "lets play a twisted game, dark one",
+  "timestamp": "2025-05-06T18:10:24.608Z",
   "provider": null,
   "modelId": null,
   "title": null,
-  "createdAt": "2025-05-12T02:53:32.678Z",
+  "createdAt": "2025-05-13T07:38:39.887Z",
+  "updatedAt": "2025-05-13T07:42:56.171Z",
   "messages": [
     {
-      "usage": null,
-      "thinking": null
-    },
-    {
-      "id": "b7e060bf-71b4-4d89-a5bc-ac58bd312cb2",
-      "role": "user",
-      "timestamp": "2025-05-12T02:51:59.231Z",
-      "content": "Create me the pyramids and make be a complete monilitic website about it",
-      "usage": null,
-      "thinking": null
-    },
-    {
-      "id": "cdb9d82e-2bf2-4437-b9b6-ef4b40833dc6",
-      "role": "assistant",
-      "timestamp": "2025-05-12T02:51:59.231Z",
-      "content": "",
-      "usage": null,
-      "thinking": null
-    },
-    {
-      "id": "d308ef79-e866-45ae-b1ef-7f44588d4ed6",
-      "role": "user",
-      "timestamp": "2025-05-12T02:52:03.342Z",
-      "content": "Create me the pyramids and make be a complete monilitic website about it",
-      "usage": null,
-      "thinking": null
-    },
-    {
-      "id": "10e36783-5357-4719-b408-2aa64ae70678",
-      "role": "assistant",
-      "timestamp": "2025-05-12T02:52:03.342Z",
-      "content": "",
       "usage": null,
       "thinking": null
     }
