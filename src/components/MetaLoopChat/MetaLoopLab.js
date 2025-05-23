@@ -8,6 +8,12 @@ import MetaLoopChat from "./MetaLoopChat";
 import MetaLoopAnimation from "./components/MetaLoopAnimation";
 import MetaLoopBanner from "./components/MetaLoopBanner";
 import MetaLoopLabTabs from "./components/MetaLoopLabTabs";
+import AdvancedLabTab from './components/AdvancedLabTab';
+import MetaLoopLabModelSelector from './MetaLoopLabModelSelector';
+// import ConversationStatistics from './components/ConversationStatistics';
+import MessageFlowVisualizer from './components/MessageFlowVisualizer';
+// Import the new ScapeDefinitionEditor
+// import ScapeDefinitionEditor from './components/ScapeDefinitionEditor';
 
 
 // Custom hooks and utilities
@@ -19,12 +25,16 @@ import { useMetaLoopOrchestration } from "./hooks/useMetaLoopOrchestration";
  */
 export default function MetaLoopLab({ fullPage }) {
     // --- Mode Switching State ---
-    const MODES = ["Standard Loop", "Self-Evolving Reflector"];
+    const MODES = ["Standard Loop", "Self-Evolving Reflector", "Advanced Lab"];
     const [activeMode, setActiveMode] = useState(MODES[0]);
 
     // State for model data
     const [ollamaModels, setOllamaModels] = useState([]);
     const [groqModels, setGroqModels] = useState([]);
+
+    // State for Self-Evolving Reflector model selection
+    const [reflectorProvider, setReflectorProvider] = useState('ollama');
+    const [reflectorModel, setReflectorModel] = useState('phi4-mini-reasoning:latest');
 
     // Fetch models on component mount
     useEffect(() => {
@@ -78,7 +88,11 @@ export default function MetaLoopLab({ fullPage }) {
      } = useMetaLoopOrchestration({
         processGraph: activeMode === "Self-Evolving Reflector" ? reflectorProcessGraph : standardProcessGraph,
         initialSeedPrompt: "",
-        activeMode
+        activeMode,
+        // Pass reflector model details to the hook if it needs to handle its execution
+        // This might require modifying useMetaLoopOrchestration later
+        reflectorModelName: reflectorModel, 
+        reflectorProviderName: reflectorProvider
      });
     
     // Main render
@@ -93,7 +107,7 @@ export default function MetaLoopLab({ fullPage }) {
       {/* Main Content Area */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '20vw 80vw',
+        gridTemplateColumns: '35% 65%',
         gap: 0,
         height: '100%',
         width: '100%',
@@ -222,23 +236,59 @@ export default function MetaLoopLab({ fullPage }) {
               </React.Fragment>
             )}
             {activeMode === "Self-Evolving Reflector" && (() => {
-  // Import Agent R config directly here to avoid circular import issues
+  // Agent R config now uses state for model and provider
   const agentR = {
     name: 'Self-Evolving Reflector',
-    description: 'Analyzes past cycles and heuristics to evolve strategies. Uses phi4-mini-reasoning.',
-    model: 'phi4-mini-reasoning:latest',
-    provider: 'ollama',
+    description: 'Analyzes past cycles and heuristics to evolve strategies.',
+    model: reflectorModel, // Uses state
+    provider: reflectorProvider, // Uses state
   };
   return (
     <div style={{ color: '#74d0fc', fontWeight: 700, fontSize: 18, textAlign: 'left', margin: '18px 0', border: '2px dashed #74d0fc', borderRadius: 12, padding: 18, background: 'rgba(28,44,74,0.12)' }}>
       <div style={{ fontSize: 22, marginBottom: 10, textAlign: 'center' }}>Self-Evolving Reflector Mode</div>
-      {/* --- Agent R (Reflector) Info --- */}
+      
+      {/* --- Agent R (Reflector) Info & Model Selection --- */}
       <div style={{ marginBottom: 18, padding: 14, border: '1.5px solid #74d0fc', borderRadius: 10, background: 'rgba(34,48,74,0.12)' }}>
         <div style={{ fontSize: 18, fontWeight: 800, color: '#f7b267', marginBottom: 4 }}>Reflector Agent (Agent R)</div>
         <div style={{ fontSize: 15, color: '#a6f1ff', marginBottom: 4 }}>{agentR.description}</div>
-        <div style={{ fontSize: 15, color: '#a6f1ff' }}><b>Model:</b> {agentR.model} <span style={{ color: '#74d0fc', fontWeight: 600, marginLeft: 10 }}>[System]</span></div>
+        
+        {/* Reflector Provider Selector */}
+        <div style={{ marginBottom: 10 }}>
+          <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 6, display: 'block', fontSize: 16 }}>Reflector Provider</label>
+          <select 
+            value={reflectorProvider} 
+            onChange={e => { setReflectorProvider(e.target.value); setReflectorModel(""); }} 
+            style={{ width: '100%', fontSize: 16, padding: 10, borderRadius: 8, border: '1.5px solid #4ad3fa88', background: '#192436', color: '#a6f1ff' }}
+            disabled={running}
+          >
+            <option value="ollama">Ollama</option>
+            {/* Add Groq or other providers if reflector can use them */}
+            {/* <option value="groq">Groq</option> */}
+          </select>
+        </div>
+
+        {/* Reflector Model Selector */}
+        <div>
+          <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 6, display: 'block', fontSize: 16 }}>Reflector Model</label>
+          <select 
+            value={reflectorModel} 
+            onChange={e => setReflectorModel(e.target.value)} 
+            style={{ width: '100%', fontSize: 16, padding: 10, borderRadius: 8, border: '1.5px solid #4ad3fa88', background: '#192436', color: '#a6f1ff' }}
+            disabled={running || getModelOptionsList(reflectorProvider).length === 0}
+          >
+            <option value="">Select Reflector Model</option>
+            {getModelOptionsList(reflectorProvider).map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+          </select>
+          {getModelOptionsList(reflectorProvider).length === 0 && reflectorProvider && (
+            <div style={{ color: '#ff6a6a', fontWeight: 600, fontSize: 13, marginTop: 6 }}>
+              No models found for Reflector Provider ({reflectorProvider}).
+            </div>
+          )}
+        </div>
+        <div style={{ fontSize: 15, color: '#a6f1ff', marginTop: 8 }}><b>Currently Using:</b> {agentR.model} ({agentR.provider}) <span style={{ color: '#74d0fc', fontWeight: 600, marginLeft: 10 }}>[System]</span></div>
       </div>
-      {/* Model Selectors and Seed Prompt */}
+
+      {/* Model Selectors for Agent A and Agent B (Standard Loop Agents) */}
       <div style={{ display: 'flex', gap: 18, marginBottom: 18, flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: 200, display: 'flex', flexDirection: 'column', gap: 10 }}>
           <label style={{ fontWeight: 600, color: '#74d0fc', marginBottom: 6, display: 'block', fontSize: 18, letterSpacing: 0.2 }}>Provider A</label>
@@ -306,6 +356,49 @@ export default function MetaLoopLab({ fullPage }) {
     </div>
   );
 })()}
+
+            {activeMode === "Advanced Lab" && (
+              <div style={{ 
+                flex: 1, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                height: '100%',
+                padding: '0',
+                overflow: 'hidden'
+              }}>
+                <div style={{ 
+                  color: '#74d0fc', 
+                  fontWeight: 700, 
+                  fontSize: 24, 
+                  textAlign: 'center', 
+                  margin: '0 0 16px 0', 
+                  padding: '12px 0',
+                  background: 'rgba(28,44,74,0.4)', 
+                  borderRadius: '12px', 
+                  border: '1px solid rgba(116, 208, 252, 0.3)'
+                }}>
+                  Advanced Scape Observation Lab
+                </div>
+                
+                <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
+                  <AdvancedLabTab
+                    messages={messages}
+                    currentStreamMsg={currentStreamMsg}
+                    running={running}
+                    reflectorMemory={reflectorMemory}
+                    orchestration={{
+                      startLoop,
+                      handleStop,
+                      setSeedPrompt,
+                      setModelA,
+                      setModelB,
+                      setProviderA,
+                      setProviderB
+                    }}
+                  />
+                </div>
+              </div>
+            )}
 
             {activeMode === "Scape Designer Lite" && (
               <div style={{ color: '#f7b267', fontWeight: 600, fontSize: 18, textAlign: 'center', margin: '32px 0' }}>
@@ -405,11 +498,11 @@ export default function MetaLoopLab({ fullPage }) {
               flex: '1 1 0%',
               minHeight: 0,
               overflowY: 'auto',
-              background: 'var(--glass-bg)',
-              borderRadius: 'var(--border-radius-lg)',
-              border: '1px solid var(--glass-border-accent)',
-              boxShadow: 'rgba(99, 102, 241, 0.06) 0px 4px 24px',
+              background: 'rgba(25, 36, 54, 0.7)',
+              borderRadius: '12px',
               padding: '16px',
+              border: '1px solid rgba(116, 208, 252, 0.15)',
+              boxShadow: 'rgba(99, 102, 241, 0.06) 0px 4px 24px',
               marginBottom: 8,
               width: '100%',
               boxSizing: 'border-box',

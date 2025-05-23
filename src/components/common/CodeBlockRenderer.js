@@ -205,12 +205,14 @@ const FullCodeBlockRenderer = ({ language, content, filename }) => {
           // Create sandbox for HTML content using srcdoc instead of direct document manipulation
           const iframe = document.createElement('iframe');
           iframe.title = "HTML Preview";
-          iframe.sandbox = "allow-scripts";
+          iframe.sandbox = "allow-scripts allow-same-origin"; // Allow scripts but restrict top navigation etc.
           iframe.style.width = '100%';
-          iframe.style.height = '300px';
+          iframe.style.minHeight = '200px'; // Ensure it's at least this tall
+          iframe.style.maxHeight = '600px'; // Limit initial growth, user can resize container
           iframe.style.border = 'none';
           iframe.style.borderRadius = '8px';
-          iframe.style.backgroundColor = '#24283b';
+          iframe.style.backgroundColor = '#24283b'; // Fallback, should be styled by srcdoc
+          iframe.style.display = 'block'; // Ensure it behaves as a block element
           
           // Determine if this is likely SVG inside HTML
           const containsSvg = /<svg[\s\S]*?>[\s\S]*?<\/svg>/i.test(content);
@@ -321,10 +323,12 @@ const FullCodeBlockRenderer = ({ language, content, filename }) => {
           const cssIframe = document.createElement('iframe');
           cssIframe.title = "CSS Preview";
           cssIframe.style.width = '100%';
-          cssIframe.style.height = '300px';
+          cssIframe.style.minHeight = '200px';
+          cssIframe.style.maxHeight = '600px';
           cssIframe.style.border = 'none';
           cssIframe.style.borderRadius = '8px';
           cssIframe.style.backgroundColor = '#24283b';
+          cssIframe.style.display = 'block';
           
           // Sanitize CSS to prevent security issues
           const sanitizedCSS = content
@@ -450,10 +454,12 @@ const FullCodeBlockRenderer = ({ language, content, filename }) => {
           const svgIframe = document.createElement('iframe');
           svgIframe.title = "SVG Preview";
           svgIframe.style.width = '100%';
-          svgIframe.style.height = '300px';
+          svgIframe.style.minHeight = '150px'; // SVGs can sometimes be smaller initially
+          svgIframe.style.maxHeight = '600px';
           svgIframe.style.border = 'none';
           svgIframe.style.backgroundColor = 'transparent';
           svgIframe.className = 'svg-iframe';
+          svgIframe.style.display = 'block';
           
           contentContainer.appendChild(svgIframe);
           
@@ -738,72 +744,80 @@ const FullCodeBlockRenderer = ({ language, content, filename }) => {
   useEffect(() => {
     if (renderContainerRef.current) {
       const container = renderContainerRef.current;
-      
-      // Apply zoom to the resizable container
       const resizableContainer = container.querySelector('.resizable-content');
+      const iframe = container.querySelector('iframe');
+
+      if (iframe) {
+        if (isFullscreen) {
+          // In fullscreen, remove inline height to let CSS control it fully.
+          // The CSS uses calc(100vh - Ypx) !important for height.
+          iframe.style.removeProperty('height');
+          iframe.style.removeProperty('min-height');
+          iframe.style.removeProperty('max-height');
+        } else {
+          // Only apply JS height calculations if NOT in fullscreen
+          try {
+            iframe.onload = () => {
+              try {
+                if (iframe.contentDocument) {
+                  const scaleStyle = iframe.contentDocument.getElementById('zoom-style') || iframe.contentDocument.createElement('style');
+                  scaleStyle.id = 'zoom-style';
+                  scaleStyle.textContent = `
+                    body {
+                      zoom: ${zoomLevel / 100};
+                      -moz-transform: scale(${zoomLevel / 100});
+                      -moz-transform-origin: 0 0;
+                      transform-origin: 0 0;
+                      width: ${100 * (100 / zoomLevel)}%; /* Adjust width for zoom */
+                      height: ${100 * (100 / zoomLevel)}%; /* Adjust height for zoom */
+                      overflow: auto; /* Allow scrollbars inside iframe body if content overflows */
+                    }
+                  `;
+                  if (!iframe.contentDocument.head.contains(scaleStyle)) {
+                    iframe.contentDocument.head.appendChild(scaleStyle);
+                  }
+                }
+              } catch (e) {
+                console.warn('Could not access iframe content document for zoom styling:', e);
+              }
+            };
+            // Trigger onload if already loaded, for dynamic content changes
+            if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+              iframe.onload();
+            }
+
+            // Update iframe size based on zoom and available space in container (non-fullscreen only)
+            let targetHeight = '300px'; // Default non-fullscreen height
+            if (resizableContainer && resizableContainer.clientHeight > 0) {
+              // Base height on resizable container, ensuring it's reasonable
+              targetHeight = `${Math.min(600, Math.max(200, resizableContainer.clientHeight - 20))}px`;
+            } else {
+              // Fallback if resizable container has no height yet, adjust with zoom
+              targetHeight = `${Math.min(600, Math.max(200, 300 * (zoomLevel / 100)))}px`;
+            }
+            iframe.style.height = targetHeight;
+            // Ensure min/max set during creation are respected or re-applied if needed
+            iframe.style.minHeight = language === 'svg' ? '150px' : '200px';
+            iframe.style.maxHeight = '600px';
+
+          } catch (e) {
+            console.error('Error applying zoom/height to iframe in non-fullscreen:', e);
+          }
+        }
+      }
+
+      // Apply zoom to the resizable container for non-iframe content (e.g. raw code, mermaid)
       if (resizableContainer) {
-        // Don't scale directly, instead adjust the internal content
         if (zoomLevel !== 100) {
           resizableContainer.classList.add('zoomed');
+          // For non-iframe content, direct scale might be acceptable, or adjust font size etc.
+          // This example focuses on ensuring iframe zoom doesn't conflict with direct scaling of resizableContainer
         } else {
           resizableContainer.classList.remove('zoomed');
         }
       }
-      
-      // Better handling for iframe content
-      const iframe = container.querySelector('iframe');
-      if (iframe) {
-        // Rather than scaling the iframe itself (which causes layout issues),
-        // set a more appropriate approach using the iframe's srcdoc content
-        try {
-          // Only modify if we have access to the iframe content
-          iframe.onload = () => {
-            try {
-              if (iframe.contentDocument) {
-                const scaleStyle = document.createElement('style');
-                scaleStyle.textContent = `
-                  body {
-                    zoom: ${zoomLevel / 100};
-                    -moz-transform: scale(${zoomLevel / 100});
-                    -moz-transform-origin: 0 0;
-                    transform-origin: 0 0;
-                    width: ${100 * (100 / zoomLevel)}%;
-                  }
-                `;
-                
-                // Add or replace the style element
-                const existingStyle = iframe.contentDocument.getElementById('zoom-style');
-                if (existingStyle) {
-                  existingStyle.replaceWith(scaleStyle);
-                } else {
-                  scaleStyle.id = 'zoom-style';
-                  iframe.contentDocument.head.appendChild(scaleStyle);
-                }
-              }
-            } catch (e) {
-              // Cross-origin restrictions might prevent this
-              console.log('Could not access iframe content document', e);
-            }
-          };
-          
-          // Update iframe size based on zoom and available space in container
-          if (resizableContainer) {
-            iframe.style.width = '100%';
-            iframe.style.height = `${Math.min(500, resizableContainer.clientHeight - 20)}px`;
-          } else {
-            // Adjust container size based on zoom
-            if (zoomLevel > 100) {
-              iframe.style.height = `${Math.min(500, 300 * (zoomLevel / 80))}px`;
-            } else {
-              iframe.style.height = '300px';
-            }
-          }
-        } catch (e) {
-          console.error('Error applying zoom to iframe', e);
-        }
-      }
     }
-  }, [zoomLevel, isRendered, renderedContent]);
+  }, [zoomLevel, isRendered, renderedContent, isFullscreen, language]);
 
   return (
     <div className={`code-block-container ${isRendered ? 'rendered-mode' : 'code-mode'} ${isFullscreen ? 'fullscreen-mode' : ''}`}>

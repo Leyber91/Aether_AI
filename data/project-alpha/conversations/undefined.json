@@ -1,19 +1,19 @@
 {
   "modelA": {
     "provider": "ollama",
-    "id": "qwen3:8b"
+    "id": "qwen3:4b"
   },
   "modelB": {
     "provider": "ollama",
-    "id": "qwen3:8b"
+    "id": "qwen3:4b"
   },
-  "seedPrompt": "ihiiidasdas",
-  "timestamp": "2025-05-06T18:12:52.130Z",
+  "seedPrompt": "lets play a twisted game",
+  "timestamp": "2025-05-06T17:59:58.113Z",
   "provider": null,
   "modelId": null,
   "title": null,
-  "createdAt": "2025-05-13T10:54:48.318Z",
-  "updatedAt": "2025-05-13T21:42:17.003Z",
+  "createdAt": "2025-05-23T01:13:29.979Z",
+  "updatedAt": "2025-05-23T01:14:13.545Z",
   "messages": [
     {
       "usage": null,

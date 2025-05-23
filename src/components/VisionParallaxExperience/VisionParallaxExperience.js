@@ -6,68 +6,65 @@ import StorySection from './StorySection';
 
 const storyBeats = [
   {
-    title: 'What is Aether Canvas?',
-    content: 'Aether Canvas is a next-generation, AI-native automation and agent orchestration platform. It empowers users to visually design, run, and evolve intelligent workflows—combining the power of local LLMs (Ollama), cloud models (Groq), and web tools, all with no rate limits and full privacy.',
+    title: 'Welcome to the Aether AI Suite',
+    content: 'Embark on a journey into the future of collaborative intelligence. The Aether AI Suite is not just a set of tools; it\'s an integrated ecosystem designed to amplify human ingenuity through seamless AI interaction and orchestration.',
     visual: null,
     sticky: false,
   },
   {
-    title: 'Core Principles',
+    title: 'The Synergistic Triad: Our Core',
     content: (
-      <ul>
-        <li><b>AI-First, Not Node-First:</b> Describe your goal, let the AI build and optimize the flow.</li>
-        <li><b>Unlimited Local Automation:</b> Use Ollama for all tool-like and repetitive tasks, with no limits.</li>
-        <li><b>Hybrid Orchestration:</b> Seamlessly blend local, cloud, and web automations—AI always picks the best tool.</li>
-        <li><b>Explainability & Trust:</b> Every step is transparent, errors are explained, and fixes are suggested by the AI.</li>
-        <li><b>History & Undo:</b> Time travel, branching, and experiment without fear—every change is tracked.</li>
-      </ul>
+      <div>
+        <p>At the heart of Aether lies a powerful triad of components, each distinct yet deeply interconnected, creating emergent capabilities far beyond their individual sum:</p>
+        <ul>
+          <li><strong>Aether Chat:</strong> Your intuitive conversational gateway for immediate AI interaction, contextual assistance, and seamless handoff to more structured processes. (Ref: Blueprint Sec 3.1)</li>
+          <li><strong>Aether Canvas:</strong> A dynamic visual stage where AI-driven workflows come to life. Design, orchestrate, and evolve complex processes with AI as your co-pilot, blending local and cloud capabilities with unprecedented ease. (Ref: Blueprint Sec 3.2)</li>
+          <li><strong>MetaLoopLab:</strong> The crucible of innovation. An experimental "Scape Discovery Lab" for pioneering "Model Scaping," advanced agentic research, and the exploration of novel AI paradigms. (Ref: Blueprint Sec 3.3)</li>
+        </ul>
+        <p>This triad embodies our vision of an "AI Operating System" (AIOS) – a platform where human and artificial intelligence collaborate and co-evolve.</p>
+      </div>
     ),
     visual: null,
     sticky: false,
   },
   {
-    title: 'What Makes Us Unique?',
+    title: 'Guiding Principles: The Aether Advantage',
     content: (
-      <ul>
-        <li><b>Unlimited, Private Automation:</b> No rate limits, no cloud lock-in, no data leaks—everything can run locally.</li>
-        <li><b>AI as Copilot:</b> The system suggests, explains, and optimizes—never passive.</li>
-        <li><b>Zero to Value in Minutes:</b> New users can describe a goal and see it run, instantly.</li>
-        <li><b>Self-Evolving Flows:</b> The canvas watches for errors/inefficiencies and proposes improvements automatically.</li>
-        <li><b>Community & Sharing:</b> Share, fork, and remix flows—learn from others and get AI-powered inspiration.</li>
-      </ul>
+      <div>
+        <p>Our development is guided by principles that ensure Aether is powerful, trustworthy, and user-centric:</p>
+        <ul>
+          <li><strong>AI-First, Human-Perfected:</strong> Describe your goals, and let Aether\'s intelligence draft solutions. Refine, guide, and iterate with AI assistance every step of the way.</li>
+          <li><strong>Synergy and Emergence:</strong> The true power of Aether unfolds through the deep integration of Chat, Canvas, and MetaLoopLab. Experience how conversational insights can fuel orchestrated workflows, and how experimental scapes can graduate into robust applications.</li>
+          <li><strong>Model Scaping Paradigm:</strong> Central to MetaLoopLab and increasingly influencing AetherCanvas, this focuses on dynamic, iterative multi-agent systems that learn and adapt.</li>
+          <li><strong>Unlimited Local & Hybrid Orchestration:</strong> Harness the power of local LLMs (like Ollama) for privacy and control, seamlessly blending with cloud models (like Groq) and web tools when optimal. AI intelligently guides these choices, always prioritizing your needs.</li>
+          <li><strong>Radical Explainability & Trust:</strong> Every AI action, suggestion, and workflow step is designed for transparency. Understand the "why" behind the "what," with clear error explanations and AI-suggested fixes.</li>
+          <li><strong>Seamless Evolution & Experimentation:</strong> With features like comprehensive history, undo/redo, and workflow versioning, Aether encourages bold experimentation without fear.</li>
+        </ul>
+      </div>
     ),
     visual: null,
     sticky: false,
   },
   {
-    title: 'Opportunities',
-    content: (
-      <ul>
-        <li>Be the first truly AI-native, user-first automation canvas—usable by anyone, not just developers.</li>
-        <li>Empower privacy-conscious users, businesses, and researchers with local, unlimited LLM automation.</li>
-        <li>Bridge the gap between power-user automation and conversational AI for everyone.</li>
-        <li>Foster a vibrant community of flow creators, sharers, and remixers.</li>
-      </ul>
-    ),
+    title: 'Why Aether? Why Now?',
+    content: 'The convergence of powerful local LLMs, scalable cloud infrastructure, and novel agentic frameworks has opened a new frontier. Aether AI Suite is built to navigate this frontier, offering a unified platform that is intelligent, private, adaptable, and boundless in its potential. It\'s more than automation; it\'s the dawn of orchestrated intelligence, accessible to all.',
     visual: null,
     sticky: false,
   },
   {
-    title: 'How Does It Work?',
+    title: 'Your Role in the Aetherverse',
     content: (
-      <ol>
-        <li>Describe your goal in natural language.</li>
-        <li>The AI drafts a workflow—agents, tools, filters, outputs—ready to run or edit.</li>
-        <li>Run, test, and debug with live, explainable feedback at every step.</li>
-        <li>Iterate, optimize, and share—guided by AI suggestions and community wisdom.</li>
-      </ol>
+      <div>
+        <p>Whether you\'re a developer, a researcher, a business professional, or simply an explorer of AI\'s potential, Aether provides the tools and the environment to:</p>
+        <ul>
+          <li><strong>Innovate Faster:</strong> Move from idea to implemented AI solution at an accelerated pace.</li>
+          <li><strong>Automate with Intelligence:</strong> Go beyond repetitive tasks to create self-optimizing, adaptive systems.</li>
+          <li><strong>Explore Uncharted Territories:</strong> Push the boundaries of AI research and application in the MetaLoopLab.</li>
+          <li><strong>Collaborate with AI:</strong> Experience a new paradigm of human-AI partnership.</li>
+        </ul>
+        <p>The journey begins now. Let\'s shape the future of intelligence, together.</p>
+      </div>
     ),
-    visual: null,
-    sticky: false,
-  },
-  {
-    title: 'Why Now?',
-    content: 'The convergence of fast local LLMs, scalable cloud models, and new agentic paradigms makes it possible to build a platform that is truly intelligent, private, and limitless. Aether Canvas is the answer for the next era of automation—where everyone can orchestrate intelligence.',
     visual: null,
     sticky: false,
   },

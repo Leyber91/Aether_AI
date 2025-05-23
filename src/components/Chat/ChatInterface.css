@@ -547,16 +547,22 @@
   }
 }
 
-/* Code block styling */
+/* Code block styling - General styles should be primarily handled by CodeBlockRenderer.css */
+/* This .code-block-container rule in ChatInterface.css should mainly handle positioning/margin within the message flow. */
 .code-block-container {
   position: relative;
-  margin: var(--space-3) 0;
-  background: rgba(15, 23, 42, 0.7);
-  border-radius: var(--border-radius-md);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: var(--space-3) 0; /* Keep margin for overall spacing in chat */
+  /* background: rgba(15, 23, 42, 0.7); */ /* Let CodeBlockRenderer.css define specific background */
+  border-radius: var(--border-radius-md); /* Can keep if this is for an outer wrapper not styled by CodeBlockRenderer itself */
+  overflow: hidden; /* Useful if CodeBlockRenderer is a direct child and might overflow */
+  /* border: 1px solid rgba(255, 255, 255, 0.1); */ /* Let CodeBlockRenderer.css define specific border */
 }
 
+/* The following .code-header, .language-tag, .copy-button (generic), and .code-block rules 
+   are likely redundant or conflicting if CodeBlockRenderer.js creates its own header and uses CodeBlockRenderer.css 
+   for detailed styling. Commenting them out here to prioritize the component-specific CSS. */
+
+/*
 .code-header {
   display: flex;
   justify-content: space-between;
@@ -572,7 +578,7 @@
   font-weight: 500;
 }
 
-.copy-button {
+.copy-button { 
   background: rgba(99, 102, 241, 0.15);
   color: var(--space-text-secondary);
   border: none;
@@ -596,7 +602,7 @@
   transform: translateY(0);
 }
 
-.code-block {
+.code-block { 
   padding: var(--space-3) var(--space-4);
   margin: 0;
   overflow-x: auto;
@@ -606,7 +612,6 @@
   color: var(--space-text-primary);
 }
 
-/* Line numbers for code */
 .code-block .line-numbers {
   counter-reset: line;
   padding-right: var(--space-4);
@@ -627,6 +632,7 @@
   content: counter(line);
   opacity: 0.5;
 }
+*/
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
@@ -1433,8 +1439,6 @@
   transition: all 0.2s ease;
 }
 
-
-
 .usage-header {
   display: flex;
   flex-direction: column;
@@ -1453,7 +1457,6 @@
   color: rgba(99, 102, 241, 0.7);
   font-size: 0.65rem;
   font-weight: 900;
-
 }
 
 .usage-meters {

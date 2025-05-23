@@ -1,51 +1,8 @@
 import React, { useState, useEffect, useRef, memo, useLayoutEffect } from "react";
-
-// --- OOP: AgentOrbit class encapsulates orbit logic for each agent ---
-class AgentOrbit {
-  constructor({ centerX, centerY, radius, color, label }) {
-    this.centerX = centerX;
-    this.centerY = centerY;
-    this.radius = radius;
-    this.color = color;
-    this.label = label;
-  }
-  // For orbiting: angle in radians (0 = right, -PI/2 = top)
-  getPositionByAngle(angle) {
-    return {
-      x: this.centerX + Math.cos(angle) * this.radius,
-      y: this.centerY + Math.sin(angle) * this.radius,
-    };
-  }
-  // For transitions: t in [0,1], with optional easing
-  getPositionByProgress(progress, easingFn = null) {
-    const eased = easingFn ? easingFn(progress) : progress;
-    // Ensure orbits start from the top (-Math.PI / 2) and go clockwise
-    const angle = eased * 2 * Math.PI - Math.PI / 2;
-    return this.getPositionByAngle(angle);
-  }
-  getCenter() {
-    return { x: this.centerX, y: this.centerY };
-  }
-
-  // Modular: Render the orbiting sphere for this agent
-  renderOrbitingSphere({ progress, phase, easingFn, visiblePhases, r = 12, angle = null, extraProps = {} }) {
-    if (!visiblePhases.includes(phase)) return null;
-    const pos =
-      angle !== null
-        ? this.getPositionByAngle(angle) // Used for Agent R
-        : this.getPositionByProgress(progress, easingFn); // Used for Agent A & B
-    return (
-      <circle
-        cx={pos.x}
-        cy={pos.y}
-        r={r}
-        fill={this.color}
-        filter="url(#glow)"
-        {...extraProps}
-      />
-    );
-  }
-}
+import AgentOrbit from "./AgentOrbit";
+import { easeInOutCubic } from "./animationUtils";
+import AgentNode from "./AgentNode";
+import Trail from "./Trail";
 
 /**
  * Animation component for MetaLoopLab
@@ -431,23 +388,36 @@ const MetaLoopAnimation = memo(function MetaLoopAnimation({ streamingActive, mes
 
       {/* Background circles for Agents */}
       {/* Agent A */}
-      <circle cx={agentA.x} cy={agentA.y} r={phase === 'orbitA' || phase.endsWith('ToA') || phase.startsWith('transitionToB') ? 44 : 38} fill="url(#agentAGradient)" fillOpacity={phase === 'orbitA' ? 0.22 : 0.14} stroke={agentA.color} strokeWidth={phase === 'orbitA' ? 5 : 2.5} strokeOpacity={phase === 'orbitA' ? 1 : 0.6} filter={phase === 'orbitA' ? 'url(#glow)' : undefined} style={{ transition: 'r 0.25s, fill-opacity 0.25s, stroke-width 0.25s' }} />
-      <circle cx={agentA.x} cy={agentA.y} r={28} fill="#0a121e" fillOpacity={0.6} stroke={agentA.color} strokeWidth={2} />
-      <text x={agentA.x} y={agentA.y + 7} textAnchor="middle" fontSize="1.3em" fill={agentA.color} fontWeight="bold" opacity={phase === 'orbitA' || phase.endsWith('ToA') || phase.startsWith('transitionToB') ? 1 : 0.7}>{agentA.label}</text>
+      <AgentNode
+        x={agentA.x}
+        y={agentA.y}
+        color={agentA.color}
+        label={agentA.label}
+        active={phase === 'orbitA' || phase.endsWith('ToA') || phase.startsWith('transitionToB')}
+        gradientId="agentAGradient"
+      />
       
       {/* Agent R (Reflector) - only show in reflector mode */}
       {isReflectorMode && (
-        <g>
-          <circle cx={agentR.x} cy={agentR.y} r={phase === 'orbitR' || phase.includes('ToR') ? 44 : 38} fill="url(#agentRGradient)" fillOpacity={phase === 'orbitR' ? 0.25 : 0.16} stroke={agentR.color} strokeWidth={phase === 'orbitR' ? 5 : 3} strokeOpacity={phase === 'orbitR' ? 1 : 0.7} filter={phase === 'orbitR' ? 'url(#glow)' : undefined} style={{ transition: 'r 0.25s, fill-opacity 0.25s, stroke-width 0.25s' }} />
-          <circle cx={agentR.x} cy={agentR.y} r={28} fill="#0a121e" fillOpacity={0.7} stroke={agentR.color} strokeWidth={2} />
-          <text x={agentR.x} y={agentR.y + 7} textAnchor="middle" fontSize="1.3em" fill={agentR.color} fontWeight="bold" opacity={1}>{agentR.label}</text>
-        </g>
+        <AgentNode
+          x={agentR.x}
+          y={agentR.y}
+          color={agentR.color}
+          label={agentR.label}
+          active={phase === 'orbitR' || phase.includes('ToR')}
+          gradientId="agentRGradient"
+        />
       )}
-
+      
       {/* Agent B */}
-      <circle cx={agentB.x} cy={agentB.y} r={phase === 'orbitB' || phase.endsWith('ToB') || phase.startsWith('transitionToA') ? 44 : 38} fill="url(#agentBGradient)" fillOpacity={phase === 'orbitB' ? 0.22 : 0.14} stroke={agentB.color} strokeWidth={phase === 'orbitB' ? 5 : 2.5} strokeOpacity={phase === 'orbitB' ? 1 : 0.6} filter={phase === 'orbitB' ? 'url(#glow)' : undefined} style={{ transition: 'r 0.25s, fill-opacity 0.25s, stroke-width 0.25s' }} />
-      <circle cx={agentB.x} cy={agentB.y} r={28} fill="#0a121e" fillOpacity={0.6} stroke={agentB.color} strokeWidth={2} />
-      <text x={agentB.x} y={agentB.y + 7} textAnchor="middle" fontSize="1.3em" fill={agentB.color} fontWeight="bold" opacity={phase === 'orbitB' || phase.endsWith('ToB') || phase.startsWith('transitionToA') ? 1 : 0.7}>{agentB.label}</text>
+      <AgentNode
+        x={agentB.x}
+        y={agentB.y}
+        color={agentB.color}
+        label={agentB.label}
+        active={phase === 'orbitB' || phase.endsWith('ToB') || phase.startsWith('transitionToA')}
+        gradientId="agentBGradient"
+      />
       
       {/* Message Nodes Row (Existing logic, assumed to be largely okay) */}
       {messages.length > 0 && (
@@ -455,15 +425,24 @@ const MetaLoopAnimation = memo(function MetaLoopAnimation({ streamingActive, mes
           {messages.length > 1 && messages.map((msg, idx) => {
             if (idx === 0) return null;
              if (isReflectorMode) {
-              const nodeOrder = [agentAOrbit, agentROrbit, agentBOrbit, agentROrbit];
-              const getNode = i => nodeOrder[i % 4];
-              const x1 = getNode(idx - 1).centerX;
-              const y1 = getNode(idx - 1).centerY + 80;
-              const x2 = getNode(idx).centerX;
-              const y2 = getNode(idx).centerY + 80;
+              const totalMarkers = messages.length;
+              const startX = agentAOrbit.centerX;
+              const endX = agentBOrbit.centerX;
+              const availableWidthForMarkers = endX - startX;
+              let x1_pos, x2_pos;
+
+              if (totalMarkers <= 1) {
+                x1_pos = startX + availableWidthForMarkers / 2;
+                x2_pos = startX + availableWidthForMarkers / 2;
+              } else {
+                x1_pos = startX + ((idx - 1) / (totalMarkers - 1)) * availableWidthForMarkers;
+                x2_pos = startX + (idx / (totalMarkers - 1)) * availableWidthForMarkers;
+              }
+
+              const y_pos = agentAOrbit.centerY + 80; // Common Y position
               const prevColor = messages[idx - 1].agent === 'Agent A' ? agentAOrbit.color : messages[idx - 1].agent === 'Agent B' ? agentBOrbit.color : agentROrbit.color;
               return (
-                <line key={`line-${idx}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke={`${prevColor}55`} strokeWidth={2} />
+                <line key={`line-${idx}`} x1={x1_pos} y1={y_pos} x2={x2_pos} y2={y_pos} stroke={`${prevColor}55`} strokeWidth={2} />
               );
             } else {
               const total = messages.length;
@@ -481,26 +460,35 @@ const MetaLoopAnimation = memo(function MetaLoopAnimation({ streamingActive, mes
           })}
           {messages.map((msg, idx) => {
              if (isReflectorMode) {
-              const nodeOrder = [agentAOrbit, agentROrbit, agentBOrbit, agentROrbit];
-              const getNode = i => nodeOrder[i % 4];
-              const nodeX = getNode(idx).centerX;
-              const nodeY = getNode(idx).centerY + 80;
+              const totalMarkers = messages.length;
+              const startX = agentAOrbit.centerX;
+              const endX = agentBOrbit.centerX;
+              const availableWidthForMarkers = endX - startX;
+              let nodeXPosition;
+
+              if (totalMarkers === 1) {
+                nodeXPosition = startX + availableWidthForMarkers / 2;
+              } else {
+                nodeXPosition = startX + (idx / (totalMarkers - 1)) * availableWidthForMarkers;
+              }
+
+              const nodeYPosition = agentAOrbit.centerY + 80; // Keep Y offset consistent (can be adjusted)
               const color = msg.agent === 'Agent A' ? agentAOrbit.color : msg.agent === 'Agent B' ? agentBOrbit.color : agentROrbit.color;
               const isPending = msg.__pending;
               return (
                 <g key={`node-${idx}`}>
                   {isPending ? (
                     <g>
-                      <circle cx={nodeX} cy={nodeY} r={10} fill={color} fillOpacity={0.45} stroke="#fff" strokeWidth={2} opacity={0.65} />
-                      <circle cx={nodeX} cy={nodeY} r={13} fill="none" stroke={color} strokeWidth={2} strokeDasharray="10 12" strokeLinecap="round" opacity={0.7}>
-                        <animateTransform attributeName="transform" type="rotate" from={`0 ${nodeX} ${nodeY}`} to={`360 ${nodeX} ${nodeY}`} dur="0.9s" repeatCount="indefinite" />
+                      <circle cx={nodeXPosition} cy={nodeYPosition} r={10} fill={color} fillOpacity={0.45} stroke="#fff" strokeWidth={2} opacity={0.65} />
+                      <circle cx={nodeXPosition} cy={nodeYPosition} r={13} fill="none" stroke={color} strokeWidth={2} strokeDasharray="10 12" strokeLinecap="round" opacity={0.7}>
+                        <animateTransform attributeName="transform" type="rotate" from={`0 ${nodeXPosition} ${nodeYPosition}`} to={`360 ${nodeXPosition} ${nodeYPosition}`} dur="0.9s" repeatCount="indefinite" />
                       </circle>
                     </g>
                   ) : (
-                    <circle cx={nodeX} cy={nodeY} r={10} fill={color} stroke="#fff" strokeWidth={2} opacity={0.93} />
+                    <circle cx={nodeXPosition} cy={nodeYPosition} r={10} fill={color} stroke="#fff" strokeWidth={2} opacity={0.93} />
                   )}
-                  <text x={nodeX} y={nodeY + 25} textAnchor="middle" fontSize="0.8em" fill={color} opacity={0.8}>
-                    {`${msg.agent.replace('Agent ','')} ${isPending ? '...' : `(${idx + 1})`}`}
+                  <text x={nodeXPosition} y={nodeYPosition + 25} textAnchor="middle" fontSize="0.8em" fill={color} opacity={0.8}>
+                    {`${msg.agent.replace('Agent ','').replace('Self-Evolving Reflector', 'R')} ${isPending ? '...' : `(${idx + 1})`}`}
                   </text>
                 </g>
               );
@@ -569,6 +557,8 @@ const MetaLoopAnimation = memo(function MetaLoopAnimation({ streamingActive, mes
       ))}
       
       {/* Main floating ball that moves between agents */}
+      {/* Trail effect behind the moving ball */}
+      <Trail trail={trail} color={activeAgentColor} />
       {phase !== 'idle' && x !== undefined && y !== undefined && (
           <g>
             <circle 

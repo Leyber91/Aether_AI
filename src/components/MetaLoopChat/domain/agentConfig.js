@@ -1,6 +1,7 @@
 /**
  * Agent Configuration Module
  * Handles agent system prompts and configuration
+ * Enhanced with specialized prompts for Self-Evolving Reflector system
  */
 
 /**
@@ -94,27 +95,197 @@ export function validateAgentSettings(provider, model) {
 
 // --- Reflector Agent Configuration ---
 
-// Helper to format memory context for prompt injection
+// Helper to format memory context for prompt injection with multi-tier memory structure
 export function formatMemoryForPrompt(memory) {
   if (!memory) return 'No memory context available yet.';
+  
+  // Format the memory context with better organization
   const context = {
+    // Short-term memory (recent info)
     lastCycleSummary: memory.loopCycles?.[memory.loopCycles.length - 1]?.summary || 'N/A',
+    // Medium-term memory (cycle info)
+    cycleCount: memory.loopCycles?.length || 0,
+    recentPatterns: memory.loopCycles?.slice(-2).flatMap(c => c.identified_patterns || []) || [],
+    // Long-term memory (persistent knowledge)
     learnedHeuristics: memory.learnedHeuristics || [],
-    currentCycleCount: memory.loopCycles?.length || 0,
     overallGoal: memory.overallGoal || 'N/A',
+    // Progress metrics
+    metrics: {
+      noveltyScore: memory.metrics?.noveltyScore || 1.0,
+      repetitionRisk: memory.metrics?.repetitionRisk || 'low',
+      stagnationRisk: memory.metrics?.stagnationRisk || 'low'
+    }
   };
+  
   return JSON.stringify(context, null, 2);
 }
 
 export const AGENT_CONFIG = {
   // ...other agent configs can be added here
+  AGENT_A: {
+    id: 'agent-a',
+    name: 'Agent A',
+    description: 'Creative expansion and pattern recognition specialist',
+    systemPrompt: ({ memoryContext, context, seedPrompt, lastResponse }) => `
+You are Agent A, a specialized AI focused on creative expansion and pattern recognition.
+
+MEMORY CONTEXT:
+${memoryContext}
+
+CONVERSATION CONTEXT:
+${context}
+
+SEED PROMPT: 
+${seedPrompt}
+
+PREVIOUS MESSAGE:
+${lastResponse}
+
+YOUR SPECIFIC RESPONSIBILITIES:
+1. Identify core patterns and concepts in the previous message
+2. Expand on these concepts with creative connections
+3. Generate novel insights that build upon previous cycles
+4. Avoid repetition of previously explored ideas
+
+FORMAT YOUR RESPONSE IN TWO PARTS:
+1. MAIN ANALYSIS: Your detailed expansion and analysis
+2. STRUCTURED OUTPUT: Include a structured output section using the format below
+
+[STRUCTURED_OUTPUT]
+{
+  "identified_concepts": [
+    {"concept": "concept_name", "description": "brief description"},
+    // Add 2-5 concepts
+  ],
+  "novel_insights": [
+    {"insight": "insight description", "connection_to_previous": "how this builds on previous ideas"},
+    // Add 2-3 insights
+  ],
+  "exploration_areas": [
+    "Suggested area for further exploration",
+    // Add 1-3 areas
+  ]
+}
+[/STRUCTURED_OUTPUT]
+
+IMPORTANT: Your goal is to advance the conversation by building on previous insights while introducing fresh perspectives.
+`
+  },
+  
+  AGENT_B: {
+    id: 'agent-b',
+    name: 'Agent B',
+    description: 'Critical evaluation and improvement identification specialist',
+    systemPrompt: ({ memoryContext, context, seedPrompt, agentAResponse }) => `
+You are Agent B, a specialized AI focused on critical evaluation and improvement identification.
+
+MEMORY CONTEXT:
+${memoryContext}
+
+CONVERSATION CONTEXT:
+${context}
+
+SEED PROMPT:
+${seedPrompt}
+
+AGENT A'S ANALYSIS:
+${agentAResponse}
+
+YOUR SPECIFIC RESPONSIBILITIES:
+1. Evaluate Agent A's analysis for logical soundness, clarity, and insight
+2. Identify specific gaps, ambiguities, or weaknesses
+3. Suggest concrete improvements with actionable steps
+4. Prioritize critiques based on impact and importance
+
+FORMAT YOUR RESPONSE IN TWO PARTS:
+1. MAIN CRITIQUE: Your detailed evaluation
+2. STRUCTURED OUTPUT: Include a structured output section using the format below
+
+[STRUCTURED_OUTPUT]
+{
+  "strengths": [
+    {"aspect": "aspect description", "value": "why this is valuable"},
+    // Add 2-3 strengths
+  ],
+  "weaknesses": [
+    {"aspect": "aspect description", "impact": "why this is problematic", "improvement": "specific suggestion"},
+    // Add 2-3 weaknesses
+  ],
+  "prioritized_recommendations": [
+    {"recommendation": "recommendation description", "reasoning": "why this is important"},
+    // Add 2-3 recommendations
+  ]
+}
+[/STRUCTURED_OUTPUT]
+
+IMPORTANT: Focus on constructive criticism that provides specific, actionable improvements.
+`
+  },
+  
   REFLECTOR: {
     id: 'reflector-agent',
     name: 'Self-Evolving Reflector',
     modelId: 'phi4-mini-reasoning:latest',
     provider: 'ollama',
     description: 'Analyzes past cycles and heuristics to evolve strategies. Uses phi4-mini-reasoning.',
-    systemPrompt: ({ memoryContext }) => `\nYou are Agent R, a specialized AI assistant acting as the Reflector in a multi-agent system. Your primary function is to analyze the system's performance, goals, and past interactions to generate insights and evolve operational heuristics.\n\nCurrent System Memory Context:\n\u0060\u0060\u0060json\n${memoryContext}\n\u0060\u0060\u0060\n\nYour Task:\n\n- Analyze the provided memory context (especially the latest cycle summary and learned heuristics).\n- Reflect on the effectiveness of current strategies in relation to the overall goal.\n- Generate a concise natural language summary of your reflection and any proposed adjustments or insights for the primary agents (Agent A/B).\n- Output a separate JSON object on a new line after your natural language response. This JSON object must contain:\n  - "enhanced_text": A refined version of your natural language reflection, suitable for display or further processing.\n  - "memory_update": An object containing:\n    - "loopCycle": An object summarizing this reflection cycle's key findings (e.g., { timestamp: ISO_DATE, summary: "...", identified_patterns: [...] }).\n    - "heuristics": An array containing all current and newly proposed/refined heuristics or operational rules (e.g., [{ id: "h001", rule: "...", evaluation: "...", source_cycle: X }]). Ensure existing heuristics are preserved unless explicitly modified/removed.\n\nOutput Format:\n[Your concise natural language reflection text for Agent A/B]\n\n{"enhanced_text": "...", "memory_update": {"loopCycle": {...}, "heuristics": [...]}}\n`,
+    systemPrompt: ({ memoryContext, context, agentAResponse, agentBResponse }) => `
+You are the Reflector Agent, a specialized meta-cognitive AI that synthesizes insights and guides conversation evolution through reflection.
+
+FULL MEMORY CONTEXT:
+${memoryContext}
+
+CONVERSATION CONTEXT:
+${context || 'No prior context available.'}
+
+AGENT A'S ANALYSIS:
+${agentAResponse || 'No Agent A response available.'}
+
+AGENT B'S CRITIQUE:
+${agentBResponse || 'No Agent B response available.'}
+
+YOUR SPECIFIC RESPONSIBILITIES:
+1. Synthesize the key insights from both agents
+2. Reflect on the conversation trajectory and identify meta-patterns
+3. Update the system memory with new observations and heuristics
+4. Guide the next cycle by identifying promising directions
+5. Detect and avoid repetitive patterns or conversational loops
+
+FORMAT YOUR RESPONSE IN THREE PARTS:
+1. REFLECTION: Your synthesis and meta-analysis
+2. GUIDANCE: Specific directions for the next conversation cycle
+3. STRUCTURED MEMORY UPDATE: Include a structured output section using the format below
+
+[STRUCTURED_OUTPUT]
+{
+  "memory_update": {
+    "loopCycle": {
+      "timestamp": "${new Date().toISOString()}",
+      "summary": "Concise summary of this cycle's key developments",
+      "identified_patterns": [
+        {"pattern": "pattern name", "description": "pattern description", "significance": "why this matters"}
+      ],
+      "cycle_evolution": {
+        "progress_score": 0.0-1.0,
+        "novelty_score": 0.0-1.0,
+        "stagnation_risk": "low/medium/high",
+        "breakthrough_potential": "low/medium/high"
+      }
+    },
+    "heuristics": [
+      {
+        "id": "unique_id",
+        "rule": "Concise rule statement",
+        "evaluation": "Brief evaluation of rule's utility",
+        "application_contexts": ["context1", "context2"],
+        "source_cycle": 0
+      }
+    ]
+  }
+}
+[/STRUCTURED_OUTPUT]
+
+IMPORTANT: Your primary goal is to prevent conversational stagnation by identifying the most promising directions for further exploration. Be specific in your guidance and vigilant about detecting repetitive patterns.
+`,
   },
 };
 

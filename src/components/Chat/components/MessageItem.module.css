@@ -185,6 +185,25 @@
   color: #e2e8f0;
 }
 
+/* Apply custom scrollbar to raw markdown view */
+.raw-markdown::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.raw-markdown::-webkit-scrollbar-track {
+  background: rgba(18, 24, 38, 0.5); /* Match .raw-markdown background nuance */
+  border-radius: 4px;
+}
+.raw-markdown::-webkit-scrollbar-thumb {
+  background-color: rgba(116, 208, 252, 0.4);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.raw-markdown::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(116, 208, 252, 0.6);
+}
+
 .thinking-content {
   background: rgba(18, 24, 38, 0.6);
   border-radius: var(--border-radius-md);
@@ -200,6 +219,25 @@
   white-space: pre-wrap;
   max-height: 200px;
   overflow-y: auto;
+}
+
+/* Apply custom scrollbar to thinking text view */
+.thinking-text::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.thinking-text::-webkit-scrollbar-track {
+  background: rgba(18, 24, 38, 0.3); /* Slightly different from its container */
+  border-radius: 4px;
+}
+.thinking-text::-webkit-scrollbar-thumb {
+  background-color: rgba(116, 208, 252, 0.4);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.thinking-text::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(116, 208, 252, 0.6);
 }
 
 .message-timestamp {
@@ -237,159 +275,15 @@
 .markdown-content :global(.md-paragraph) {
   margin-bottom: 1em;
   line-height: 1.6;
-}
-
-.markdown-content :global(pre) {
-  border-radius: var(--border-radius-md);
-  background: rgba(10, 17, 36, 0.6);
-  overflow-x: auto;
-  position: relative;
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  line-height: 1.5;
-  border: 1px solid rgba(116, 208, 252, 0.2);
-}
-
-.markdown-content :global(pre code) {
-  display: block;
-  color: #e6f8ff;
-  background: transparent;
-  padding: 0;
-  border: none;
-}
-
-.markdown-content :global(code) {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-  border-radius: 0.3em;
-  background: rgba(116, 208, 252, 0.1);
-  color: #a0e4ff;
-  white-space: pre-wrap;
   word-break: break-word;
-}
-
-.markdown-content :global(.md-list) {
-  padding-left: 1.5em;
-  margin-bottom: 1em;
-}
-
-.markdown-content :global(.md-list li) {
-  margin-bottom: 0.5em;
-}
-
-.markdown-content :global(.md-blockquote) {
-  padding: 0.5em 1em;
-  margin: 1em 0;
-  border-left: 3px solid rgba(116, 208, 252, 0.5);
-  background: rgba(10, 20, 35, 0.3);
-  border-radius: var(--border-radius-sm);
-  font-style: italic;
-}
-
-.markdown-content :global(.md-table) {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-}
-
-.markdown-content :global(.md-table th),
-.markdown-content :global(.md-table td) {
-  padding: 0.5em;
-  border: 1px solid rgba(116, 208, 252, 0.3);
-  text-align: left;
-}
-
-.markdown-content :global(.md-table th) {
-  background: rgba(20, 45, 80, 0.5);
-  font-weight: bold;
-}
-
-.markdown-content :global(.md-table tr:nth-child(even)) {
-  background: rgba(10, 20, 35, 0.3);
-}
-
-.markdown-content :global(.md-table tr:hover) {
-  background: rgba(20, 45, 80, 0.4);
-}
-
-.markdown-content :global(.md-heading) {
-  margin-top: 1.5em;
-  margin-bottom: 0.7em;
-  color: #a0e4ff;
-  font-weight: 600;
-}
-
-.markdown-content :global(.md-h1) {
-  font-size: 1.8em;
-  border-bottom: 1px solid rgba(116, 208, 252, 0.3);
-  padding-bottom: 0.3em;
-}
-
-.markdown-content :global(.md-h2) {
-  font-size: 1.5em;
-}
-
-.markdown-content :global(.md-h3) {
-  font-size: 1.2em;
-}
-
-.markdown-content :global(.md-link) {
-  color: #74d0fc;
-  text-decoration: none;
-  border-bottom: 1px dashed rgba(116, 208, 252, 0.5);
-  transition: color 0.2s, border-bottom-color 0.2s;
-}
-
-.markdown-content :global(.md-link:hover) {
-  color: #a0e4ff;
-  border-bottom-color: #a0e4ff;
-}
-
-.markdown-content :global(.markdown-svg-container),
-.markdown-content :global(.markdown-canvas-container) {
-  margin: 1em 0;
-}
-
-.markdown-content :global(.markdown-svg-renderer),
-.markdown-content :global(.markdown-canvas-container canvas) {
-  max-width: 100%;
-  height: auto;
-}
-
-.markdown-content :global(p > pre),
-.markdown-content :global(p > div) {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.markdown-content > *:first-child {
-  margin-top: 0;
-}
-
-.markdown-content > *:last-child {
-  margin-bottom: 0;
-}
-
-/* Soften message item and its containers */
-.message-item {
-  border-radius: 9px !important;
-}
-
-.message-bubble {
-  border-radius: 7px !important;
-}
-
-.message-item .meta {
-  border-radius: 7px !important;
-}
-
-/* Soften scrollbars */
-::-webkit-scrollbar-thumb {
-  border-radius: 7px;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 /* Markdown code block styles */
+/* These .md-pre styles might be redundant if CodeBlockRenderer is used for all fenced code blocks 
+   and styled by CodeBlockRenderer.css. Review if this is still needed or if it conflicts.
+   For now, let's assume CodeBlockRenderer handles ``` blocks.
 .md-pre {
   background: #181c24;
   color: #e5e7eb;
@@ -405,8 +299,9 @@
   max-width: 100%;
   word-break: break-word;
 }
+*/
 
-.inline-code {
+.inline-code { /* This is fine for actual inline code */
   background: rgba(99, 102, 241, 0.12);
   color: #a5b4fc;
   border-radius: 6px;
@@ -417,17 +312,42 @@
   margin: 0 2px;
 }
 
-.md-pre code {
-  background: none;
-  color: inherit;
-  font-size: inherit;
-  padding: 0;
-  border: none;
-  font-family: inherit;
-  white-space: pre;
+/* Styles for pre/code within .markdown-content, potentially conflicting with CodeBlockRenderer's output */
+/* If CodeBlockRenderer wraps its output in .code-block-container, these might not be needed or could be simplified */
+.markdown-content :global(pre) {
+  border-radius: var(--border-radius-md);
+  /* background: rgba(10, 17, 36, 0.6); */ /* Let CodeBlockRenderer handle background */
+  overflow-x: auto;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  line-height: 1.5;
+  /* border: 1px solid rgba(116, 208, 252, 0.2); */ /* Let CodeBlockRenderer handle border */
+  margin: 1em 0; /* Keep margin for spacing within message */
 }
 
-/* Code block container for syntax-highlighted code */
+.markdown-content :global(pre code) {
+  display: block;
+  /* color: #e6f8ff; */ /* Let CodeBlockRenderer/PrismJS handle text color */
+  background: transparent !important; /* Ensure no competing background */
+  padding: 0; 
+  border: none;
+}
+
+.markdown-content :global(code) { /* For generic inline code, not part of a pre block from Prism */
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  background: rgba(116, 208, 252, 0.1);
+  color: #a0e4ff;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Code block container styling in MessageItem.module.css - this might be redundant or conflict */
+/* Commenting out for now to prioritize CodeBlockRenderer.css for the container itself */
+/*
 .code-block-container {
   background: #181c24;
   border-radius: 10px;
@@ -462,7 +382,7 @@
   letter-spacing: 0.5px;
 }
 
-.copy-button {
+.copy-button { // This copy button style here might conflict with the one in MessageContent.js or CodeBlockRenderer.js
   background: linear-gradient(135deg, #8b5cf6, #6366f1);
   color: #fff;
   border: none;
@@ -481,7 +401,7 @@
   color: #fff;
 }
 
-.code-block-container > div {
+.code-block-container > div { // This is a very generic selector, could be problematic
   background: none !important;
   box-shadow: none !important;
   margin: 0 !important;
@@ -489,46 +409,23 @@
   border-radius: 0 0 10px 10px !important;
   overflow-x: auto;
 }
+*/
 
-/* Enhanced styles for code blocks */
-:global(.code-block-wrapper) {
+/* Enhanced styles for code blocks wrapper within MessageItem */
+/* This targets the container provided by CodeBlockRenderer IF it has this class */
+:global(.code-block-wrapper) { /* Assuming CodeBlockRenderer wraps its output in this */
   margin: 1rem 0;
   border-radius: 8px;
   overflow: hidden;
 }
 
+/* Styles for a generic .code-block class, if used by CodeBlockRenderer as its inner pre/code wrapper */
+/* These should not define token colors, only base layout if needed */
 :global(.code-block) {
-  position: relative;
-  overflow-x: auto;
-  background-color: #1a202c !important;
-  border-radius: 6px;
+  /* Ensure this doesn't override CodeBlockRenderer.css's more specific Prism styling */
+  /* Typically, CodeBlockRenderer.css would target .code-block pre or similar */
   margin: 0;
-  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
-}
-
-:global(.code-language) {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: rgba(113, 128, 150, 0.2);
-  color: #a0aec0;
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  border-bottom-left-radius: 6px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  font-family: var(--font-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-}
-
-:global(.inline-code) {
-  background-color: rgba(113, 128, 150, 0.15);
-  border-radius: 3px;
-  font-family: var(--font-mono, "JetBrains Mono", Consolas, Monaco, "Andale Mono", monospace);
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-  color: #74d0fc;
-  word-break: break-word;
+  padding: 0; /* Padding should be handled by CodeBlockRenderer.css or its internal structure */
 }
 
 /* Styles for specific language renderings */
@@ -600,21 +497,23 @@
 /* Styling for explanation messages */
 .explanation-message {
   border-left: 3px solid rgb(139, 92, 246);
-  background-color: rgba(139, 92, 246, 0.05);
-  padding-left: 15px !important;
-  margin-top: 8px !important;
-  margin-bottom: 8px !important;
+  background-color: rgba(139, 92, 246, 0.07);
+  padding: var(--space-4) !important;
+  margin-top: var(--space-3) !important;
+  margin-bottom: var(--space-4) !important;
   position: relative;
+  border-radius: var(--border-radius-md);
 }
 
 .explanation-message::before {
-  content: '';
+  content: '\e9A1';
+  font-family: 'YourIconFont';
   position: absolute;
-  top: 0;
-  left: -3px;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(to bottom, rgb(139, 92, 246), rgb(168, 85, 247));
+  top: var(--space-4);
+  left: -20px;
+  color: rgb(139, 92, 246);
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .explanation-message .markdown-content h2:first-child {
@@ -639,4 +538,22 @@
 /* Ensure explanations are visually distinct from normal messages */
 .message-item .explanation-message {
   max-width: 95%;
+}
+
+/* Soften message item and its containers */
+.message-item {
+  border-radius: 9px !important;
+}
+
+.message-bubble {
+  border-radius: 7px !important;
+}
+
+.message-item .meta {
+  border-radius: 7px !important;
+}
+
+/* Soften scrollbars */
+::-webkit-scrollbar-thumb {
+  border-radius: 7px;
 }

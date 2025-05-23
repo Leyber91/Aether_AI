@@ -9,6 +9,7 @@ import LoginPage from './components/LoginPage';
 import AppHeader from './components/common/AppHeader';
 import SystemCheckWizard from './components/SystemCheckWizard';
 import MetaLoopLab from './components/MetaLoopChat/MetaLoopLab';
+import AetherCreator from './components/AetherCreator/AetherCreator';
 
 /**
  * Main application component
@@ -32,6 +33,16 @@ const MainContent = () => {
       <>
         <AppHeader />
         <MetaLoopLab fullPage />
+      </>
+    );
+  }
+
+  // Render AetherCreator as a full premium page, similar to MetaLoopLab
+  if (currentRoute === ROUTES.AETHER_CREATOR) {
+    return (
+      <>
+        <AppHeader />
+        <AetherCreator />
       </>
     );
   }

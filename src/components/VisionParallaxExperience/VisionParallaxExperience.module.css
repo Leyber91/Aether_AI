@@ -10,6 +10,9 @@
   top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
+  perspective: 1200px;
+  animation: etherealGlow 20s infinite alternate ease-in-out;
 }
 .content {
   position: relative;
@@ -30,19 +33,33 @@
   background: none;
   position: relative;
   overflow: hidden;
+  perspective: 1000px;
 }
 .heroTitle {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: #7ad0ff;
   margin-bottom: 1.5rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   text-align: center;
+  text-shadow: 0 0 15px rgba(122, 208, 255, 0.5), 0 0 30px rgba(122, 208, 255, 0.3);
+  transition: all 0.5s ease;
+  will-change: transform, opacity;
 }
 .heroSubtitle {
-  font-size: 1.18rem;
+  font-size: 1.3rem;
   color: #e3e5f7;
   text-align: center;
+  text-shadow: 0 0 10px rgba(227, 229, 247, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+  will-change: transform, opacity;
+}
+.heroArt {
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 30px rgba(122, 208, 255, 0.5));
+  will-change: transform;
+  transition: all 0.3s ease;
 }
 .storySection {
   width: 100vw;
@@ -57,6 +74,8 @@
   padding: 4rem 0;
   box-sizing: border-box;
   overflow: visible;
+  will-change: transform, opacity;
+  transition: all 0.5s ease;
 }
 .storyTextWrap {
   max-width: 900px;
@@ -66,14 +85,21 @@
   padding: 0 2vw;
   word-break: break-word;
   white-space: normal;
+  transition: all 0.5s ease;
 }
 .storyTitle {
-  font-size: 2rem;
+  will-change: transform, opacity;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #7ad0ff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 20px rgba(122, 208, 255, 0.4);
+  transition: all 0.3s ease;
 }
 .storyContent {
+  will-change: transform, opacity;
+  transition: all 0.3s ease;
+  line-height: 1.6;
   font-size: 1.18rem;
   color: #e3e5f7;
   word-break: break-word;
@@ -85,14 +111,196 @@
 .storyVisual {
   margin-top: 2rem;
 }
-@media (max-width: 900px) {
-  .storyTextWrap {
-    max-width: 98vw;
-    padding: 0 1vw;
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.2rem;
   }
-  .storyContent {
+  
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  
+  .storyTitle {
+    font-size: 2rem;
+  }
+  .nebula, .aurora {
+    opacity: 0.7;
+  }
+  
+  .cosmicDust {
+    opacity: 0.3;
+  }
+}
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+  
+  .heroSubtitle {
     font-size: 1rem;
-    max-width: 98vw;
-    padding: 0 1vw;
   }
+  
+  .storyTitle {
+    font-size: 1.7rem;
+  }
+}
+@media (prefers-reduced-motion) {
+  .bg, .cosmicDust, .nebula, .aurora, .energyWavesWrapper, .flowFieldWrapper {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Generative Starfield Canvas */
+.generativeStarfield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  will-change: transform;
+}
+
+/* Cosmic Dust Layer */
+.cosmicDust {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 120%;
+  background: url('data:image/svg+xml;utf8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><g fill="white" opacity="0.3"><circle cx="50" cy="50" r="0.8" /><circle cx="100" cy="120" r="0.6" /><circle cx="200" cy="80" r="0.7" /><circle cx="250" cy="170" r="0.5" /><circle cx="300" cy="120" r="0.8" /><circle cx="150" cy="220" r="0.7" /><circle cx="320" cy="280" r="0.6" /><circle cx="80" cy="300" r="0.8" /><circle cx="250" cy="350" r="0.5" /></g></svg>') repeat;
+  transform-style: preserve-3d;
+  z-index: 1;
+  opacity: 0.4;
+  transform: translateZ(-100px);
+  will-change: transform;
+}
+
+/* Energy Waves Canvas */
+.energyWavesWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.energyWaves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* Flow Field */
+.flowFieldWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.flowField {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* Updated Nebula Style */
+.nebula {
+  position: absolute;
+  width: 120%; 
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(
+    ellipse at 60% 40%, 
+    rgba(122, 208, 255, 0.18) 0%, 
+    rgba(161, 143, 255, 0.12) 40%, 
+    rgba(100, 203, 255, 0.05) 60%,
+    rgba(35, 37, 58, 0) 80%
+  );
+  mix-blend-mode: screen;
+  will-change: transform, opacity, filter;
+  transform-style: preserve-3d;
+  z-index: 4;
+}
+
+/* Enhanced Aurora */
+.aurora {
+  position: absolute;
+  width: 150%; 
+  height: 100%;
+  top: 0;
+  left: -25%;
+  background: linear-gradient(
+    120deg,
+    rgba(122, 208, 255, 0.1) 0%,
+    rgba(161, 143, 255, 0.15) 30%,
+    rgba(146, 214, 250, 0.12) 70%,
+    rgba(35, 37, 58, 0) 100%
+  );
+  mix-blend-mode: screen;
+  transform-origin: center bottom;
+  will-change: transform, opacity, filter;
+  transform-style: preserve-3d;
+  z-index: 5;
+}
+
+/* Add keyframes for subtle background movement */
+@keyframes cosmicDrift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(20px, 10px) rotate(1deg); }
+  66% { transform: translate(-10px, 20px) rotate(-1deg); }
+}
+
+@keyframes etherealGlow {
+  0%, 100% { filter: saturate(100%) brightness(100%); }
+  50% { filter: saturate(120%) brightness(110%); }
+}
+
+/* Apply animations to elements */
+.bg {
+  animation: etherealGlow 20s infinite alternate ease-in-out;
+}
+
+/* Quantum Entanglement Effect */
+.quantumEntanglementWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+.quantumEntanglement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+@keyframes etherealGlow {
+  0%, 100% { filter: saturate(100%) brightness(100%); }
+  50% { filter: saturate(120%) brightness(110%); }
 }

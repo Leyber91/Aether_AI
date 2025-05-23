@@ -1,10 +1,12 @@
 /**
  * LLM Service module
  * Handles communication with LLM providers (Ollama, Groq, etc.)
+ * Uses the unified model service API backend
  */
 
 /**
- * Fetch a streaming response from Ollama
+ * Fetch a streaming response from a model via the unified model service API
+ * @param {string} provider - Provider name (ollama, groq)
  * @param {Object} agent - The agent configuration 
  * @param {string} model - Model name
  * @param {string} input - User input prompt
@@ -13,110 +15,96 @@
  * @param {AbortSignal} signal - AbortController signal
  * @returns {Promise<string>} - The full response text
  */
-export async function fetchOllamaStream(agent, model, input, history, onToken, signal) {
-  // Always use /api/chat endpoint; adjust messages for completion-style models
-  const isChatModel = /chat|llama|phi|qwen|mistral/i.test(model);
+export async function fetchModelStream(provider, agent, model, input, history, onToken, signal) {
   try {
-    let chatMessages;
-    if (isChatModel) {
-      chatMessages = [
-        { role: "system", content: agent.systemPrompt },
-        ...history,
-        { role: "user", content: input }
-      ];
-    } else {
-      // For completion/instruct models, flatten all prompt content into a single user message
-      const prompt = [agent.systemPrompt, ...history.map(h => h.content), input].join('\n');
-      chatMessages = [
-        { role: "user", content: prompt }
-      ];
-    }
-    const payload = { model, messages: chatMessages, stream: true };
+    // Always use the unified model API
+    const isChatModel = true; // Assume all models use the chat format with our unified API
+    
+    // Prepare the chat messages
+    const chatMessages = [
+      ...history,
+      { role: "user", content: input }
+    ];
+    
+    // Prepare the API payload
+    const payload = {
+      provider: provider,
+      model: model,
+      input: input,
+      history: history,
+      systemPrompt: agent.systemPrompt,
+      temperature: agent.temperature || 0.7,
+      max_tokens: agent.max_tokens || null
+    };
 
     // --- Payload validation ---
     let validationErrors = [];
     if (!payload.model || typeof payload.model !== 'string' || !payload.model.trim()) {
       validationErrors.push('Model name is missing or not a string.');
     }
-    if (!Array.isArray(payload.messages) || payload.messages.length === 0) {
-      validationErrors.push('Messages array is missing or empty.');
-    } else {
-      payload.messages.forEach((msg, i) => {
-        if (typeof msg.role !== 'string' || typeof msg.content !== 'string') {
-          validationErrors.push(`Message at index ${i} missing string role/content.`);
-        }
-        if (!msg.role.trim() || !msg.content.trim()) {
-          validationErrors.push(`Message at index ${i} has empty role/content.`);
-        }
-      });
+    if (!payload.input || typeof payload.input !== 'string') {
+      validationErrors.push('Input text is missing or not a string.');
     }
-    const payloadStr = JSON.stringify(payload);
-    if (payloadStr.length > 16000) {
-      console.warn('[WARN] Payload size exceeds 16k chars. This may cause Ollama to reject the request.');
+    if (!payload.provider || typeof payload.provider !== 'string') {
+      validationErrors.push('Provider is missing or not a string.');
     }
+    
     if (validationErrors.length > 0) {
-      console.error('[ERROR] Invalid Ollama payload:', validationErrors);
-      throw new Error('Invalid Ollama payload: ' + validationErrors.join(' | '));
+      console.error('[ERROR] Invalid model service payload:', validationErrors);
+      throw new Error('Invalid model service payload: ' + validationErrors.join(' | '));
     }
-    console.log('Ollama payload (unified chat):', JSON.stringify(payload, null, 2));
-    const response = await fetch("http://localhost:11434/api/chat", {
+    
+    console.log(`Sending ${provider} request to unified API:`, JSON.stringify(payload, null, 2));
+    
+    // Make the API request to our unified backend
+    const response = await fetch("http://localhost:8000/api/chat_agent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: payloadStr,
+      body: JSON.stringify(payload),
       signal
     });
 
-    if (!response.ok) throw new Error(`Ollama API Error (${response.status})`);
-    if (!response.body) throw new Error("Response body is null");
-    
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let fullText = "";
-    let buffer = "";
-    
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || "";
-      
-      for (const line of lines) {
-        if (!line.trim()) continue;
-        try {
-          const data = JSON.parse(line);
-          const token = data.message?.content || "";
-          if (token) {
-            fullText += token;
-            onToken(fullText);
-          }
-          if (data.done) break;
-        }
-        catch (e) {
-          console.warn("Failed to parse Ollama chunk:", line, e);
-        }
-      }
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Model API Error (${response.status}): ${errorText}`);
     }
     
-    return fullText;
+    // Process the response (which might be streaming or not)
+    const data = await response.json();
+    const responseText = data.response || '';
+    
+    // Call the onToken callback with the full response
+    // Note: In a future version, we could implement actual streaming from the backend
+    onToken(responseText);
+    
+    return responseText;
   } catch (err) {
     if (err.name === 'AbortError') return '';
-    console.error("Error fetching Ollama stream:", err);
+    console.error(`Error fetching ${provider} response:`, err);
     throw err;
   }
 }
 
 /**
+ * Legacy wrapper for Ollama streaming
+ * @deprecated Use fetchModelStream instead
+ */
+export async function fetchOllamaStream(agent, model, input, history, onToken, signal) {
+  return fetchModelStream('ollama', agent, model, input, history, onToken, signal);
+}
+
+/**
  * Simulates a response from any provider (for testing)
  * @param {string} provider - The provider name
+ * @param {Object} agent - Agent configuration
  * @param {string} model - Model name 
  * @param {string} input - Input text
+ * @param {Array} history - Conversation history
  * @param {Function} onToken - Token callback function
  * @returns {Promise<string>} - Simulated response
  */
-export async function simulateProviderResponse(provider, model, input, onToken) {
-  const responseText = `[Provider ${provider} simulation]`;
+export async function simulateProviderResponse(provider, agent, model, input, history, onToken) {
+  const responseText = `[Provider ${provider} model ${model} simulation]: I'm responding to "${input}" with history length ${history.length}`;
   await new Promise(res => setTimeout(res, 500));
   onToken(responseText);
   return responseText;
@@ -136,7 +124,8 @@ export async function simulateProviderResponse(provider, model, input, onToken) 
  */
 export async function saveLoopConversation(data, apiBaseUrl) {
   try {
-    return await fetch(
+    console.log("[llmService] Attempting to save loop conversation via API. Payload:", JSON.stringify(data, null, 2));
+    const response = await fetch(
       `${apiBaseUrl}/loop_conversations/${Date.now()}`,
       {
         method: "POST",
@@ -147,8 +136,59 @@ export async function saveLoopConversation(data, apiBaseUrl) {
         }),
       }
     );
+    console.log("[llmService] Save loop API response status:", response.status);
+    if (!response.ok) {
+        const errorBody = await response.text();
+        console.error("[llmService] Save loop API error response body:", errorBody);
+        throw new Error(`API error during saveLoopConversation: ${response.status} - ${errorBody}`);
+    }
+    // Assuming the backend returns { "success": true } or similar simple JSON.
+    // If it returns the saved object, that's fine too.
+    const responseData = await response.json(); 
+    console.log("[llmService] Save loop API response data:", responseData);
+    return responseData; 
   } catch (e) {
-    console.error("Failed to save loop conversation:", e);
+    console.error("[llmService] Failed to save loop conversation due to exception:", e);
     throw e;
+  }
+}
+
+/**
+ * Fetch available models from a specific provider
+ * @param {string} provider - Provider name ('ollama' or 'groq')
+ * @returns {Promise<Array>} - List of available models
+ */
+export async function fetchModels(provider) {
+  try {
+    const response = await fetch(`http://localhost:8000/api/models/${provider}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`[llmService] Error fetching ${provider} models:`, errorText);
+      return [];
+    }
+    
+    const models = await response.json();
+    console.log(`[llmService] Fetched ${models.length} ${provider} models`);
+    return models;
+  } catch (e) {
+    console.error(`[llmService] Exception fetching ${provider} models:`, e);
+    return [];
+  }
+}
+
+/**
+ * Get detailed information about a specific model
+ * @param {string} provider - Provider name
+ * @param {string} modelId - Model ID
+ * @returns {Promise<Object|null>} - Model information or null if not found
+ */
+export async function getModelInfo(provider, modelId) {
+  try {
+    // Fetch all models from the provider and find the specific one
+    const models = await fetchModels(provider);
+    return models.find(model => model.id === modelId) || null;
+  } catch (e) {
+    console.error(`[llmService] Error getting model info for ${provider}/${modelId}:`, e);
+    return null;
   }
 }

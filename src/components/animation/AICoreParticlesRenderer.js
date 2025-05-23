@@ -28,8 +28,22 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-const AICoreParticlesRenderer = () => {
+// Ensure a value is a valid number and within specified range
+function safeNumber(value, defaultValue = 0.5, min = 0, max = 2) {
+  // Check if value is a valid number
+  if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
+    return defaultValue;
+  }
+  // Clamp to range
+  return Math.max(min, Math.min(max, value));
+}
+
+const AICoreParticlesRenderer = ({ dynamicFactor = 0.5 }) => {
   const canvasRef = useRef(null);
+  const timeRef = useRef(0);
+  
+  // Ensure dynamicFactor is a valid number
+  const safeDynamicFactor = safeNumber(dynamicFactor);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -42,16 +56,24 @@ const AICoreParticlesRenderer = () => {
     canvas.style.height = height + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+    // Ensure we're working with valid numbers
+    const validDynamicFactor = safeNumber(safeDynamicFactor);
+    
+    const modulatedRadius = RADIUS + 15 * validDynamicFactor;
+    const modulatedCoreRadius = CORE_RADIUS + 10 * validDynamicFactor;
+
     // Core blue particles (entangling)
     const particles = Array.from({ length: NUM_CORE_PARTICLES }, (_, i) => {
       const angle = (i / NUM_CORE_PARTICLES) * Math.PI * 2;
       return {
         baseAngle: angle,
         angle,
-        radius: RADIUS + Math.random() * 8 - 4,
-        speed: lerp(0.009, 0.018, Math.random()),
+        radius: modulatedRadius + Math.random() * (8 + 8 * validDynamicFactor) - (4 + 4 * validDynamicFactor),
+        speed: lerp(0.009, 0.018, Math.random()) * (1 + 0.5 * validDynamicFactor),
         entangle: Math.random() * Math.PI * 2,
-        entangleSpeed: lerp(0.012, 0.025, Math.random()),
+        entangleSpeed: lerp(0.012, 0.025, Math.random()) * (1 + 0.5 * validDynamicFactor),
+        noiseSeedX: Math.random() * 1000,
+        noiseSeedY: Math.random() * 1000,
       };
     });
 
@@ -67,27 +89,47 @@ const AICoreParticlesRenderer = () => {
     });
 
     function drawCore() {
+      // Ensure we're using valid values
+      const safeWidth = width || 220; 
+      const safeHeight = height || 220;
+      const safeModulatedCoreRadius = Math.max(1, modulatedCoreRadius); // Ensure positive non-zero radius
+     
       // Glowing core
       ctx.save();
       ctx.globalAlpha = 0.96;
-      let grad = ctx.createRadialGradient(width/2, height/2, 2, width/2, height/2, CORE_RADIUS);
-      grad.addColorStop(0, '#eaf6ff');
-      grad.addColorStop(0.18, '#7ad0ff');
-      grad.addColorStop(0.42, '#2ebfff');
-      grad.addColorStop(0.75, 'rgba(42,180,255,0.7)');
-      grad.addColorStop(1, 'rgba(42,180,255,0.09)');
-      ctx.beginPath();
-      ctx.arc(width/2, height/2, CORE_RADIUS, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.shadowColor = GLOW_COLOR;
-      ctx.shadowBlur = 38;
-      ctx.fill();
+      
+      try {
+        let grad = ctx.createRadialGradient(
+          safeWidth/2, safeHeight/2, 2, 
+          safeWidth/2, safeHeight/2, safeModulatedCoreRadius
+        );
+        grad.addColorStop(0, '#eaf6ff');
+        grad.addColorStop(0.18, '#7ad0ff');
+        grad.addColorStop(0.42, '#2ebfff');
+        grad.addColorStop(0.75, 'rgba(42,180,255,0.7)');
+        grad.addColorStop(1, 'rgba(42,180,255,0.09)');
+        ctx.beginPath();
+        ctx.arc(safeWidth/2, safeHeight/2, safeModulatedCoreRadius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.shadowColor = GLOW_COLOR;
+        ctx.shadowBlur = 38 + 15 * validDynamicFactor;
+        ctx.fill();
+      } catch (e) {
+        // Fallback to a solid color if gradient fails
+        console.warn("Gradient failed, using fallback", e);
+        ctx.beginPath();
+        ctx.arc(safeWidth/2, safeHeight/2, safeModulatedCoreRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#2ebfff';
+        ctx.fill();
+      }
+      
       ctx.restore();
+      
       // Core highlight
       ctx.save();
-      ctx.globalAlpha = 0.32;
+      ctx.globalAlpha = 0.32 + 0.2 * validDynamicFactor;
       ctx.beginPath();
-      ctx.arc(width/2, height/2, CORE_RADIUS * 0.47, 0, Math.PI * 2);
+      ctx.arc(safeWidth/2, safeHeight/2, safeModulatedCoreRadius * (0.47 + 0.1 * validDynamicFactor), 0, Math.PI * 2);
       ctx.fillStyle = 'white';
       ctx.shadowColor = '#b9eaff';
       ctx.shadowBlur = 22;
@@ -95,26 +137,34 @@ const AICoreParticlesRenderer = () => {
       ctx.restore();
     }
 
-    function drawParticle(p) {
+    function drawParticle(p, t) {
       ctx.save();
-      let x = width/2 + Math.cos(p.angle + Math.sin(p.entangle) * 0.18) * p.radius;
-      let y = height/2 + Math.sin(p.angle + Math.cos(p.entangle) * 0.18) * p.radius;
+      const noiseX = Math.sin(t * 0.3 + p.noiseSeedX) * (2 * validDynamicFactor);
+      const noiseY = Math.cos(t * 0.3 + p.noiseSeedY) * (2 * validDynamicFactor);
+
+      let x = width/2 + Math.cos(p.angle + Math.sin(p.entangle) * 0.18) * p.radius + noiseX;
+      let y = height/2 + Math.sin(p.angle + Math.cos(p.entangle) * 0.18) * p.radius + noiseY;
+      
+      const particleSize = PARTICLE_SIZE + 2 * validDynamicFactor * Math.sin(p.angle);
+
       ctx.beginPath();
-      ctx.arc(x, y, PARTICLE_SIZE, 0, Math.PI * 2);
+      ctx.arc(x, y, Math.max(1, particleSize), 0, Math.PI * 2);
       ctx.fillStyle = PARTICLE_COLOR;
       ctx.shadowColor = PARTICLE_GLOW;
-      ctx.shadowBlur = 18;
-      ctx.globalAlpha = 0.88;
+      ctx.shadowBlur = 18 + 10 * validDynamicFactor;
+      ctx.globalAlpha = 0.88 + 0.12 * validDynamicFactor;
       ctx.fill();
       ctx.restore();
     }
 
     function drawFilament(filament, t) {
       // Draw a spiral or parametric curve, color-graded, with evolving phase
-      for (let i = 0; i < FILAMENT_POINTS; ++i) {
+      const maxPointsToDraw = Math.floor(FILAMENT_POINTS * (0.6 + 0.4 * validDynamicFactor));
+
+      for (let i = 0; i < maxPointsToDraw; ++i) {
         // Fermat spiral (r = a * sqrt(theta)), or Lissajous for more interest
         let theta = (i / FILAMENT_POINTS) * Math.PI * 4 + filament.phase + t * 0.6;
-        let r = lerp(RADIUS + 24, RADIUS + 40, i / FILAMENT_POINTS) + Math.sin(t + i) * 2.6;
+        let r = lerp(RADIUS + 24, RADIUS + 40 + (20 * validDynamicFactor), i / FILAMENT_POINTS) + Math.sin(t + i) * (2.6 + 3 * validDynamicFactor);
         let x = width/2 + Math.cos(theta + Math.sin(t + i) * 0.11) * r;
         let y = height/2 + Math.sin(theta + Math.cos(t + i) * 0.11) * r;
         // Color gradient along filament
@@ -140,15 +190,15 @@ const AICoreParticlesRenderer = () => {
     }
 
     let running = true;
-    let t = 0;
     function animate() {
+      let t = timeRef.current;
       ctx.clearRect(0, 0, width, height);
       ctx.globalAlpha = 1;
       ctx.fillStyle = BG_COLOR;
       ctx.fillRect(0, 0, width, height);
       drawCore();
       filaments.forEach(filament => drawFilament(filament, t));
-      particles.forEach(drawParticle);
+      particles.forEach(p => drawParticle(p, t));
       // Animate
       particles.forEach((p, i) => {
         p.angle += p.speed;
@@ -157,12 +207,12 @@ const AICoreParticlesRenderer = () => {
       filaments.forEach((f, i) => {
         f.phase += f.phaseSpeed * (0.8 + 0.2 * Math.cos(t + i));
       });
-      t += 0.012;
+      timeRef.current += 0.012;
       if (running) requestAnimationFrame(animate);
     }
     animate();
     return () => { running = false; };
-  }, []);
+  }, [safeDynamicFactor]); // Use safeDynamicFactor in dependency array
 
   return (
     <canvas

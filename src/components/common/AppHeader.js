@@ -3,7 +3,7 @@ import styles from './AppHeader.module.css';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigation, ROUTES } from '../../contexts/NavigationContext';
 import ConversationHeader from '../Chat/components/ConversationHeader';
-import { FiChevronDown, FiLogOut, FiUser, FiMessageCircle, FiEye, FiBarChart2, FiSettings } from 'react-icons/fi';
+import { FiChevronDown, FiLogOut, FiUser, FiMessageCircle, FiEye, FiBarChart2, FiSettings, FiSliders } from 'react-icons/fi';
 import HeaderFluidBg from './HeaderFluidBg';
 
 // Animated logo with static, pulsing aura effect
@@ -56,6 +56,15 @@ const ControlBar = ({ currentRoute, navigateTo }) => (
     >
       <span className={styles['nav-icon']} role="img" aria-label="MetaLoopLab">🔁</span>
       <span className={styles['nav-label']}>MetaLoopLab</span>
+    </button>
+    <button
+      className={currentRoute === ROUTES.AETHER_CREATOR ? styles['active-app'] : styles['app-switch-btn']}
+      onClick={() => navigateTo(ROUTES.AETHER_CREATOR)}
+      aria-label="AetherCreator"
+      title="AetherCreator"
+    >
+      <FiSliders size={20} className={styles['nav-svg-icon']} />
+      <span className={styles['nav-label']}>Creator</span>
     </button>
     <button
       className={currentRoute === ROUTES.SETTINGS ? styles['active-app'] : styles['app-switch-btn']}

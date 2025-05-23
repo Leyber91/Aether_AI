@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { API_BASE_URL } from "../../api/apiService";
-import styles from './ModelSelector/ModelSelector.module.css';
+import styles from '../ModelSelector/ModelSelector.module.css';
 import { GroqIcon, OllamaIcon } from '../ModelSelector/FusedIcons';
 
 const Spinner = () => (
