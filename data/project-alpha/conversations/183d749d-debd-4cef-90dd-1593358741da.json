@@ -4,7 +4,7 @@
   "modelId": "deepseek-r1:8b",
   "provider": "ollama",
   "createdAt": "2025-04-25T20:57:18.447Z",
-  "updatedAt": "2025-05-23T01:14:13.512Z",
+  "updatedAt": "2025-05-24T16:29:04.495Z",
   "messages": [
     {
       "id": "ac7ee4d4-a2cb-4ff4-a92f-f573c14b7a54",

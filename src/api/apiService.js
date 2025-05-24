@@ -1,5 +1,5 @@
 /**
- * API Service for conversations
+ * API Service for conversations and Ollama models
  * Centralizes all API calls to the backend
  */
 
@@ -40,6 +40,27 @@ export async function saveReflectorMemory(memory) {
   } catch (error) {
     console.error('Error saving reflector memory:', error);
     return false;
+  }
+}
+
+/**
+ * Fetch available Ollama models
+ * @returns {Promise<Array>} List of available Ollama models
+ */
+export async function fetchAvailableOllamaModels() {
+  try {
+    const { getAllOllamaModels } = await import('../services/ollama');
+    const { models, error } = await getAllOllamaModels();
+    
+    if (error) {
+      console.warn('Error fetching Ollama models:', error);
+      return [];
+    }
+    
+    return models || [];
+  } catch (error) {
+    console.error('Error accessing Ollama service:', error);
+    return [];
   }
 }
 

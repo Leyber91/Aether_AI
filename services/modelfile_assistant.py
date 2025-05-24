@@ -206,8 +206,88 @@ class ModelfileAssistant:
             ModelfileResponse with success status and generated content
         """
         try:
+            # Ensure only available Ollama models are used
+            from services.model_service import model_service
+            available_models = [m.name for m in model_service.get_models("ollama")]
+            if request.base_model not in available_models:
+                return ModelfileResponse(
+                    success=False,
+                    message=f"Requested base model '{request.base_model}' is not available in local Ollama models. Available: {available_models}",
+                    modelfile=None
+                )
             # Step 1: Generate optimized parameters
             param_prompt = self._get_parameter_prompt(request)
+            param_result = self._call_ollama(param_prompt)
+
+            if "error" in param_result:
+                return ModelfileResponse(
+                    success=False,
+                    message=f"Parameter generation failed: {param_result['error']}"
+                )
+            
+            param_data = self._parse_json_response(param_result["response"])
+            if "error" in param_data:
+                return ModelfileResponse(
+                    success=False,
+                    message=f"Parameter parsing failed: {param_data['error']}"
+                )
+            
+            # Step 2: Generate system prompt and template
+            prompt_template_prompt = self._get_system_prompt_template(request)
+            prompt_result = self._call_ollama(prompt_template_prompt)
+            
+            if "error" in prompt_result:
+                return ModelfileResponse(
+                    success=False,
+                    message=f"Prompt/Template generation failed: {prompt_result['error']}"
+                )
+            
+            prompt_data = self._parse_json_response(prompt_result["response"])
+            if "error" in prompt_data:
+                return ModelfileResponse(
+                    success=False,
+                    message=f"Prompt/Template parsing failed: {prompt_data['error']}"
+                )
+            
+            # Step 3: Generate Modelfile
+            parameters = param_data.get("parameters", {})
+            system_prompt = prompt_data.get("system_prompt", "")
+            template = prompt_data.get("template", "")
+            
+            modelfile = self._generate_modelfile(
+                request, parameters, system_prompt, template
+            )
+            
+            # Combine reasoning for explanation
+            param_reasoning = param_data.get("reasoning", {})
+            prompt_reasoning = prompt_data.get("reasoning", {})
+            
+            explanation = {
+                "parameter_choices": param_reasoning.get("parameter_choices", ""),
+                "performance_considerations": param_reasoning.get("performance_considerations", ""),
+                "optimization_strategy": param_reasoning.get("optimization_strategy", ""),
+                "system_prompt_strategy": prompt_reasoning.get("system_prompt_strategy", ""),
+                "template_design": prompt_reasoning.get("template_design", ""),
+                "expected_performance_impact": prompt_reasoning.get("expected_performance_impact", "")
+            }
+            
+            return ModelfileResponse(
+                success=True,
+                message="Successfully generated optimized Modelfile",
+                modelfile=modelfile,
+                parameters=parameters,
+                system_prompt=system_prompt,
+                template=template,
+                explanation=explanation
+            )
+        
+        except Exception as e:
+            logger.error(f"Error generating Modelfile: {str(e)}")
+            return ModelfileResponse(
+                success=False,
+                message=f"Error generating Modelfile: {str(e)}"
+            )
+
             param_result = self._call_ollama(param_prompt)
             
             if "error" in param_result:

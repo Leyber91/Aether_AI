@@ -527,27 +527,41 @@ User: {{ .Prompt }}
       console.log('🔧 Fixed incomplete TEMPLATE block');
     }
     
-    // Step 5: Ensure we have minimum required components
-    if (!foundFrom) {
-      console.log('⚠️ No FROM found, adding default');
-      modelfileLines.unshift(`FROM ${availableModels[0] || 'qwen3:4b'}`);
+    // Step 5: Ensure we have minimum required components and strict parameter enforcement
+    // 1. FROM: Use only models from availableModels
+    let fromIndex = modelfileLines.findIndex(line => line.startsWith('FROM '));
+    let selectedModel = null;
+    if (fromIndex !== -1) {
+      // Extract model name from FROM line
+      const fromLine = modelfileLines[fromIndex];
+      const match = fromLine.match(/^FROM\s+(.+)/i);
+      if (match && availableModels.includes(match[1].trim())) {
+        selectedModel = match[1].trim();
+      } else {
+        selectedModel = availableModels[0] || 'qwen3:4b';
+        modelfileLines[fromIndex] = `FROM ${selectedModel}`;
+        console.log('🔄 Replaced FROM with available model:', selectedModel);
+      }
+    } else {
+      selectedModel = availableModels[0] || 'qwen3:4b';
+      modelfileLines.unshift(`FROM ${selectedModel}`);
+      console.log('⚠️ No FROM found, added default FROM:', selectedModel);
     }
-    
-    // Add basic parameters if missing
-    if (!modelfileLines.some(line => line.includes('temperature'))) {
-      modelfileLines.push('PARAMETER temperature 0.7');
-      console.log('➕ Added default temperature');
+
+    // 2. Strict parameter enforcement: temperature, num_ctx, num_gpu
+    function setOrReplaceParam(param, value) {
+      const idx = modelfileLines.findIndex(line => line.startsWith(`PARAMETER ${param} `));
+      if (idx !== -1) {
+        modelfileLines[idx] = `PARAMETER ${param} ${value}`;
+        console.log(`🔄 Replaced PARAMETER ${param} with value:`, value);
+      } else {
+        modelfileLines.push(`PARAMETER ${param} ${value}`);
+        console.log(`➕ Added PARAMETER ${param}:`, value);
+      }
     }
-    
-    if (!modelfileLines.some(line => line.includes('num_ctx'))) {
-      modelfileLines.push('PARAMETER num_ctx 4096');
-      console.log('➕ Added default context');
-    }
-    
-    if (!modelfileLines.some(line => line.includes('num_gpu'))) {
-      modelfileLines.push('PARAMETER num_gpu 99');
-      console.log('➕ Added GPU acceleration');
-    }
+    setOrReplaceParam('temperature', '0.7');
+    setOrReplaceParam('num_ctx', '4096');
+    setOrReplaceParam('num_gpu', '99');
     
     // Add default SYSTEM if missing
     if (!modelfileLines.some(line => line.startsWith('SYSTEM'))) {
