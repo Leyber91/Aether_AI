@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * PromptEngineer - Advanced prompt template generation
@@ -51,11 +51,11 @@ class PromptEngineer {
       Return only the text to be used, without explanations or metadata.
     `;
 
-    const result = await ollama.chat({
-      model: this.promptModel,
-      messages: [{ role: 'user', content: identityPrompt }],
-      options: { temperature: 0.7 }
-    });
+    const result = await sendMessageToOllama(
+      this.promptModel,
+      [{ role: 'user', content: identityPrompt }],
+      { temperature: 0.7 }
+    );
 
     return result.message.content.trim();
   }
@@ -84,11 +84,11 @@ class PromptEngineer {
       Return only the text to be used, without explanations or metadata.
     `;
 
-    const result = await ollama.chat({
-      model: this.promptModel,
-      messages: [{ role: 'user', content: capabilitiesPrompt }],
-      options: { temperature: 0.6 }
-    });
+    const result = await sendMessageToOllama(
+      this.promptModel,
+      [{ role: 'user', content: capabilitiesPrompt }],
+      { temperature: 0.6 }
+    );
 
     return result.message.content.trim();
   }
@@ -137,11 +137,11 @@ class PromptEngineer {
       Return only the example text to be used, without explanations or metadata.
     `;
 
-    const result = await ollama.chat({
-      model: this.promptModel,
-      messages: [{ role: 'user', content: examplesPrompt }],
-      options: { temperature: 0.7 }
-    });
+    const result = await sendMessageToOllama(
+      this.promptModel,
+      [{ role: 'user', content: examplesPrompt }],
+      { temperature: 0.7 }
+    );
 
     return result.message.content.trim();
   }
@@ -169,11 +169,11 @@ class PromptEngineer {
       Return only the text to be used, without explanations or metadata.
     `;
 
-    const result = await ollama.chat({
-      model: this.promptModel,
-      messages: [{ role: 'user', content: formatPrompt }],
-      options: { temperature: 0.5 }
-    });
+    const result = await sendMessageToOllama(
+      this.promptModel,
+      [{ role: 'user', content: formatPrompt }],
+      { temperature: 0.5 }
+    );
 
     return result.message.content.trim();
   }
@@ -287,11 +287,11 @@ class PromptEngineer {
       3. Explanation of your choices
     `;
 
-    const result = await ollama.chat({
-      model: this.promptModel,
-      messages: [{ role: 'user', content: templatePrompt }],
-      options: { temperature: 0.4 }
-    });
+    const result = await sendMessageToOllama(
+      this.promptModel,
+      [{ role: 'user', content: templatePrompt }],
+      { temperature: 0.4 }
+    );
 
     try {
       return JSON.parse(result.message.content);

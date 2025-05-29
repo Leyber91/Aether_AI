@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * HybridArchitectureGenerator - Intelligent model architecture design

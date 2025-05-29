@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * ParameterOptimizer - Advanced model parameter optimization
@@ -46,11 +46,11 @@ class ParameterOptimizer {
       Return optimized parameters with reasoning as JSON.
     `;
     
-    const optimization = await ollama.chat({
-      model: this.optimizationModel,
-      messages: [{ role: 'user', content: optimizationPrompt }],
-      options: { temperature: 0.2 }
-    });
+    const optimization = await sendMessageToOllama(
+      this.optimizationModel,
+      [{ role: 'user', content: optimizationPrompt }],
+      { temperature: 0.2 }
+    );
     
     return this.parseOptimizedParameters(optimization.message.content);
   }

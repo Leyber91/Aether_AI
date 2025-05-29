@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * ModelValidator - Automated model testing and validation
@@ -65,10 +65,11 @@ class ModelValidator {
       const startTime = Date.now();
       
       try {
-        const response = await ollama.chat({
-          model: modelName,
-          messages: [{ role: 'user', content: test.input }]
-        });
+        const response = await sendMessageToOllama(
+          modelName,
+          [{ role: 'user', content: test.input }],
+          {}
+        );
         
         const endTime = Date.now();
         
@@ -128,11 +129,11 @@ class ModelValidator {
     `;
     
     try {
-      const evaluation = await ollama.chat({
-        model: this.evaluationModel,
-        messages: [{ role: 'user', content: evaluationPrompt }],
-        options: { temperature: 0.1 }
-      });
+      const evaluation = await sendMessageToOllama(
+        this.evaluationModel,
+        [{ role: 'user', content: evaluationPrompt }],
+        { temperature: 0.1 }
+      );
       
       const result = evaluation.message.content.trim();
       
@@ -342,11 +343,11 @@ class ModelValidator {
     `;
     
     try {
-      const result = await ollama.chat({
-        model: this.evaluationModel,
-        messages: [{ role: 'user', content: improvementPrompt }],
-        options: { temperature: 0.3 }
-      });
+      const result = await sendMessageToOllama(
+        this.evaluationModel,
+        [{ role: 'user', content: improvementPrompt }],
+        { temperature: 0.3 }
+      );
       
       return JSON.parse(result.message.content);
     } catch (e) {

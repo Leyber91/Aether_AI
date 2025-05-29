@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../AetherCreator.module.css';
 import apiService from '../../../services/apiService';
+import IntentAnalyzer from '../services/IntentAnalyzer';
+import ModelCapabilityMapper from '../services/ModelCapabilityMapper';
+import ParameterOptimizer from '../services/ParameterOptimizer';
+import ModelValidator from '../services/ModelValidator';
+import TestSuiteGenerator from '../services/TestSuiteGenerator';
 
 // 10 Curated Examples for Context Learning (Knowledge Distillation approach)
 const MODELFILE_EXAMPLES = [
@@ -216,6 +221,7 @@ const ModelfileWizardPanel = ({ onModelfileGenerated, availableModels = [] }) =>
   const [generatedResult, setGeneratedResult] = useState(null);
   const [selectedExample, setSelectedExample] = useState(null);
   const [wizardStep, setWizardStep] = useState('intent'); // 'intent', 'generating', 'creating', 'result'
+  const [modelMapping, setModelMapping] = useState(null);
 
   // Auto-select best model based on examples
   const selectOptimalModel = (intent) => {
@@ -223,120 +229,101 @@ const ModelfileWizardPanel = ({ onModelfileGenerated, availableModels = [] }) =>
       ex.intent.includes(intent.toLowerCase()) || 
       intent.toLowerCase().includes(ex.intent)
     );
-    
     if (examples.length > 0) {
       const fromLine = examples[0].modelfile.split('\n')[0];
       const modelMatch = fromLine.match(/FROM\s+(.+)/);
       return modelMatch ? modelMatch[1] : null;
     }
     return null;
+};
+
+  // Handler for example selection
+  const tryExample = (example) => {
+    setSelectedExample(example);
+    setUserIntent(example.intent);
   };
 
+  // Refactored generateModelfile with IntentAnalyzer
   const generateModelfile = async () => {
     if (!userIntent.trim()) return;
-
     setIsGenerating(true);
-    setWizardStep('generating');
-
     try {
-      const examplesContext = MODELFILE_EXAMPLES.map(ex => 
-        `Intent: "${ex.intent}"\nModelfile:\n${ex.modelfile}\nDescription: ${ex.description}`
-      ).join('\n\n---\n\n');
+      // 1. Analyze user intent
+      const analyzer = new IntentAnalyzer();
+      const analysisResult = await analyzer.analyzeIntent(userIntent);
 
-      const prompt = `Generate a complete Ollama Modelfile. Respond with ONLY the Modelfile content, no explanations.
+      // 2. Map capabilities & select optimal model
+      const capabilityMapper = new ModelCapabilityMapper();
+      const modelMapping = await capabilityMapper.selectOptimalModel(analysisResult, availableModels);
 
-USER INTENT: "${userIntent}"
-AVAILABLE MODELS: ${availableModels.join(', ')}
+      // 3. Store mapping for UI/debug (optional: you can expose this in the UI)
+      setModelMapping(modelMapping);
 
-Rules:
-- Start with FROM <model>
-- Include PARAMETER lines for temperature, num_ctx, etc.
-- Include SYSTEM with triple quotes
-- Include TEMPLATE with triple quotes
-- No explanatory text
-- No markdown formatting
-- Just the raw Modelfile
+      // 4. Generate Modelfile using recommended model
+      const recommendedModel = modelMapping?.primaryRecommendation?.modelId;
+      const rationale = modelMapping?.primaryRecommendation?.rationale || '';
 
-Example:
-FROM qwen3:4b
-PARAMETER temperature 0.7
-PARAMETER num_ctx 4096
-PARAMETER num_gpu 99
-SYSTEM """You are a helpful assistant."""
-TEMPLATE """{{ .System }}
+      if (!recommendedModel) {
+        setGeneratedResult({ error: 'No suitable model could be recommended for your intent.' });
+        return;
+      }
 
-User: {{ .Prompt }}
-`;
+      // 5. Optimize parameters for the selected model and intent
+      const parameterOptimizer = new ParameterOptimizer();
+      // Optionally, pass hardware info if available (e.g., from props or a context)
+      const hardwareProfile = {};
+      const optimizationResult = await parameterOptimizer.optimizeParameters(
+        recommendedModel,
+        analysisResult,
+        hardwareProfile
+      );
+      const optimizedParams = optimizationResult.parameters || {};
+      const paramReasoning = optimizationResult.reasoning || optimizationResult.rawResponse || '';
 
-      const response = await apiService.chatAgent({
-        provider: 'ollama',
-        model: 'qwen3:4b',
-        input: prompt,
-        temperature: 0.1,
-        systemPrompt: 'You are a precise Modelfile generator. Output ONLY valid Ollama Modelfile syntax. No explanations, no markdown, no extra text. Just raw Modelfile content starting with FROM.'
-      });
+      // 6. Build Modelfile with optimized parameters
+      let paramLines = Object.entries(optimizedParams)
+        .filter(([k]) => k !== 'reasoning')
+        .map(([k, v]) => `PARAMETER ${k} ${v}`)
+        .join('\n');
+      const modelfileContent = `FROM ${recommendedModel}\n${paramLines}\nSYSTEM """${analysisResult.systemPrompt || 'You are a helpful assistant.'}"""`;
 
-      // Debug: Log the raw AI response
-      console.log('🤖 Raw AI Response:');
-      console.log('--- START RAW RESPONSE ---');
-      console.log(response.response);
-      console.log('--- END RAW RESPONSE ---');
-
-      let result;
+      // 7. Validate the generated configuration
+      let validationResults = null;
       try {
-        // Use the robust cleanup function instead of manual parsing
-        console.log('📝 Using robust Modelfile extraction...');
-        const cleanModelfile = extractCleanModelfile(response.response);
-        
-        result = {
-          modelfile: cleanModelfile,
-          selectedModel: selectOptimalModel(userIntent) || availableModels[0] || 'qwen3:4b',
-          description: 'AI-generated configuration based on your intent',
-          suggestedName: userIntent.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 20),
-          optimizations: ['Parameter optimization', 'Hardware acceleration', 'Robust content extraction'],
-          useCase: userIntent
-        };
-      } catch (parseError) {
-        console.error('Error generating modelfile:', parseError);
-        result = {
-          error: 'Failed to generate modelfile. Please try again.',
-          modelfile: '',
-          selectedModel: '',
-          description: '',
-          suggestedName: '',
-          optimizations: [],
-          useCase: userIntent
-        };
+        const testSuiteGen = new TestSuiteGenerator();
+        const testSuite = await testSuiteGen.generateTestSuite({
+          model: recommendedModel,
+          parameters: optimizedParams,
+          systemPrompt: analysisResult.systemPrompt || 'You are a helpful assistant.'
+        }, analysisResult);
+        const validator = new ModelValidator();
+        validationResults = await validator.validateModel(
+          recommendedModel,
+          testSuite,
+          analysisResult
+        );
+      } catch (validationErr) {
+        validationResults = { error: 'Validation failed or incomplete.', details: validationErr?.message || String(validationErr) };
       }
 
-      setGeneratedResult(result);
-      setWizardStep('result');
-
-      if (onModelfileGenerated) {
-        onModelfileGenerated(result);
-      }
-
-    } catch (error) {
-      console.error('Error generating modelfile:', error);
       setGeneratedResult({
-        error: 'Failed to generate modelfile. Please try again.',
-        modelfile: '',
-        selectedModel: '',
-        description: '',
-        suggestedName: '',
-        optimizations: [],
-        useCase: userIntent
+        modelfile: modelfileContent,
+        suggestedName: `custom-${recommendedModel.replace(/[:.]/g, '-')}`,
+        rationale,
+        model: recommendedModel,
+        parameterReasoning: paramReasoning,
+        validationResults
       });
       setWizardStep('result');
+
+    } catch (err) {
+      // Handle error
+      setGeneratedResult({ error: 'Failed to analyze intent, map model capabilities, or optimize parameters.' });
     } finally {
       setIsGenerating(false);
     }
   };
 
-  const tryExample = (example) => {
-    setSelectedExample(example);
-    setUserIntent(example.intent);
-  };
 
   const resetWizard = () => {
     setWizardStep('intent');
@@ -695,39 +682,54 @@ User: {{ .Prompt }}
               <div className={styles.resultHeader}>
                 <h3>{generatedResult.modelCreated ? '🎉 Model Created Successfully!' : '✅ Your Modelfile is Ready!'}</h3>
                 <div className={styles.resultMeta}>
-                  <span className={styles.resultModel}>Base Model: {generatedResult.selectedModel}</span>
-                  <span className={styles.resultUseCase}>Use Case: {generatedResult.useCase}</span>
-                  {generatedResult.verified && <span className={styles.verifiedBadge}>✅ Verified in Ollama</span>}
+                  <span className={styles.resultModel}>Recommended Model: <b>{generatedResult.model}</b></span>
                 </div>
               </div>
 
               <div className={styles.resultDescription}>
-                <p>{generatedResult.description}</p>
-                {generatedResult.optimizations && generatedResult.optimizations.length > 0 && (
-                  <div className={styles.optimizations}>
-                    <strong>Applied Optimizations:</strong>
-                    <ul>
-                      {generatedResult.optimizations.map((opt, idx) => (
-                        <li key={idx}>{opt}</li>
-                      ))}
-                    </ul>
+                <h4>Rationale for Model Selection:</h4>
+                <p>{generatedResult.rationale}</p>
+                <h4>Your Modelfile:</h4>
+                <pre className={styles.modelfileBlock}>{generatedResult.modelfile}</pre>
+                <button
+                  className={styles.copyButton}
+                  style={{marginTop: 12}}
+                  onClick={() => navigator.clipboard.writeText(generatedResult.modelfile)}
+                >
+                  📋 Copy Modelfile
+                </button>
+
+                {/* Validation Results Section */}
+                {generatedResult.validationResults && (
+                  <div className={styles.validationBlock} style={{marginTop: 24}}>
+                    <h4>Validation Results:</h4>
+                    {generatedResult.validationResults.error ? (
+                      <div className={styles.validationError}>
+                        <b>Validation Error:</b> {generatedResult.validationResults.error}
+                        {generatedResult.validationResults.details && (
+                          <pre>{generatedResult.validationResults.details}</pre>
+                        )}
+                      </div>
+                    ) : (
+                      <>
+                        <div><b>Status:</b> {generatedResult.validationResults.qualityScore ? '✅ Passed' : '⚠️ Issues Found'}</div>
+                        {generatedResult.validationResults.qualityScore && (
+                          <div><b>Quality Score:</b> {generatedResult.validationResults.qualityScore.overallScore?.toFixed(1)}/100</div>
+                        )}
+                        {generatedResult.validationResults.improvements && (
+                          <div style={{marginTop: 8}}>
+                            <b>Improvement Suggestions:</b>
+                            <ul>
+                              {Array.isArray(generatedResult.validationResults.improvements.suggestions)
+                                ? generatedResult.validationResults.improvements.suggestions.map((s, i) => <li key={i}>{s}</li>)
+                                : <li>{generatedResult.validationResults.improvements.suggestions}</li>}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </div>
                 )}
-              </div>
-
-              <div className={styles.modelfileOutput}>
-                <div className={styles.modelfileHeader}>
-                  <span>Generated Modelfile:</span>
-                  <button
-                    className={styles.copyButton}
-                    onClick={() => navigator.clipboard.writeText(generatedResult.modelfile)}
-                  >
-                    📋 Copy
-                  </button>
-                </div>
-                <pre className={styles.modelfileContent}>
-                  <code>{generatedResult.modelfile}</code>
-                </pre>
               </div>
 
               <div className={styles.actionButtons}>
@@ -744,18 +746,63 @@ User: {{ .Prompt }}
                     <p>You can use it with: <code>ollama run {generatedResult.suggestedName}</code></p>
                   </div>
                 )}
-                <button
-                  className={styles.newWizardButton}
-                  onClick={resetWizard}
-                >
-                  ✨ Create Another Model
-                </button>
               </div>
+
+              {/* User Feedback Section */}
+              <FeedbackSection />
+
+              <button
+                className={styles.newWizardButton}
+                onClick={resetWizard}
+              >
+                ✨ Create Another Model
+              </button>
             </div>
           )}
         </div>
       )}
     </div>
+  );
+};
+
+// --- User Feedback Section Component ---
+
+const FeedbackSection = () => {
+  const [feedback, setFeedback] = useState(null); // 'up' | 'down'
+  const [comment, setComment] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Stub: handle feedback submission (send to backend or store locally)
+    // Example: sendFeedback({ feedback, comment })
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div style={{marginTop: 24, textAlign: 'center'}}>
+        <b>Thank you for your feedback!</b>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} style={{marginTop: 24, borderTop: '1px solid #eee', paddingTop: 16}}>
+      <div style={{marginBottom: 8}}><b>Was this Modelfile helpful?</b></div>
+      <div style={{marginBottom: 8}}>
+        <button type="button" onClick={() => setFeedback('up')} style={{fontSize: 20, color: feedback==='up'?'green':'#888', marginRight: 8}}>👍</button>
+        <button type="button" onClick={() => setFeedback('down')} style={{fontSize: 20, color: feedback==='down'?'red':'#888'}}>👎</button>
+      </div>
+      <textarea
+        placeholder="Optional: Add comments or suggestions..."
+        value={comment}
+        onChange={e => setComment(e.target.value)}
+        style={{width: '100%', minHeight: 48, marginBottom: 8, resize: 'vertical'}}
+      />
+      <br />
+      <button type="submit" disabled={!feedback} style={{marginTop: 4}}>Submit Feedback</button>
+    </form>
   );
 };
 

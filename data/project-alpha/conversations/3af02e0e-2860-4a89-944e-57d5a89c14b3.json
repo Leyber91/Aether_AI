@@ -1,0 +1,9 @@
+{
+  "id": "3af02e0e-2860-4a89-944e-57d5a89c14b3",
+  "title": "New Conversation",
+  "modelId": "phi4-mini-reasoning:latest",
+  "provider": "ollama",
+  "createdAt": "2025-05-26T19:28:24.034Z",
+  "updatedAt": "2025-05-28T16:16:24.656Z",
+  "messages": []
+}

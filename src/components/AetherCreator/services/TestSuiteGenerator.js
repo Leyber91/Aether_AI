@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * TestSuiteGenerator - Automated test case generation
@@ -170,11 +170,11 @@ class TestSuiteGenerator {
     const prompt = categoryPrompts[category] || categoryPrompts.basic_functionality;
     
     // Generate tests using the appropriate model
-    const result = await ollama.chat({
-      model: this.testModel,
-      messages: [{ role: 'user', content: prompt }],
-      options: { temperature: 0.4 }
-    });
+    const result = await sendMessageToOllama(
+      this.testModel,
+      [{ role: 'user', content: prompt }],
+      { temperature: 0.4 }
+    );
     
     return this.parseTests(result.message.content, category);
   }

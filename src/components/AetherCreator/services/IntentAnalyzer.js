@@ -1,4 +1,4 @@
-import { ollama } from '../../../services/ollamaService';
+import { getAllOllamaModels, sendMessageToOllama } from '../../../services/ollamaService';
 
 /**
  * IntentAnalyzer - Multi-Stage Intent Processing System
@@ -34,10 +34,10 @@ class IntentAnalyzer {
       Provide structured JSON output.
     `;
     
-    const deepAnalysis = await ollama.chat({
+    const deepAnalysis = await sendMessageToOllama({
       model: this.reasoningModel,
-      messages: [{ role: 'user', content: reasoningPrompt }],
-      options: { temperature: 0.1 }
+      prompt: reasoningPrompt,
+      temperature: 0.1
     });
 
     // Stage 2: Task classification and routing
@@ -82,10 +82,10 @@ class IntentAnalyzer {
       Return as JSON.
     `;
 
-    const result = await ollama.chat({
+    const result = await sendMessageToOllama({
       model: this.classificationModel,
-      messages: [{ role: 'user', content: classificationPrompt }],
-      options: { temperature: 0.2 }
+      prompt: classificationPrompt,
+      temperature: 0.2
     });
 
     try {
@@ -121,10 +121,10 @@ class IntentAnalyzer {
       Return as JSON with numeric values where applicable.
     `;
 
-    const result = await ollama.chat({
+    const result = await sendMessageToOllama({
       model: this.classificationModel,
-      messages: [{ role: 'user', content: technicalPrompt }],
-      options: { temperature: 0.1 }
+      prompt: technicalPrompt,
+      temperature: 0.1
     });
 
     try {
