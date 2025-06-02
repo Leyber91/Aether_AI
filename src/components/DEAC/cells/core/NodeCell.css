@@ -1,0 +1,80 @@
+/* NodeCell - Core styles for primordial network nodes */
+
+.node-cell {
+  position: relative;
+  min-width: 80px;
+  min-height: 60px;
+  border-radius: 8px;
+  border: 2px solid #4a9eff;
+  background: linear-gradient(135deg, #1e243b 0%, #23253a 100%);
+  color: #e3e5f7;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(122, 208, 255, 0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.node-cell:hover {
+  border-color: #7ad0ff;
+  box-shadow: 0 4px 16px rgba(122, 208, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.node-cell.selected {
+  border-color: #ffe066;
+  box-shadow: 0 0 0 3px rgba(255, 224, 102, 0.3);
+}
+
+/* Connection Points */
+.connection-point {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #7ad0ff;
+  background: #1e243b;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.connection-point:hover {
+  width: 12px;
+  height: 12px;
+  background: #7ad0ff;
+}
+
+/* Core Content */
+.node-core {
+  text-align: center;
+}
+
+.node-id {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  font-family: monospace;
+}
+
+.node-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Status Indicator */
+.node-status {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.node-status.ready { background: #7affc3; }
+.node-status.thinking { background: #ffe066; animation: pulse 1s infinite; }
+.node-status.evolving { background: #ff7ad0; animation: pulse 0.5s infinite; }
+.node-status.error { background: #ff7a7a; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+} 

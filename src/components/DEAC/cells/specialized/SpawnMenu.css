@@ -1,0 +1,87 @@
+/* SpawnMenu - Minimal spawning interface */
+
+.spawn-menu {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 36, 59, 0.95);
+  border: 2px solid #7ad0ff;
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 160px;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  animation: spawn-appear 0.2s ease;
+}
+
+.spawn-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7ad0ff;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #7ad0ff;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.close-btn:hover {
+  background: rgba(122, 208, 255, 0.2);
+}
+
+.spawn-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.spawn-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  color: #e3e5f7;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.7rem;
+}
+
+.spawn-option:hover {
+  background: rgba(122, 208, 255, 0.2);
+  border-color: #7ad0ff;
+}
+
+.spawn-option.analyzer:hover { border-color: #7affc3; }
+.spawn-option.communicator:hover { border-color: #ffe066; }
+.spawn-option.processor:hover { border-color: #ff7ad0; }
+.spawn-option.coordinator:hover { border-color: #7ad0ff; }
+
+@keyframes spawn-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+} 

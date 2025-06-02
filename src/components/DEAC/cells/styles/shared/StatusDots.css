@@ -1,0 +1,93 @@
+/* StatusDots.css - Network node status indicators */
+
+/* Base Status Dot */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  border: 1px solid rgba(255,255,255,0.3);
+  display: inline-block;
+  position: relative;
+}
+
+/* Node States */
+.status-dot--ready { 
+  background: var(--node-success); 
+}
+
+.status-dot--thinking { 
+  background: var(--node-warning); 
+  animation: status-pulse 1s infinite;
+}
+
+.status-dot--evolving { 
+  background: var(--node-evolution); 
+  animation: status-pulse 0.5s infinite;
+}
+
+.status-dot--communicating { 
+  background: var(--metaloop-active); 
+  animation: status-ripple 2s infinite;
+}
+
+.status-dot--error { 
+  background: var(--node-error); 
+}
+
+.status-dot--paused { 
+  background: #747d8c; 
+}
+
+/* Status Badge with Text */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge--ready {
+  background: rgba(46, 213, 115, 0.2);
+  color: var(--node-success);
+  border: 1px solid rgba(46, 213, 115, 0.3);
+}
+
+.status-badge--thinking {
+  background: rgba(255, 159, 67, 0.2);
+  color: var(--node-warning);
+  border: 1px solid rgba(255, 159, 67, 0.3);
+}
+
+.status-badge--evolving {
+  background: rgba(142, 68, 173, 0.2);
+  color: var(--node-evolution);
+  border: 1px solid rgba(142, 68, 173, 0.3);
+}
+
+.status-badge--error {
+  background: rgba(255, 71, 87, 0.2);
+  color: var(--node-error);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+/* Animations */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes status-ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 224, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 224, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 224, 102, 0);
+  }
+} 

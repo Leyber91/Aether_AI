@@ -1,0 +1,184 @@
+/* DEACNetworkInterface.css - Ultimate living interface styles */
+
+.deac-network-interface {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Main Interface Grid */
+.interface-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 320px 1fr 380px;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  min-height: 0;
+}
+
+/* Zone Containers */
+.control-tower-zone {
+  background: var(--bg-panel);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.network-canvas-zone {
+  background: var(--bg-panel);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.inspector-zone {
+  background: var(--bg-panel);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.communication-zone {
+  height: 280px;
+  background: var(--bg-panel);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+  margin: 0 var(--space-sm) var(--space-sm) var(--space-sm);
+}
+
+/* Zone Headers - Shared styling */
+.zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  background: rgba(79, 172, 254, 0.05);
+}
+
+.zone-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.zone-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--node-text);
+}
+
+.zone-subtitle {
+  color: var(--node-text-dim);
+  font-size: 0.9rem;
+}
+
+.panel-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--node-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1600px) {
+  .interface-grid {
+    grid-template-columns: 280px 1fr 340px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .interface-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  
+  .control-tower-zone,
+  .inspector-zone {
+    height: 200px;
+  }
+  
+  .communication-zone {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .interface-grid {
+    padding: var(--space-xs);
+    gap: var(--space-xs);
+  }
+  
+  .communication-zone {
+    margin: 0 var(--space-xs) var(--space-xs) var(--space-xs);
+    height: 180px;
+  }
+}
+
+/* Zone Animation Effects */
+.control-tower-zone,
+.network-canvas-zone,
+.inspector-zone,
+.communication-zone {
+  transition: all var(--transition-medium);
+}
+
+.control-tower-zone:hover,
+.inspector-zone:hover,
+.communication-zone:hover {
+  border-color: rgba(79, 172, 254, 0.4);
+  box-shadow: 0 4px 20px rgba(79, 172, 254, 0.1);
+}
+
+/* Loading States */
+.zone-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--node-text-dim);
+}
+
+.zone-loading .loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid rgba(79, 172, 254, 0.2);
+  border-top: 2px solid var(--node-primary);
+  border-radius: var(--radius-circle);
+  animation: spin 1s linear infinite;
+  margin-right: var(--space-sm);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Activity Indicators */
+.zone-activity {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  width: 12px;
+  height: 12px;
+  background: var(--node-success);
+  border-radius: var(--radius-circle);
+  animation: activity-pulse 2s infinite;
+}
+
+@keyframes activity-pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6; 
+    transform: scale(1.2);
+  }
+} 

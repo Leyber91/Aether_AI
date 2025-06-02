@@ -1,0 +1,140 @@
+/* Buttons.css - Network interaction controls */
+
+/* Base Button Cell */
+.cell-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  text-decoration: none;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.cell-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Network Command Button */
+.cell-btn--primary {
+  background: linear-gradient(135deg, var(--node-primary) 0%, var(--node-secondary) 100%);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.cell-btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+}
+
+/* MetaLoop Communication Button */
+.cell-btn--metaloop {
+  background: var(--metaloop-active);
+  color: #1e243b;
+  box-shadow: 0 2px 8px rgba(255, 224, 102, 0.3);
+}
+
+.cell-btn--metaloop:hover:not(:disabled) {
+  box-shadow: 0 4px 16px rgba(255, 224, 102, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Spawning Action Button */
+.cell-btn--spawn {
+  background: var(--spawn-indicator);
+  color: #1e243b;
+  box-shadow: 0 2px 8px rgba(122, 255, 195, 0.3);
+}
+
+.cell-btn--spawn:hover:not(:disabled) {
+  box-shadow: 0 4px 16px rgba(122, 255, 195, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Network Secondary Button */
+.cell-btn--secondary {
+  background: rgba(79, 172, 254, 0.1);
+  color: var(--node-primary);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+}
+
+.cell-btn--secondary:hover:not(:disabled) {
+  background: rgba(79, 172, 254, 0.2);
+  border-color: rgba(79, 172, 254, 0.5);
+}
+
+/* Evolution Warning Button */
+.cell-btn--warning {
+  background: rgba(255, 159, 67, 0.1);
+  color: var(--node-warning);
+  border: 1px solid rgba(255, 159, 67, 0.3);
+}
+
+.cell-btn--warning:hover:not(:disabled) {
+  background: rgba(255, 159, 67, 0.2);
+  border-color: rgba(255, 159, 67, 0.5);
+}
+
+/* Network Termination Button */
+.cell-btn--danger {
+  background: rgba(255, 71, 87, 0.1);
+  color: var(--node-error);
+  border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.cell-btn--danger:hover:not(:disabled) {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: rgba(255, 71, 87, 0.5);
+}
+
+/* Compact Control Button */
+.cell-btn--compact {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8rem;
+  min-width: auto;
+}
+
+/* Icon-only Button */
+.cell-btn--icon {
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--node-primary);
+  aspect-ratio: 1;
+}
+
+.cell-btn--icon:hover:not(:disabled) {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: rgba(79, 172, 254, 0.5);
+}
+
+/* Loading State */
+.cell-btn--loading {
+  pointer-events: none;
+}
+
+.cell-btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: var(--radius-circle);
+  animation: btn-spin 1s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+} 

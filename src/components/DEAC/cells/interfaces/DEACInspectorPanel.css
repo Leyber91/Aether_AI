@@ -1,0 +1,190 @@
+/* DEACInspectorPanel.css - Structure inspection interface */
+
+.deac-inspector-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  color: var(--node-text);
+}
+
+.inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  background: rgba(79, 172, 254, 0.05);
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.inspector-subtitle {
+  color: var(--node-text-dim);
+  font-size: 0.9rem;
+  margin-left: var(--space-xs);
+}
+
+.inspector-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--node-text-dim);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  opacity: 0.5;
+}
+
+.inspector-section {
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.1);
+}
+
+.inspector-section h4 {
+  margin: 0 0 var(--space-md) 0;
+  color: var(--node-primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.info-label {
+  color: var(--node-text-dim);
+}
+
+.info-value {
+  color: var(--node-text);
+  font-weight: 600;
+}
+
+.status-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.structure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.structure-component {
+  background: rgba(79, 172, 254, 0.05);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(79, 172, 254, 0.1);
+}
+
+.component-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.component-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--node-primary);
+}
+
+.component-header span {
+  font-size: 0.8rem;
+  color: var(--node-text-dim);
+  font-weight: 600;
+}
+
+.component-value {
+  text-align: center;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--node-text);
+}
+
+.structure-input {
+  width: 60px;
+  padding: var(--space-xs);
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: var(--radius-sm);
+  color: var(--node-text);
+  text-align: center;
+}
+
+.capabilities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.capability-tag {
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--node-primary);
+}
+
+.no-data {
+  color: var(--node-text-dim);
+  font-style: italic;
+}
+
+.specialization-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.specialization-badge {
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(142, 68, 173, 0.1);
+  border: 1px solid rgba(142, 68, 173, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--node-evolution);
+  font-weight: 600;
+  text-align: center;
+}
+
+.parent-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.evolution-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.evolution-actions .cell-btn {
+  flex: 1;
+  justify-content: center;
+} 
