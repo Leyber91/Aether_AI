@@ -1,0 +1,50 @@
+{
+  "id": "fe90fe00-3d4f-425c-b5bd-f766253b5144",
+  "name": "Aether DEAC Beta",
+  "description": "Testing DEAC with Qwen3 8B model",
+  "base_model": "qwen3:8b",
+  "current_model": null,
+  "state": {
+    "state": "ready",
+    "current_task": null,
+    "memory_snapshot": {},
+    "evolution_history": [],
+    "created_at": "2025-05-31T19:43:48.193873",
+    "last_modified": "2025-05-31T19:44:28.046044",
+    "last_active": "2025-05-31T19:44:20.603124",
+    "error_message": null
+  },
+  "config": {
+    "name": "Aether DEAC Beta",
+    "description": "Testing DEAC with Qwen3 8B model",
+    "base_model": "qwen3:8b",
+    "evolution_enabled": true,
+    "evolution_frequency": 50,
+    "max_evolution_steps": 50,
+    "memory_enabled": true,
+    "max_memory_size": 10000,
+    "memory_consolidation_threshold": 0.8,
+    "collaboration_enabled": false,
+    "max_collaborators": 5,
+    "response_timeout": 30,
+    "max_concurrent_tasks": 3,
+    "specialization_domains": [],
+    "specialization_threshold": 0.7
+  },
+  "capabilities": {
+    "reasoning_ability": 0.5,
+    "creativity_level": 0.5,
+    "learning_rate": 0.5,
+    "collaboration_affinity": 0.5,
+    "specialized_skills": [],
+    "knowledge_domains": [],
+    "performance_metrics": {},
+    "evolution_score": 0.0
+  },
+  "parent_deac_id": null,
+  "child_deac_ids": [],
+  "collaborator_ids": [],
+  "total_interactions": 1,
+  "successful_tasks": 1,
+  "evolution_generations": 0
+}

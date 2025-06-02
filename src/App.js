@@ -10,6 +10,7 @@ import AppHeader from './components/common/AppHeader';
 import SystemCheckWizard from './components/SystemCheckWizard';
 import MetaLoopLab from './components/MetaLoopChat/MetaLoopLab';
 import AetherCreator from './components/AetherCreator/AetherCreator';
+import DEAC from './components/DEAC/DEAC';
 
 /**
  * Main application component
@@ -43,6 +44,16 @@ const MainContent = () => {
       <>
         <AppHeader />
         <AetherCreator />
+      </>
+    );
+  }
+
+  // Render DEAC as a full premium page
+  if (currentRoute === ROUTES.DEAC) {
+    return (
+      <>
+        <AppHeader />
+        <DEAC />
       </>
     );
   }

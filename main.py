@@ -68,6 +68,31 @@ except ImportError:
     class ModelDistillationService:
         def __init__(self): pass
 
+# DEAC System Imports
+try:
+    from backend.services.deac_controller import DEACController
+    from backend.services.vector_service import VectorService, MemoryManager
+    from backend.models.deac_models import (
+        DEACConfig, 
+        DEACResponse, 
+        DEACInteraction,
+        MVDEAC
+    )
+    DEAC_SYSTEM_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"DEAC system not available: {e}")
+    DEAC_SYSTEM_AVAILABLE = False
+    class DEACController:
+        def __init__(self, **kwargs): pass
+    class VectorService:
+        def __init__(self, **kwargs): pass
+    class MemoryManager:
+        def __init__(self, **kwargs): pass
+    class DEACConfig: pass
+    class DEACResponse: pass
+    class DEACInteraction: pass
+    class MVDEAC: pass
+
 # Setup logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -111,6 +136,36 @@ except ImportError as e:
         def refresh_model_registry(self): 
             pass
     ecosystem_manager = UnifiedModelEcosystemManager()
+
+# Initialize DEAC System
+if DEAC_SYSTEM_AVAILABLE:
+    try:
+        # Initialize vector service and memory manager
+        vector_service = VectorService()
+        memory_manager = MemoryManager(vector_service)
+        
+        # Initialize DEAC controller with existing services
+        deac_controller = DEACController(
+            vector_service=vector_service,
+            memory_manager=memory_manager,
+            model_service=model_service if MODEL_SERVICE_AVAILABLE else None,
+            iterative_refinement_service=iterative_refinement_service if REFINEMENT_SERVICE_AVAILABLE else None,
+            unified_ecosystem_manager=ecosystem_manager if ECOSYSTEM_MANAGER_AVAILABLE else None
+        )
+        
+        logger.info("🤖 DEAC System initialized successfully - Ready for Dynamic Evolving AI Conglomerates!")
+        
+    except Exception as e:
+        logger.error(f"Error initializing DEAC system: {e}")
+        DEAC_SYSTEM_AVAILABLE = False
+        deac_controller = None
+        memory_manager = None
+        vector_service = None
+else:
+    deac_controller = None
+    memory_manager = None
+    vector_service = None
+    logger.warning("DEAC system not available - install dependencies: pip install chromadb redis websockets")
 
 # Direct file operations endpoint
 @app.get("/api/files")
@@ -1395,6 +1450,358 @@ def parse_ollama_list_output(output):
                 })
     
     return models
+
+# ================================
+# DEAC (Dynamic Evolving AI Conglomerates) API Endpoints
+# ================================
+
+@app.post("/api/deac/create")
+async def create_deac(request: Request):
+    """Create a new Dynamic Evolving AI Conglomerate (DEAC)."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "error": "DEAC system not available",
+                    "message": "Install dependencies: pip install chromadb redis websockets"
+                }
+            )
+        
+        data = await request.json()
+        
+        # Create DEAC configuration
+        config = DEACConfig(
+            name=data.get("name", "My DEAC"),
+            description=data.get("description", "A Dynamic Evolving AI Conglomerate"),
+            base_model=data.get("base_model", "llama3:8b"),
+            evolution_enabled=data.get("evolution_enabled", True),
+            evolution_frequency=data.get("evolution_frequency", 100),
+            max_evolution_steps=data.get("max_evolution_steps", 50),
+            memory_enabled=data.get("memory_enabled", True),
+            max_memory_size=data.get("max_memory_size", 10000),
+            collaboration_enabled=data.get("collaboration_enabled", False),
+            specialization_domains=data.get("specialization_domains", [])
+        )
+        
+        # Create the DEAC
+        response = await deac_controller.create_mv_deac(config)
+        
+        # Convert response to dict and handle datetime serialization
+        response_dict = response.dict()
+        if 'timestamp' in response_dict and response_dict['timestamp']:
+            response_dict['timestamp'] = response_dict['timestamp'].isoformat() if hasattr(response_dict['timestamp'], 'isoformat') else str(response_dict['timestamp'])
+        
+        return JSONResponse(content=response_dict)
+        
+    except Exception as e:
+        logger.error(f"Error creating DEAC: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.get("/api/deac/list")
+async def list_deacs():
+    """List all available DEACs."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        deacs = await deac_controller.list_deacs()
+        
+        return JSONResponse(content={"deacs": deacs})
+        
+    except Exception as e:
+        logger.error(f"Error listing DEACs: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.get("/api/deac/{deac_id}")
+async def get_deac_details(deac_id: str):
+    """Get detailed information about a specific DEAC."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        deac = await deac_controller.get_deac(deac_id)
+        
+        # Convert to dict for JSON response
+        deac_dict = deac.dict()
+        
+        # Convert datetime objects to ISO strings
+        if deac_dict.get("state", {}).get("created_at"):
+            deac_dict["state"]["created_at"] = deac_dict["state"]["created_at"].isoformat() if hasattr(deac_dict["state"]["created_at"], "isoformat") else str(deac_dict["state"]["created_at"])
+        if deac_dict.get("state", {}).get("last_modified"):
+            deac_dict["state"]["last_modified"] = deac_dict["state"]["last_modified"].isoformat() if hasattr(deac_dict["state"]["last_modified"], "isoformat") else str(deac_dict["state"]["last_modified"])
+        if deac_dict.get("state", {}).get("last_active"):
+            deac_dict["state"]["last_active"] = deac_dict["state"]["last_active"].isoformat() if hasattr(deac_dict["state"]["last_active"], "isoformat") else str(deac_dict["state"]["last_active"])
+        
+        return JSONResponse(content=deac_dict)
+        
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail}
+        )
+    except Exception as e:
+        logger.error(f"Error getting DEAC details: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.post("/api/deac/{deac_id}/interact")
+async def interact_with_deac(deac_id: str, request: Request):
+    """Send a message to a DEAC and get a response."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        data = await request.json()
+        user_message = data.get("message", "")
+        context = data.get("context", {})
+        
+        if not user_message:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "Message is required"}
+            )
+        
+        # Interact with the DEAC
+        interaction = await deac_controller.interact_with_deac(deac_id, user_message, context)
+        
+        # Store interaction in memory if memory manager is available
+        if memory_manager:
+            try:
+                await memory_manager.add_interaction_memory(
+                    deac_id, 
+                    user_message, 
+                    interaction.response, 
+                    context
+                )
+            except Exception as memory_error:
+                logger.warning(f"Failed to store interaction memory: {memory_error}")
+        
+        # Convert to dict for JSON response
+        interaction_dict = interaction.dict()
+        interaction_dict["timestamp"] = interaction_dict["timestamp"].isoformat() if hasattr(interaction_dict["timestamp"], "isoformat") else str(interaction_dict["timestamp"])
+        
+        return JSONResponse(content=interaction_dict)
+        
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail}
+        )
+    except Exception as e:
+        logger.error(f"Error interacting with DEAC: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.post("/api/deac/{deac_id}/evolve")
+async def evolve_deac(deac_id: str):
+    """Trigger evolution for a DEAC."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        response = await deac_controller.run_evolution_step(deac_id)
+        
+        # Convert response to dict and handle datetime serialization
+        response_dict = response.dict()
+        if 'timestamp' in response_dict and response_dict['timestamp']:
+            response_dict['timestamp'] = response_dict['timestamp'].isoformat() if hasattr(response_dict['timestamp'], 'isoformat') else str(response_dict['timestamp'])
+        
+        return JSONResponse(content=response_dict)
+        
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail}
+        )
+    except Exception as e:
+        logger.error(f"Error evolving DEAC: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.get("/api/deac/{deac_id}/memory")
+async def get_deac_memory(deac_id: str):
+    """Get memory summary for a DEAC."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not memory_manager:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC memory system not available"}
+            )
+        
+        memory_summary = await memory_manager.get_memory_summary(deac_id)
+        
+        return JSONResponse(content=memory_summary)
+        
+    except Exception as e:
+        logger.error(f"Error getting DEAC memory: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.post("/api/deac/{deac_id}/memory/query")
+async def query_deac_memory(deac_id: str, request: Request):
+    """Query DEAC memory for relevant information."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not memory_manager:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC memory system not available"}
+            )
+        
+        data = await request.json()
+        query = data.get("query", "")
+        memory_type = data.get("type")
+        n_results = data.get("n_results", 5)
+        
+        if not query:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "Query is required"}
+            )
+        
+        memories = await memory_manager.get_relevant_memories(deac_id, query, memory_type, n_results)
+        
+        return JSONResponse(content={"memories": memories})
+        
+    except Exception as e:
+        logger.error(f"Error querying DEAC memory: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.put("/api/deac/{deac_id}/state")
+async def update_deac_state(deac_id: str, request: Request):
+    """Update the state of a DEAC."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        data = await request.json()
+        new_state = data.get("state", "")
+        
+        if not new_state:
+            return JSONResponse(
+                status_code=400,
+                content={"error": "State is required"}
+            )
+        
+        response = await deac_controller.update_deac_state(deac_id, new_state)
+        
+        # Convert response to dict and handle datetime serialization
+        response_dict = response.dict()
+        if 'timestamp' in response_dict and response_dict['timestamp']:
+            response_dict['timestamp'] = response_dict['timestamp'].isoformat() if hasattr(response_dict['timestamp'], 'isoformat') else str(response_dict['timestamp'])
+        
+        return JSONResponse(content=response_dict)
+        
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail}
+        )
+    except Exception as e:
+        logger.error(f"Error updating DEAC state: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.delete("/api/deac/{deac_id}")
+async def delete_deac(deac_id: str):
+    """Delete a DEAC and all its data."""
+    try:
+        if not DEAC_SYSTEM_AVAILABLE or not deac_controller:
+            return JSONResponse(
+                status_code=503,
+                content={"error": "DEAC system not available"}
+            )
+        
+        response = await deac_controller.delete_deac(deac_id)
+        
+        # Convert response to dict and handle datetime serialization
+        response_dict = response.dict()
+        if 'timestamp' in response_dict and response_dict['timestamp']:
+            response_dict['timestamp'] = response_dict['timestamp'].isoformat() if hasattr(response_dict['timestamp'], 'isoformat') else str(response_dict['timestamp'])
+        
+        return JSONResponse(content=response_dict)
+        
+    except HTTPException as he:
+        return JSONResponse(
+            status_code=he.status_code,
+            content={"error": he.detail}
+        )
+    except Exception as e:
+        logger.error(f"Error deleting DEAC: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+@app.get("/api/deac/system/status")
+async def get_deac_system_status():
+    """Get the status of the DEAC system."""
+    try:
+        status = {
+            "available": DEAC_SYSTEM_AVAILABLE,
+            "controller_initialized": deac_controller is not None,
+            "memory_manager_initialized": memory_manager is not None,
+            "vector_service_initialized": vector_service is not None,
+            "model_service_available": MODEL_SERVICE_AVAILABLE,
+            "refinement_service_available": REFINEMENT_SERVICE_AVAILABLE,
+            "ecosystem_manager_available": ECOSYSTEM_MANAGER_AVAILABLE
+        }
+        
+        if DEAC_SYSTEM_AVAILABLE and deac_controller:
+            # Get active DEAC count
+            active_deacs = len(deac_controller.active_deacs)
+            status["active_deacs"] = active_deacs
+            
+            # Get system stats
+            status["data_directory"] = deac_controller.data_dir
+            status["evolution_directory"] = deac_controller.evolution_dir
+        
+        return JSONResponse(content=status)
+        
+    except Exception as e:
+        logger.error(f"Error getting DEAC system status: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+# ================================
+# End DEAC API Endpoints
+# ================================
 
 # The main block for running the app, if any, should be at the very end.
 # if __name__ == "__main__":

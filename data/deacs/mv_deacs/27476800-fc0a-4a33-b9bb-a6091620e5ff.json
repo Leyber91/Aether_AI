@@ -1,0 +1,54 @@
+{
+  "id": "27476800-fc0a-4a33-b9bb-a6091620e5ff",
+  "name": "Aether DEAC Researcher",
+  "description": "A DEAC specialized in research and analysis",
+  "base_model": "qwen3:0.6b",
+  "current_model": null,
+  "state": {
+    "state": "ready",
+    "current_task": null,
+    "memory_snapshot": {},
+    "evolution_history": [],
+    "created_at": "2025-05-31T19:46:49.522653",
+    "last_modified": "2025-05-31T19:47:35.166609",
+    "last_active": "2025-05-31T19:47:31.075457",
+    "error_message": null
+  },
+  "config": {
+    "name": "Aether DEAC Researcher",
+    "description": "A DEAC specialized in research and analysis",
+    "base_model": "qwen3:0.6b",
+    "evolution_enabled": true,
+    "evolution_frequency": 10,
+    "max_evolution_steps": 50,
+    "memory_enabled": true,
+    "max_memory_size": 1000,
+    "memory_consolidation_threshold": 0.8,
+    "collaboration_enabled": true,
+    "max_collaborators": 5,
+    "response_timeout": 30,
+    "max_concurrent_tasks": 3,
+    "specialization_domains": [
+      "general",
+      "problem_solving",
+      "creativity"
+    ],
+    "specialization_threshold": 0.7
+  },
+  "capabilities": {
+    "reasoning_ability": 0.5,
+    "creativity_level": 0.5,
+    "learning_rate": 0.5,
+    "collaboration_affinity": 0.5,
+    "specialized_skills": [],
+    "knowledge_domains": [],
+    "performance_metrics": {},
+    "evolution_score": 0.0
+  },
+  "parent_deac_id": null,
+  "child_deac_ids": [],
+  "collaborator_ids": [],
+  "total_interactions": 5,
+  "successful_tasks": 5,
+  "evolution_generations": 0
+}
