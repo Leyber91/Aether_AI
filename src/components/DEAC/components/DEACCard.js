@@ -5,17 +5,19 @@ import {
   FiTrash2, 
   FiActivity, 
   FiHash,
-  FiBarChart3,
+  FiBarChart2,
   FiClock,
   FiTrendingUp,
   FiPlay,
-  FiPause
+  FiPause,
+  FiCheck,
+  FiSquare
 } from 'react-icons/fi';
 
 /**
  * DEACCard - Individual DEAC card component
  */
-const DEACCard = ({ deac, onInteract, onEvolve, onDelete }) => {
+const DEACCard = ({ deac, onInteract, onEvolve, onDelete, isSelected, onSelect, viewMode = 'grid' }) => {
   const [isEvolving, setIsEvolving] = useState(false);
 
   const handleEvolve = async () => {
@@ -24,6 +26,12 @@ const DEACCard = ({ deac, onInteract, onEvolve, onDelete }) => {
       await onEvolve(deac.id);
     } finally {
       setIsEvolving(false);
+    }
+  };
+
+  const handleSelection = () => {
+    if (onSelect) {
+      onSelect(deac.id, !isSelected);
     }
   };
 
@@ -50,8 +58,99 @@ const DEACCard = ({ deac, onInteract, onEvolve, onDelete }) => {
 
   const evolutionProgress = Math.min((deac.evolution_score || 0) * 100, 100);
 
+  if (viewMode === 'list') {
+    return (
+      <div className={`deac-list-item ${isSelected ? 'selected' : ''} fade-in`}>
+        <div className="list-item-selection">
+          <button 
+            className="selection-checkbox"
+            onClick={handleSelection}
+            title={isSelected ? 'Deselect' : 'Select'}
+          >
+            {isSelected ? <FiCheck /> : <FiSquare />}
+          </button>
+        </div>
+        
+        <div className="list-item-info">
+          <div className="list-item-header">
+            <h4>{deac.name}</h4>
+            <div className={`status-indicator ${getStatusColor(deac.state)}`}>
+              <FiActivity />
+              {deac.state || 'ready'}
+            </div>
+          </div>
+          <p className="list-item-description">{deac.description}</p>
+          <div className="list-item-meta">
+            <span><FiHash /> {deac.id.slice(0, 8)}...</span>
+            <span>Model: {deac.base_model}</span>
+            <span><FiClock /> {formatDate(deac.created_at)}</span>
+          </div>
+        </div>
+        
+        <div className="list-item-metrics">
+          <div className="metric-compact">
+            <FiMessageCircle />
+            <span>{deac.total_interactions}</span>
+          </div>
+          <div className="metric-compact">
+            <FiTrendingUp />
+            <span>{deac.evolution_generations}</span>
+          </div>
+          <div className="metric-compact">
+            <FiBarChart2 />
+            <span>{evolutionProgress.toFixed(1)}%</span>
+          </div>
+        </div>
+        
+        <div className="list-item-actions">
+          <button
+            className="btn btn-primary btn-compact"
+            onClick={() => onInteract(deac)}
+            title="Interact with this DEAC"
+          >
+            <FiMessageCircle />
+          </button>
+          
+          <button
+            className="btn btn-secondary btn-compact"
+            onClick={handleEvolve}
+            disabled={isEvolving || deac.state === 'evolving'}
+            title="Trigger evolution for this DEAC"
+          >
+            {isEvolving ? (
+              <div className="loading-spinner small"></div>
+            ) : (
+              <FiZap />
+            )}
+          </button>
+
+          <button
+            className="btn btn-danger btn-compact"
+            onClick={() => onDelete(deac.id)}
+            title="Delete this DEAC"
+          >
+            <FiTrash2 />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Grid view (default)
   return (
-    <div className="deac-card fade-in">
+    <div className={`deac-card ${isSelected ? 'selected' : ''} fade-in`}>
+      {onSelect && (
+        <div className="card-selection">
+          <button 
+            className="selection-checkbox"
+            onClick={handleSelection}
+            title={isSelected ? 'Deselect' : 'Select'}
+          >
+            {isSelected ? <FiCheck /> : <FiSquare />}
+          </button>
+        </div>
+      )}
+      
       <div className="deac-card-header">
         <div className="deac-card-title">
           <h3>{deac.name}</h3>
