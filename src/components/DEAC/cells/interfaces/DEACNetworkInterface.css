@@ -1,4 +1,4 @@
-/* DEACNetworkInterface.css - Ultimate living interface styles */
+/* DEACNetworkInterface.css - Ultimate living interface styles with 40/60 split */
 
 .deac-network-interface {
   width: 100vw;
@@ -8,49 +8,190 @@
   overflow: hidden;
 }
 
-/* Main Interface Grid */
-.interface-grid {
+/* Main Split Container - 40% Chat / 60% Network */
+.main-split-container {
   flex: 1;
-  display: grid;
-  grid-template-columns: 320px 1fr 380px;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
+  display: flex;
   min-height: 0;
+  gap: 2px;
 }
 
-/* Zone Containers */
-.control-tower-zone {
+/* Left Panel - Chat Interface (40%) */
+.chat-panel {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-panel);
   border: 1px solid rgba(79, 172, 254, 0.2);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
   backdrop-filter: blur(10px);
-  overflow-y: auto;
-}
-
-.network-canvas-zone {
-  background: var(--bg-panel);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(10px);
-  position: relative;
   overflow: hidden;
 }
 
-.inspector-zone {
+.panel-header {
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  background: rgba(79, 172, 254, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.panel-header h3 {
+  margin: 0 0 var(--space-xs) 0;
+  font-size: 1.2rem;
+  color: var(--node-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-header p {
+  margin: 0;
+  color: var(--node-text-dim);
+  font-size: 0.9rem;
+}
+
+.connection-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.8rem;
+  color: var(--node-success);
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.1);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  animation: connection-pulse 2s infinite;
+}
+
+@keyframes connection-pulse {
+  0%, 100% { 
+    opacity: 1; 
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.3);
+  }
+  50% { 
+    opacity: 0.8; 
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  }
+}
+
+.chat-container-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Right Panel - Network Visualization (60%) */
+.network-panel {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   background: var(--bg-panel);
   border: 1px solid rgba(79, 172, 254, 0.2);
-  border-radius: var(--radius-lg);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+/* Network Canvas Zone - Full size within right panel */
+.network-canvas-zone {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 var(--radius-lg) 0 0;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
+}
+
+/* Canvas specific styling */
+.network-canvas-zone canvas {
+  cursor: grab;
+  transition: filter var(--transition-fast);
+}
+
+.network-canvas-zone canvas:active {
+  cursor: grabbing;
+}
+
+/* Node interaction feedback */
+.network-canvas-zone:hover {
+  filter: brightness(1.05);
+}
+
+/* Floating Control Panels Overlay */
+.control-panels-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Floating Panels */
+.floating-panel {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(15px);
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-medium);
+  max-height: 80%;
   overflow-y: auto;
 }
 
-.communication-zone {
-  height: 280px;
+.floating-panel:hover {
+  border-color: rgba(79, 172, 254, 0.5);
+  box-shadow: 0 12px 40px rgba(79, 172, 254, 0.2);
+}
+
+/* Evolution Control Panel - Top Left */
+.evolution-panel {
+  top: var(--space-lg);
+  left: var(--space-lg);
+  width: 280px;
+  max-height: 400px;
+}
+
+/* Inspector Panel - Top Right */
+.inspector-panel {
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 320px;
+  max-height: 500px;
+}
+
+/* Minimized Communication Zone */
+.communication-zone-minimal {
+  height: 60px;
   background: var(--bg-panel);
   border: 1px solid rgba(79, 172, 254, 0.2);
-  border-radius: var(--radius-lg);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   backdrop-filter: blur(10px);
-  margin: 0 var(--space-sm) var(--space-sm) var(--space-sm);
+  margin: 0 0 0 0;
+  overflow: hidden;
+  transition: height var(--transition-medium);
+}
+
+.communication-zone-minimal:hover {
+  height: 200px;
+}
+
+/* Legacy Zone Containers (for backward compatibility) */
+.control-tower-zone,
+.inspector-zone {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
+  overflow: visible;
 }
 
 /* Zone Headers - Shared styling */
@@ -58,9 +199,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-lg);
+  padding: var(--space-md);
   border-bottom: 1px solid rgba(79, 172, 254, 0.2);
   background: rgba(79, 172, 254, 0.05);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
 .zone-title {
@@ -71,69 +213,167 @@
 
 .zone-title h3 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--node-text);
 }
 
 .zone-subtitle {
   color: var(--node-text-dim);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .panel-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   color: var(--node-primary);
+}
+
+/* Physics Network Animation Indicators */
+.network-activity-indicator {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--node-text-dim);
+  z-index: 20;
+}
+
+.physics-status {
+  color: var(--node-success);
+  font-weight: 600;
+}
+
+.network-stats {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: 0.7rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-label {
+  color: var(--node-text-dim);
+  opacity: 0.8;
+}
+
+.stat-value {
+  color: var(--node-text);
+  font-weight: 600;
+}
+
+/* Node interaction tooltips */
+.node-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--node-text);
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 /* Responsive Design */
 @media (max-width: 1600px) {
-  .interface-grid {
-    grid-template-columns: 280px 1fr 340px;
+  .evolution-panel {
+    width: 260px;
+    max-height: 350px;
+  }
+  
+  .inspector-panel {
+    width: 300px;
+    max-height: 450px;
   }
 }
 
 @media (max-width: 1200px) {
-  .interface-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+  .main-split-container {
+    flex-direction: column;
   }
   
-  .control-tower-zone,
-  .inspector-zone {
-    height: 200px;
+  .chat-panel {
+    width: 100%;
+    height: 40%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
   
-  .communication-zone {
-    height: 200px;
+  .network-panel {
+    width: 100%;
+    height: 60%;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  
+  .floating-panel {
+    position: relative;
+    margin: var(--space-sm);
+    width: auto;
+    max-height: none;
+  }
+  
+  .evolution-panel,
+  .inspector-panel {
+    position: static;
+    width: auto;
+    max-height: 200px;
+    margin: var(--space-sm);
   }
 }
 
 @media (max-width: 768px) {
-  .interface-grid {
-    padding: var(--space-xs);
-    gap: var(--space-xs);
+  .main-split-container {
+    gap: 1px;
   }
   
-  .communication-zone {
-    margin: 0 var(--space-xs) var(--space-xs) var(--space-xs);
-    height: 180px;
+  .panel-header {
+    padding: var(--space-md);
+  }
+  
+  .communication-zone-minimal {
+    height: 50px;
+  }
+  
+  .communication-zone-minimal:hover {
+    height: 150px;
+  }
+  
+  .floating-panel {
+    margin: var(--space-xs);
+    max-height: 150px;
+  }
+  
+  .connection-indicator {
+    font-size: 0.7rem;
+    padding: 2px var(--space-xs);
   }
 }
 
 /* Zone Animation Effects */
-.control-tower-zone,
-.network-canvas-zone,
-.inspector-zone,
-.communication-zone {
+.chat-panel,
+.network-panel {
   transition: all var(--transition-medium);
 }
 
-.control-tower-zone:hover,
-.inspector-zone:hover,
-.communication-zone:hover {
+.chat-panel:hover {
   border-color: rgba(79, 172, 254, 0.4);
-  box-shadow: 0 4px 20px rgba(79, 172, 254, 0.1);
+}
+
+.network-panel:hover {
+  border-color: rgba(79, 172, 254, 0.4);
 }
 
 /* Loading States */
@@ -146,8 +386,8 @@
 }
 
 .zone-loading .loading-spinner {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border: 2px solid rgba(79, 172, 254, 0.2);
   border-top: 2px solid var(--node-primary);
   border-radius: var(--radius-circle);
@@ -165,8 +405,8 @@
   position: absolute;
   top: var(--space-sm);
   right: var(--space-sm);
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   background: var(--node-success);
   border-radius: var(--radius-circle);
   animation: activity-pulse 2s infinite;
@@ -181,4 +421,33 @@
     opacity: 0.6; 
     transform: scale(1.2);
   }
+}
+
+/* Panel Minimize/Maximize Controls */
+.panel-controls {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  display: flex;
+  gap: var(--space-xs);
+  z-index: 20;
+}
+
+.panel-control-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: rgba(79, 172, 254, 0.2);
+  color: var(--node-text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.panel-control-btn:hover {
+  background: rgba(79, 172, 254, 0.4);
+  transform: scale(1.1);
 } 

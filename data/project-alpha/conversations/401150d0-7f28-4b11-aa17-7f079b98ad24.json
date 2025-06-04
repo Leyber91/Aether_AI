@@ -1,0 +1,26 @@
+{
+  "id": "401150d0-7f28-4b11-aa17-7f079b98ad24",
+  "title": "Newcomer's Welcome",
+  "modelId": "qwen3:0.6b",
+  "provider": "ollama",
+  "createdAt": "2025-06-04T18:20:32.988Z",
+  "updatedAt": "2025-06-04T18:47:14.031Z",
+  "messages": [
+    {
+      "id": "a26d120c-536a-438d-a5fe-88a04f582bae",
+      "role": "user",
+      "timestamp": "2025-06-04T18:20:34.616Z",
+      "content": "hiii",
+      "usage": null,
+      "thinking": null
+    },
+    {
+      "id": "f95e3562-f410-46f2-8564-b896f2ae6f55",
+      "role": "assistant",
+      "timestamp": "2025-06-04T18:20:34.616Z",
+      "content": "Hello! How can I assist you today? \ud83d\ude0a",
+      "usage": null,
+      "thinking": "Okay, the user just said \"hiii\" and I need to respond. Let me start by acknowledging their greeting. \"Hello!\" is a good and friendly opener. Then, I should express my enthusiasm for the conversation. Maybe add a bit more to make it personal, like saying I'm glad to hear from them. I should keep the tone friendly and conversational. No need to overcomplicate things here. Just a simple and positive response."
+    }
+  ]
+}

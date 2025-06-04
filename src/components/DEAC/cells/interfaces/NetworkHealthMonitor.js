@@ -1,13 +1,13 @@
 import React from 'react';
-import { FiActivity, FiZap, FiCpu, FiWifi, FiTrendingUp, FiShield } from 'react-icons/fi';
+import { FiActivity, FiZap, FiCpu, FiWifi, FiTrendingUp, FiShield, FiGlobe } from 'react-icons/fi';
 import '../styles/shared/StatusDots.css';
 import './NetworkHealthMonitor.css';
 
 /**
  * NetworkHealthMonitor - Top bar network status display
- * Shows real-time health metrics and system status
+ * Shows real-time health metrics and system status including WebSocket connection
  */
-const NetworkHealthMonitor = ({ health, metaLoopActive, evolutionInProgress }) => {
+const NetworkHealthMonitor = ({ health, metaLoopActive, evolutionInProgress, isConnected }) => {
   const getHealthStatus = (score) => {
     if (score >= 90) return { status: 'excellent', color: 'success' };
     if (score >= 70) return { status: 'good', color: 'warning' };
@@ -24,6 +24,20 @@ const NetworkHealthMonitor = ({ health, metaLoopActive, evolutionInProgress }) =
   return (
     <div className="network-health-monitor">
       
+      {/* Connection Status */}
+      <div className="connection-status">
+        <div className="connection-icon-container">
+          <FiGlobe className={`connection-icon ${isConnected ? 'connected' : 'disconnected'}`} />
+          <div className={`status-dot status-dot--${isConnected ? 'ready' : 'error'}`}></div>
+        </div>
+        <div className="connection-info">
+          <span className="connection-label">WebSocket</span>
+          <span className={`connection-state ${isConnected ? 'connected' : 'disconnected'}`}>
+            {isConnected ? 'Live' : 'Offline'}
+          </span>
+        </div>
+      </div>
+
       {/* Primary Health Indicator */}
       <div className="health-primary">
         <div className="health-icon-container">

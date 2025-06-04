@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi import FastAPI, HTTPException, Request, Depends, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -10,12 +10,17 @@ from datetime import datetime
 import json
 from typing import List, Dict, Any, Optional, Callable
 from pydantic import BaseModel
-from llama_index.llms.ollama import Ollama
 import dotenv
 import subprocess
 import platform
 import shutil
 import tempfile
+import asyncio
+from contextlib import asynccontextmanager
+
+# Setup logging FIRST - before any other imports that use logger
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 # Import our services with fallbacks
 try:
@@ -93,9 +98,15 @@ except ImportError as e:
     class DEACInteraction: pass
     class MVDEAC: pass
 
-# Setup logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# Import WebSocket handler for DEAC Network
+try:
+    from websocket_handler import router as websocket_router
+    WEBSOCKET_AVAILABLE = True
+    logger.info("🌐 WebSocket handler loaded for DEAC Network")
+except ImportError as e:
+    WEBSOCKET_AVAILABLE = False
+    websocket_router = None
+    logger.warning(f"WebSocket handler not available: {e}")
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -108,6 +119,48 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+# Include WebSocket router for DEAC Network
+if WEBSOCKET_AVAILABLE:
+    app.include_router(websocket_router)
+    logger.info("🌐 WebSocket endpoints registered for DEAC Network at /ws/deac-network")
+else:
+    # Direct WebSocket implementation (fallback if websocket_handler fails)
+    @app.websocket("/ws/deac-network")
+    async def websocket_endpoint(websocket: WebSocket):
+        """Direct WebSocket endpoint for DEAC network communication"""
+        await websocket.accept()
+        logger.info("🌐 WebSocket connection established (fallback mode)")
+        
+        try:
+            # Send welcome message
+            await websocket.send_text(json.dumps({
+                "type": "connection_established",
+                "message": "Connected to DEAC Network (fallback mode)",
+                "timestamp": datetime.now().isoformat()
+            }))
+            
+            while True:
+                # Receive message from client
+                data = await websocket.receive_text()
+                message = json.loads(data)
+                
+                logger.info(f"📩 WebSocket message received: {message.get('type')}")
+                
+                # Echo back for testing
+                response = {
+                    "type": "echo",
+                    "original": message,
+                    "server_response": "Message received successfully (fallback mode)",
+                    "timestamp": datetime.now().isoformat()
+                }
+                
+                await websocket.send_text(json.dumps(response))
+                
+        except WebSocketDisconnect:
+            logger.info("🌐 WebSocket disconnected")
+        except Exception as e:
+            logger.error(f"🌐 WebSocket error: {e}")
 
 # Initialize new services
 automated_gguf_service = AutomatedGGUFService()
@@ -1802,6 +1855,27 @@ async def get_deac_system_status():
 # ================================
 # End DEAC API Endpoints
 # ================================
+
+# Add a status endpoint to check system health
+@app.get("/api/status")
+async def get_system_status():
+    """Get comprehensive system status"""
+    status = {
+        "timestamp": datetime.now().isoformat(),
+        "services": {
+            "websocket_handler_available": WEBSOCKET_AVAILABLE,
+            "model_service_available": MODEL_SERVICE_AVAILABLE,
+            "deac_system_available": DEAC_SYSTEM_AVAILABLE,
+            "ecosystem_manager_available": ECOSYSTEM_MANAGER_AVAILABLE
+        },
+        "endpoints": {
+            "api_conversations": "/api/conversations",
+            "websocket_deac": "/ws/deac-network",
+            "websocket_status": "Available" if WEBSOCKET_AVAILABLE else "Fallback mode"
+        },
+        "message": "Aether AI Suite Backend is running"
+    }
+    return status
 
 # The main block for running the app, if any, should be at the very end.
 # if __name__ == "__main__":

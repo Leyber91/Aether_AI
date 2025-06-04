@@ -8,7 +8,7 @@ import './MetaLoopCommunicationPanel.css';
  * MetaLoopCommunicationPanel - Real-time communication viewer
  * Shows network interactions, MetaLoop messages, and evolution events
  */
-const MetaLoopCommunicationPanel = ({ communicationLog, onSendMessage }) => {
+const MetaLoopCommunicationPanel = ({ communicationLog, onSendMessage, minimal = false }) => {
   const [messageInput, setMessageInput] = useState('');
   const [selectedTarget, setSelectedTarget] = useState('broadcast');
   const [filterType, setFilterType] = useState('all');
@@ -63,6 +63,35 @@ const MetaLoopCommunicationPanel = ({ communicationLog, onSendMessage }) => {
   const formatTimestamp = (timestamp) => {
     return new Date(timestamp).toLocaleTimeString();
   };
+
+  // Minimal mode - show only recent activity in a compact format
+  if (minimal) {
+    const recentMessages = filteredMessages.slice(0, 3);
+    return (
+      <div className="metaloop-communication-panel minimal">
+        <div className="minimal-header">
+          <FiMessageCircle className="panel-icon" />
+          <span>Network Activity</span>
+          <div className="activity-count">{communicationLog.length}</div>
+        </div>
+        
+        {recentMessages.length > 0 && (
+          <div className="minimal-messages">
+            {recentMessages.map((message, index) => {
+              const MessageIcon = getMessageIcon(message.type);
+              return (
+                <div key={index} className={`minimal-message ${getMessageTypeClass(message.type)}`}>
+                  <MessageIcon className="message-icon" />
+                  <span className="message-flow">{message.source} → {message.target}</span>
+                  <span className="message-preview">{message.message.substring(0, 30)}...</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="metaloop-communication-panel">
